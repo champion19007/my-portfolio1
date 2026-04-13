@@ -39,7 +39,7 @@ export function Skills({ skills }: SkillsProps) {
                     <Badge 
                       key={skill.name} 
                       variant="outline" 
-                      className="bg-background text-foreground/80 border-primary/20 hover:border-primary hover:text-primary transition-all px-3 py-1"
+                      className="bg-background text-foreground/80 border-primary/20 hover:border-primary hover:text-primary transition-all px-3 py-1.5 h-auto text-left"
                     >
                       {skill.name}
                     </Badge>
