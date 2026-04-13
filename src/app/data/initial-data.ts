@@ -61,7 +61,7 @@ export const INITIAL_DATA: PortfolioData = {
       title: "MLOps-Forge",
       description: "Comprehensive AI infrastructure and automated pipeline framework for production-grade machine learning.",
       imageUrl: getPlaceholderUrl('project-3', "https://picsum.photos/seed/mlops/800/600"),
-      tags: ["Python", "MLOps", "CI/CD"],
+      tags: ["Python", "MLOps", "Infrastructure"],
       repoUrl: "https://github.com/champion19007/MLOps-Forge"
     },
     {
@@ -77,7 +77,7 @@ export const INITIAL_DATA: PortfolioData = {
       title: "end-to-end-cv-mlops-project",
       description: "A complete MLOps workflow for Computer Vision, from data ingestion to model deployment.",
       imageUrl: getPlaceholderUrl('project-2', "https://picsum.photos/seed/cv/800/600"),
-      tags: ["Jupyter", "PyTorch", "MLOps"],
+      tags: ["Jupyter", "PyTorch", "Computer Vision"],
       repoUrl: "https://github.com/champion19007/end-to-end-cv-mlops-project"
     },
     {
@@ -89,12 +89,20 @@ export const INITIAL_DATA: PortfolioData = {
       repoUrl: "https://github.com/champion19007/ci-cd-mlops"
     },
     {
-      id: "chess-engine",
-      title: "RL-Chess-Engine-Minimax-MCTS",
-      description: "Hybrid chess engine leveraging Reinforcement Learning, Minimax, and Monte Carlo Tree Search for superior move selection.",
-      imageUrl: getPlaceholderUrl('project-2', "https://picsum.photos/seed/chess/800/600"),
-      tags: ["Python", "Reinforcement Learning", "MCTS"],
-      repoUrl: "https://github.com/champion19007/RL-Chess-Engine-Minimax-MCTS"
+      id: "bank-churn-pipeline",
+      title: "bank-churn-mlops-pipeline",
+      description: "Production-ready MLOps pipeline for predicting customer churn in banking environments.",
+      imageUrl: getPlaceholderUrl('project-2', "https://picsum.photos/seed/bank/800/600"),
+      tags: ["Python", "MLOps", "Azure"],
+      repoUrl: "https://github.com/champion19007/bank-churn-mlops-pipeline"
+    },
+    {
+      id: "aws-cicd",
+      title: "aws-cicd-pipeline",
+      description: "Automated deployment pipelines built on AWS for scalable cloud applications.",
+      imageUrl: getPlaceholderUrl('project-1', "https://picsum.photos/seed/aws/800/600"),
+      tags: ["Shell", "AWS", "CI/CD"],
+      repoUrl: "https://github.com/champion19007/aws-cicd-pipeline"
     },
     {
       id: "animal-detection",
@@ -113,20 +121,28 @@ export const INITIAL_DATA: PortfolioData = {
       repoUrl: "https://github.com/champion19007/pdf-ai-saas"
     },
     {
-      id: "stock-forecaster",
-      title: "Advanced-Stock-Forecaster",
-      description: "Deep learning time-series forecasting using CNN, BiLSTM, and GRU architectures for market trend analysis.",
-      imageUrl: getPlaceholderUrl('project-3', "https://picsum.photos/seed/stock/800/600"),
-      tags: ["TensorFlow", "Finance", "Deep Learning"],
-      repoUrl: "https://github.com/champion19007/Advanced-Stock-Forecaster-CNN-BiLSTM-GRU-"
+      id: "rl-chess-engine",
+      title: "RL-Chess-Engine-Minimax-MCTS",
+      description: "Hybrid chess engine leveraging Reinforcement Learning, Minimax, and Monte Carlo Tree Search for superior move selection.",
+      imageUrl: getPlaceholderUrl('project-2', "https://picsum.photos/seed/chess/800/600"),
+      tags: ["Python", "Reinforcement Learning", "MCTS"],
+      repoUrl: "https://github.com/champion19007/RL-Chess-Engine-Minimax-MCTS"
     },
     {
-      id: "bank-churn",
-      title: "bank-churn-mlops-pipeline",
-      description: "Production-ready MLOps pipeline for predicting customer churn in banking environments.",
-      imageUrl: getPlaceholderUrl('project-2', "https://picsum.photos/seed/bank/800/600"),
-      tags: ["Python", "MLOps", "Azure"],
-      repoUrl: "https://github.com/champion19007/bank-churn-mlops-pipeline"
+      id: "chess-engine-cpp",
+      title: "Chess-Engine-Deep-RL-Cpp",
+      description: "High-performance chess engine implemented in C++ with Deep Reinforcement Learning.",
+      imageUrl: getPlaceholderUrl('project-3', "https://picsum.photos/seed/cpp/800/600"),
+      tags: ["C++", "Deep RL", "Minimax"],
+      repoUrl: "https://github.com/champion19007/Chess_engine_with_Deep_Reinforcement_learning-minmax-mcts-Cpp"
+    },
+    {
+      id: "zoom-clone",
+      title: "F-13-zoom-lite-clone",
+      description: "A lightweight Zoom clone for real-time video conferencing.",
+      imageUrl: getPlaceholderUrl('project-1', "https://picsum.photos/seed/zoom/800/600"),
+      tags: ["TypeScript", "WebRTC", "Next.js"],
+      repoUrl: "https://github.com/champion19007/F-13-zoom-lite-clone-"
     },
     {
       id: "restaurant-recommender",
@@ -135,20 +151,25 @@ export const INITIAL_DATA: PortfolioData = {
       imageUrl: getPlaceholderUrl('project-3', "https://picsum.photos/seed/yelp/800/600"),
       tags: ["Jupyter", "Data Science", "RecSys"],
       repoUrl: "https://github.com/champion19007/City-Cuisine-Based-Restaurant-Recommender-Using-Yelp-Dataset"
+    },
+    {
+      id: "stock-forecaster",
+      title: "Advanced-Stock-Forecaster",
+      description: "Deep learning time-series forecasting using CNN, BiLSTM, and GRU architectures for market trend analysis.",
+      imageUrl: getPlaceholderUrl('project-3', "https://picsum.photos/seed/stock/800/600"),
+      tags: ["TensorFlow", "Finance", "Deep Learning"],
+      repoUrl: "https://github.com/champion19007/Advanced-Stock-Forecaster-CNN-BiLSTM-GRU-"
     }
   ],
   skills: [
-    // Programming
     { name: "Python", category: "Programming" },
     { name: "SQL", category: "Programming" },
     { name: "Bash", category: "Programming" },
-    // AI & ML
     { name: "PyTorch", category: "AI & ML" },
     { name: "TensorFlow", category: "AI & ML" },
     { name: "scikit-learn", category: "AI & ML" },
     { name: "OpenCV", category: "AI & ML" },
     { name: "Hugging Face Transformers", category: "AI & ML" },
-    // Tools & Platforms
     { name: "Docker", category: "Tools & Platforms" },
     { name: "Git", category: "Tools & Platforms" },
     { name: "Linux", category: "Tools & Platforms" },
@@ -156,10 +177,9 @@ export const INITIAL_DATA: PortfolioData = {
     { name: "Weights & Biases", category: "Tools & Platforms" },
     { name: "Streamlit", category: "Tools & Platforms" },
     { name: "Gradio", category: "Tools & Platforms" },
-    // Domains
     { name: "Machine Learning (Regression, Classification, Clustering, Time Series)", category: "Domains" },
     { name: "Deep Learning (CNNs, Transformers)", category: "Domains" },
     { name: "Computer Vision (Object Detection, Image Classification)", category: "Domains" },
-    { name: "NLP & Generative AI (LLMs, RAG, Summarization)", category: "Domains" }
+    { name: "NLP & Generative AI (Text Classification, Summarization, LLMs, RAG)", category: "Domains" }
   ]
 };
