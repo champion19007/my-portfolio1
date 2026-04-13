@@ -71,7 +71,7 @@ export function Navbar() {
             {theme === 'light' ? <Moon className="h-4 w-4" /> : <Sun className="h-4 w-4" />}
           </button>
 
-          <Button className="rounded-full px-8 shadow-xl shadow-primary/20 bg-primary hover:bg-primary/90 font-bold">
+          <Button className="rounded-full px-8 shadow-xl shadow-primary/20 bg-primary hover:bg-primary/90 font-bold" asChild>
             <a href="#contact">Hire Me</a>
           </Button>
         </div>
@@ -105,7 +105,7 @@ export function Navbar() {
                 {link.name}
               </a>
             ))}
-            <Button className="w-full rounded-2xl py-8 text-xl font-black">
+            <Button className="w-full rounded-2xl py-8 text-xl font-black" asChild>
               <a href="#contact" onClick={() => setIsMenuOpen(false)}>Contact Me</a>
             </Button>
           </div>
