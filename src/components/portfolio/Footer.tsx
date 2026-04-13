@@ -1,6 +1,7 @@
 "use client";
 
 import { Github, Linkedin, Heart, FileText, ArrowUp } from 'lucide-react';
+import { useEffect, useState } from 'react';
 
 interface FooterProps {
   name: string;
@@ -12,21 +13,25 @@ interface FooterProps {
 }
 
 export function Footer({ name, contact }: FooterProps) {
-  const currentYear = new Date().getFullYear();
+  const [currentYear, setCurrentYear] = useState(2025);
+
+  useEffect(() => {
+    setCurrentYear(new Date().getFullYear());
+  }, []);
   
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   return (
-    <footer className="py-20 bg-background border-t border-primary/10">
+    <footer className="py-20 bg-background border-t border-primary/5">
       <div className="container mx-auto px-4">
         <div className="flex flex-col md:flex-row justify-between items-center gap-12">
           <div className="flex flex-col items-center md:items-start gap-4">
             <div className="text-4xl font-black text-primary tracking-tighter">
               SYRP<span className="text-foreground">.</span>
             </div>
-            <p className="text-muted-foreground font-bold uppercase tracking-[0.2em] text-xs">
+            <p className="text-muted-foreground font-black uppercase tracking-[0.2em] text-xs">
               AI & Machine Learning Engineer
             </p>
           </div>
@@ -54,7 +59,7 @@ export function Footer({ name, contact }: FooterProps) {
           </div>
         </div>
         
-        <div className="mt-20 pt-10 border-t border-primary/10 flex flex-col md:flex-row justify-between items-center gap-6 text-muted-foreground">
+        <div className="mt-20 pt-10 border-t border-primary/5 flex flex-col md:flex-row justify-between items-center gap-6 text-muted-foreground">
           <p className="text-sm font-medium">© {currentYear} {name}. All rights reserved.</p>
           <p className="flex items-center gap-2 text-sm font-medium">
             Developed with <Heart className="h-4 w-4 text-primary fill-primary" /> in Mumbai

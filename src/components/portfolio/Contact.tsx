@@ -1,7 +1,7 @@
 "use client";
 
 import { SectionHeading } from './SectionHeading';
-import { Mail, MapPin, Phone, Github, Linkedin, FileText } from 'lucide-react';
+import { Mail, MapPin, Phone, Github, Linkedin, FileText, ExternalLink } from 'lucide-react';
 
 interface ContactProps {
   contact: {
@@ -16,68 +16,84 @@ interface ContactProps {
 
 export function Contact({ contact }: ContactProps) {
   return (
-    <section id="contact" className="py-20 bg-secondary/10">
+    <section id="contact" className="py-24 bg-secondary/5">
       <div className="container mx-auto px-4">
         <SectionHeading 
-          title="Get In Touch" 
-          subtitle="Feel free to reach out for collaborations or opportunities."
+          title="Connection" 
+          subtitle="Open for research collaborations, engineering roles, and deep learning projects."
         />
         
-        <div className="max-w-4xl mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-            <div className="space-y-8">
-              <h3 className="text-3xl font-bold mb-6">Contact Information</h3>
-              <p className="text-muted-foreground text-lg">
-                I'm always open to discussing research collaborations, deep learning projects, or engineering roles. Reach out via email or connect with me on professional platforms.
+        <div className="max-w-5xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="md:col-span-2 glass-card p-12 rounded-[2rem]">
+              <h3 className="text-4xl font-black mb-8">Let&apos;s Build Together</h3>
+              <p className="text-muted-foreground text-xl mb-12 leading-relaxed">
+                I focus on research-backed solutions for complex AI challenges. Whether it's Computer Vision, NLP, or MLOps infrastructure, I'm always eager to discuss innovative projects.
               </p>
               
-              <div className="space-y-6">
-                <div className="flex items-center gap-6 group">
-                  <div className="p-4 rounded-2xl bg-primary text-primary-foreground shadow-lg shadow-primary/20 transition-transform group-hover:scale-110">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
+                <a href={`mailto:${contact.email}`} className="flex items-center gap-6 group p-6 rounded-3xl bg-background border border-primary/5 hover:border-primary/20 transition-all">
+                  <div className="p-4 rounded-2xl bg-primary text-primary-foreground shadow-lg shadow-primary/20 group-hover:scale-110 transition-transform">
                     <Mail className="h-6 w-6" />
                   </div>
-                  <div>
-                    <p className="text-sm font-semibold text-muted-foreground uppercase tracking-wider">Email</p>
-                    <a href={`mailto:${contact.email}`} className="text-xl font-medium hover:text-primary transition-colors">{contact.email}</a>
+                  <div className="overflow-hidden">
+                    <p className="text-xs font-black text-primary uppercase tracking-widest mb-1">Email</p>
+                    <p className="text-sm font-bold truncate">{contact.email}</p>
                   </div>
-                </div>
+                </a>
                 
-                <div className="flex items-center gap-6 group">
-                  <div className="p-4 rounded-2xl bg-primary text-primary-foreground shadow-lg shadow-primary/20 transition-transform group-hover:scale-110">
+                <div className="flex items-center gap-6 p-6 rounded-3xl bg-background border border-primary/5 hover:border-primary/20 transition-all">
+                  <div className="p-4 rounded-2xl bg-primary text-primary-foreground shadow-lg shadow-primary/20">
                     <MapPin className="h-6 w-6" />
                   </div>
                   <div>
-                    <p className="text-sm font-semibold text-muted-foreground uppercase tracking-wider">Location</p>
-                    <p className="text-xl font-medium">{contact.location}</p>
+                    <p className="text-xs font-black text-primary uppercase tracking-widest mb-1">Location</p>
+                    <p className="text-sm font-bold">{contact.location}</p>
                   </div>
                 </div>
-                
-                <div className="flex items-center gap-6 group">
-                  <div className="p-4 rounded-2xl bg-primary text-primary-foreground shadow-lg shadow-primary/20 transition-transform group-hover:scale-110">
+
+                <a href={`tel:${contact.phone}`} className="flex items-center gap-6 group p-6 rounded-3xl bg-background border border-primary/5 hover:border-primary/20 transition-all">
+                  <div className="p-4 rounded-2xl bg-primary text-primary-foreground shadow-lg shadow-primary/20 group-hover:scale-110 transition-transform">
                     <Phone className="h-6 w-6" />
                   </div>
                   <div>
-                    <p className="text-sm font-semibold text-muted-foreground uppercase tracking-wider">Call Me</p>
-                    <p className="text-xl font-medium">{contact.phone}</p>
+                    <p className="text-xs font-black text-primary uppercase tracking-widest mb-1">Phone</p>
+                    <p className="text-sm font-bold">{contact.phone}</p>
                   </div>
-                </div>
+                </a>
+
+                <a href={contact.resume} target="_blank" rel="noopener noreferrer" className="flex items-center gap-6 group p-6 rounded-3xl bg-primary text-primary-foreground shadow-xl shadow-primary/20 transition-all hover:bg-primary/90">
+                  <div className="p-4 rounded-2xl bg-white/20">
+                    <FileText className="h-6 w-6" />
+                  </div>
+                  <div>
+                    <p className="text-xs font-black uppercase tracking-widest mb-1 opacity-80">Full Portfolio</p>
+                    <p className="text-sm font-bold flex items-center gap-2">View Resume <ExternalLink className="h-3 w-3" /></p>
+                  </div>
+                </a>
               </div>
             </div>
 
-            <div className="bg-background p-10 rounded-3xl shadow-2xl border border-primary/10 flex flex-col justify-center">
-              <h4 className="text-2xl font-bold mb-8 text-center">Connect & Resume</h4>
-              <div className="grid grid-cols-2 gap-6">
-                <a href={contact.github} target="_blank" rel="noopener noreferrer" className="flex flex-col items-center gap-3 p-6 rounded-2xl bg-secondary/30 hover:bg-primary/10 transition-all border border-transparent hover:border-primary/20 group">
-                  <Github className="h-8 w-8 text-primary transition-transform group-hover:scale-110" />
-                  <span className="font-bold">GitHub</span>
+            <div className="glass-card p-12 rounded-[2rem] flex flex-col justify-between">
+              <div>
+                <h4 className="text-2xl font-black mb-6 uppercase tracking-tighter">Social Links</h4>
+                <p className="text-muted-foreground font-medium mb-10">Follow my research and code updates.</p>
+              </div>
+              
+              <div className="space-y-4">
+                <a href={contact.github} target="_blank" rel="noopener noreferrer" className="flex items-center justify-between p-6 rounded-2xl bg-background border border-primary/10 hover:border-primary/40 transition-all group">
+                  <div className="flex items-center gap-4">
+                    <Github className="h-6 w-6 text-primary" />
+                    <span className="font-black uppercase tracking-widest text-sm">GitHub</span>
+                  </div>
+                  <ExternalLink className="h-4 w-4 opacity-0 group-hover:opacity-100 transition-opacity" />
                 </a>
-                <a href={contact.linkedin} target="_blank" rel="noopener noreferrer" className="flex flex-col items-center gap-3 p-6 rounded-2xl bg-secondary/30 hover:bg-primary/10 transition-all border border-transparent hover:border-primary/20 group">
-                  <Linkedin className="h-8 w-8 text-primary transition-transform group-hover:scale-110" />
-                  <span className="font-bold">LinkedIn</span>
-                </a>
-                <a href={contact.resume} target="_blank" rel="noopener noreferrer" className="col-span-2 flex flex-col items-center gap-3 p-6 rounded-2xl bg-primary text-primary-foreground hover:bg-primary/90 transition-all shadow-xl shadow-primary/20 group">
-                  <FileText className="h-8 w-8 transition-transform group-hover:scale-110" />
-                  <span className="font-bold text-lg">View Full Resume</span>
+                <a href={contact.linkedin} target="_blank" rel="noopener noreferrer" className="flex items-center justify-between p-6 rounded-2xl bg-background border border-primary/10 hover:border-primary/40 transition-all group">
+                  <div className="flex items-center gap-4">
+                    <Linkedin className="h-6 w-6 text-primary" />
+                    <span className="font-black uppercase tracking-widest text-sm">LinkedIn</span>
+                  </div>
+                  <ExternalLink className="h-4 w-4 opacity-0 group-hover:opacity-100 transition-opacity" />
                 </a>
               </div>
             </div>
