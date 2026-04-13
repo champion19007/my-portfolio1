@@ -4,6 +4,7 @@ export interface Project {
   description: string;
   longDescription?: string;
   imageUrl: string;
+  imageHint: string;
   tags: string[];
   liveUrl?: string;
   repoUrl?: string;

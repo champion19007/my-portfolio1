@@ -1,10 +1,12 @@
 import { PortfolioData } from '../types/portfolio';
 import { PlaceHolderImages } from '../lib/placeholder-images';
 
-const getPlaceholderUrl = (id: string, fallback: string): string => {
-  if (!PlaceHolderImages) return fallback;
+const getPlaceholderData = (id: string) => {
   const image = PlaceHolderImages.find(img => img.id === id);
-  return image ? image.imageUrl : fallback;
+  return {
+    url: image ? image.imageUrl : `https://picsum.photos/seed/${id}/800/600`,
+    hint: image ? image.imageHint : "software project"
+  };
 };
 
 export const INITIAL_DATA: PortfolioData = {
@@ -60,7 +62,8 @@ export const INITIAL_DATA: PortfolioData = {
       id: "mlops-forge",
       title: "MLOps-Forge",
       description: "Comprehensive AI infrastructure and automated pipeline framework for production-grade machine learning.",
-      imageUrl: getPlaceholderUrl('project-3', "https://picsum.photos/seed/mlops/800/600"),
+      imageUrl: getPlaceholderData('mlops').url,
+      imageHint: getPlaceholderData('mlops').hint,
       tags: ["Python", "MLOps", "Infrastructure"],
       repoUrl: "https://github.com/champion19007/MLOps-Forge"
     },
@@ -68,7 +71,8 @@ export const INITIAL_DATA: PortfolioData = {
       id: "data-pipeline",
       title: "End-to-End-Data-Pipeline",
       description: "Robust data engineering pipeline designed for scalability and high throughput data processing.",
-      imageUrl: getPlaceholderUrl('project-1', "https://picsum.photos/seed/pipeline/800/600"),
+      imageUrl: getPlaceholderData('data-pipeline').url,
+      imageHint: getPlaceholderData('data-pipeline').hint,
       tags: ["Python", "Data Engineering", "ETL"],
       repoUrl: "https://github.com/champion19007/End-to-End-Data-Pipeline"
     },
@@ -76,7 +80,8 @@ export const INITIAL_DATA: PortfolioData = {
       id: "cv-mlops",
       title: "end-to-end-cv-mlops-project",
       description: "A complete MLOps workflow for Computer Vision, from data ingestion to model deployment.",
-      imageUrl: getPlaceholderUrl('project-2', "https://picsum.photos/seed/cv/800/600"),
+      imageUrl: getPlaceholderData('computer-vision').url,
+      imageHint: getPlaceholderData('computer-vision').hint,
       tags: ["Jupyter", "PyTorch", "Computer Vision"],
       repoUrl: "https://github.com/champion19007/end-to-end-cv-mlops-project"
     },
@@ -84,7 +89,8 @@ export const INITIAL_DATA: PortfolioData = {
       id: "ci-cd-mlops",
       title: "ci-cd-mlops",
       description: "CI/CD pipelines tailored for Machine Learning workflows ensuring seamless model integration.",
-      imageUrl: getPlaceholderUrl('project-3', "https://picsum.photos/seed/cicd/800/600"),
+      imageUrl: getPlaceholderData('cicd').url,
+      imageHint: getPlaceholderData('cicd').hint,
       tags: ["Python", "GitHub Actions", "Docker"],
       repoUrl: "https://github.com/champion19007/ci-cd-mlops"
     },
@@ -92,7 +98,8 @@ export const INITIAL_DATA: PortfolioData = {
       id: "bank-churn-pipeline",
       title: "bank-churn-mlops-pipeline",
       description: "Production-ready MLOps pipeline for predicting customer churn in banking environments.",
-      imageUrl: getPlaceholderUrl('project-2', "https://picsum.photos/seed/bank/800/600"),
+      imageUrl: getPlaceholderData('banking').url,
+      imageHint: getPlaceholderData('banking').hint,
       tags: ["Python", "MLOps", "Azure"],
       repoUrl: "https://github.com/champion19007/bank-churn-mlops-pipeline"
     },
@@ -100,7 +107,8 @@ export const INITIAL_DATA: PortfolioData = {
       id: "aws-cicd",
       title: "aws-cicd-pipeline",
       description: "Automated deployment pipelines built on AWS for scalable cloud applications.",
-      imageUrl: getPlaceholderUrl('project-1', "https://picsum.photos/seed/aws/800/600"),
+      imageUrl: getPlaceholderData('cloud').url,
+      imageHint: getPlaceholderData('cloud').hint,
       tags: ["Shell", "AWS", "CI/CD"],
       repoUrl: "https://github.com/champion19007/aws-cicd-pipeline"
     },
@@ -108,7 +116,8 @@ export const INITIAL_DATA: PortfolioData = {
       id: "animal-detection",
       title: "Real-Time-Animal-Detection",
       description: "CCTV-based monitoring system using advanced Computer Vision for real-time safety and observation.",
-      imageUrl: getPlaceholderUrl('project-2', "https://picsum.photos/seed/animal/800/600"),
+      imageUrl: getPlaceholderData('animal').url,
+      imageHint: getPlaceholderData('animal').hint,
       tags: ["OpenCV", "YOLO", "PyTorch"],
       repoUrl: "https://github.com/champion19007/Real-Time-Animal-Detection-Using-CCTV-Camera-OpenVision"
     },
@@ -116,7 +125,8 @@ export const INITIAL_DATA: PortfolioData = {
       id: "pdf-ai",
       title: "pdf-ai-saas",
       description: "SaaS platform leveraging AI for intelligent PDF parsing and interaction using LLMs.",
-      imageUrl: getPlaceholderUrl('project-1', "https://picsum.photos/seed/pdf/800/600"),
+      imageUrl: getPlaceholderData('pdf').url,
+      imageHint: getPlaceholderData('pdf').hint,
       tags: ["TypeScript", "Next.js", "AI"],
       repoUrl: "https://github.com/champion19007/pdf-ai-saas"
     },
@@ -124,7 +134,8 @@ export const INITIAL_DATA: PortfolioData = {
       id: "rl-chess-engine",
       title: "RL-Chess-Engine-Minimax-MCTS",
       description: "Hybrid chess engine leveraging Reinforcement Learning, Minimax, and Monte Carlo Tree Search for superior move selection.",
-      imageUrl: getPlaceholderUrl('project-2', "https://picsum.photos/seed/chess/800/600"),
+      imageUrl: getPlaceholderData('chess').url,
+      imageHint: getPlaceholderData('chess').hint,
       tags: ["Python", "Reinforcement Learning", "MCTS"],
       repoUrl: "https://github.com/champion19007/RL-Chess-Engine-Minimax-MCTS"
     },
@@ -132,7 +143,8 @@ export const INITIAL_DATA: PortfolioData = {
       id: "chess-engine-cpp",
       title: "Chess-Engine-Deep-RL-Cpp",
       description: "High-performance chess engine implemented in C++ with Deep Reinforcement Learning.",
-      imageUrl: getPlaceholderUrl('project-3', "https://picsum.photos/seed/cpp/800/600"),
+      imageUrl: getPlaceholderData('chess').url,
+      imageHint: getPlaceholderData('chess').hint,
       tags: ["C++", "Deep RL", "Minimax"],
       repoUrl: "https://github.com/champion19007/Chess_engine_with_Deep_Reinforcement_learning-minmax-mcts-Cpp"
     },
@@ -140,7 +152,8 @@ export const INITIAL_DATA: PortfolioData = {
       id: "zoom-clone",
       title: "F-13-zoom-lite-clone",
       description: "A lightweight Zoom clone for real-time video conferencing.",
-      imageUrl: getPlaceholderUrl('project-1', "https://picsum.photos/seed/zoom/800/600"),
+      imageUrl: getPlaceholderData('video').url,
+      imageHint: getPlaceholderData('video').hint,
       tags: ["TypeScript", "WebRTC", "Next.js"],
       repoUrl: "https://github.com/champion19007/F-13-zoom-lite-clone-"
     },
@@ -148,7 +161,8 @@ export const INITIAL_DATA: PortfolioData = {
       id: "restaurant-recommender",
       title: "Restaurant-Recommender",
       description: "Recommendation system using Yelp dataset to suggest restaurants based on cuisine and city preferences.",
-      imageUrl: getPlaceholderUrl('project-3', "https://picsum.photos/seed/yelp/800/600"),
+      imageUrl: getPlaceholderData('restaurant').url,
+      imageHint: getPlaceholderData('restaurant').hint,
       tags: ["Jupyter", "Data Science", "RecSys"],
       repoUrl: "https://github.com/champion19007/City-Cuisine-Based-Restaurant-Recommender-Using-Yelp-Dataset"
     },
@@ -156,7 +170,8 @@ export const INITIAL_DATA: PortfolioData = {
       id: "stock-forecaster",
       title: "Advanced-Stock-Forecaster",
       description: "Deep learning time-series forecasting using CNN, BiLSTM, and GRU architectures for market trend analysis.",
-      imageUrl: getPlaceholderUrl('project-3', "https://picsum.photos/seed/stock/800/600"),
+      imageUrl: getPlaceholderData('stock').url,
+      imageHint: getPlaceholderData('stock').hint,
       tags: ["TensorFlow", "Finance", "Deep Learning"],
       repoUrl: "https://github.com/champion19007/Advanced-Stock-Forecaster-CNN-BiLSTM-GRU-"
     }

@@ -1,29 +1,76 @@
-
 {
   "placeholderImages": [
     {
-      "id": "profile-pic",
-      "description": "Professional profile photo of a software developer",
-      "imageUrl": "https://picsum.photos/seed/dev1/400/400",
-      "imageHint": "professional man"
+      "id": "mlops",
+      "description": "MLOps Infrastructure concept",
+      "imageUrl": "https://picsum.photos/seed/mlops1/800/600",
+      "imageHint": "server architecture"
     },
     {
-      "id": "project-1",
-      "description": "E-commerce platform dashboard",
-      "imageUrl": "https://picsum.photos/seed/proj1/800/600",
-      "imageHint": "dashboard ui"
+      "id": "data-pipeline",
+      "description": "Data pipeline and ETL process",
+      "imageUrl": "https://picsum.photos/seed/pipeline1/800/600",
+      "imageHint": "data pipeline"
     },
     {
-      "id": "project-2",
-      "description": "Weather forecasting mobile application",
-      "imageUrl": "https://picsum.photos/seed/proj2/800/600",
-      "imageHint": "mobile app"
+      "id": "computer-vision",
+      "description": "Computer vision object detection",
+      "imageUrl": "https://picsum.photos/seed/cv1/800/600",
+      "imageHint": "computer vision"
     },
     {
-      "id": "project-3",
-      "description": "AI-powered data analytics platform",
-      "imageUrl": "https://picsum.photos/seed/proj3/800/600",
-      "imageHint": "data visualization"
+      "id": "cicd",
+      "description": "CI/CD automation workflow",
+      "imageUrl": "https://picsum.photos/seed/cicd1/800/600",
+      "imageHint": "automation code"
+    },
+    {
+      "id": "banking",
+      "description": "Banking and finance data",
+      "imageUrl": "https://picsum.photos/seed/bank1/800/600",
+      "imageHint": "banking finance"
+    },
+    {
+      "id": "cloud",
+      "description": "AWS Cloud infrastructure",
+      "imageUrl": "https://picsum.photos/seed/aws1/800/600",
+      "imageHint": "cloud computing"
+    },
+    {
+      "id": "animal",
+      "description": "CCTV animal detection",
+      "imageUrl": "https://picsum.photos/seed/animal1/800/600",
+      "imageHint": "animal monitoring"
+    },
+    {
+      "id": "pdf",
+      "description": "AI document analysis",
+      "imageUrl": "https://picsum.photos/seed/pdf1/800/600",
+      "imageHint": "document ai"
+    },
+    {
+      "id": "chess",
+      "description": "Chess engine logic",
+      "imageUrl": "https://picsum.photos/seed/chess1/800/600",
+      "imageHint": "chess board"
+    },
+    {
+      "id": "video",
+      "description": "Video conferencing interface",
+      "imageUrl": "https://picsum.photos/seed/video1/800/600",
+      "imageHint": "video conference"
+    },
+    {
+      "id": "restaurant",
+      "description": "Restaurant recommendation system",
+      "imageUrl": "https://picsum.photos/seed/food1/800/600",
+      "imageHint": "restaurant food"
+    },
+    {
+      "id": "stock",
+      "description": "Stock market forecasting",
+      "imageUrl": "https://picsum.photos/seed/stock1/800/600",
+      "imageHint": "stock market"
     }
   ]
 }
