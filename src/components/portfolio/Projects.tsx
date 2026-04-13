@@ -2,7 +2,7 @@ import Image from 'next/image';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { ExternalLink, Github } from 'lucide-react';
+import { ExternalLink, Github, Code2 } from 'lucide-react';
 import { Project } from '@/app/types/portfolio';
 import { SectionHeading } from './SectionHeading';
 
@@ -12,55 +12,62 @@ interface ProjectsProps {
 
 export function Projects({ projects }: ProjectsProps) {
   return (
-    <section id="projects" className="py-20 bg-secondary/30">
+    <section id="projects" className="py-24 bg-secondary/10">
       <div className="container mx-auto px-4">
         <SectionHeading 
-          title="Featured Projects" 
-          subtitle="A selection of my recent works across different technologies and platforms."
+          title="Engineering Portfolio" 
+          subtitle="Research-driven projects in MLOps, Computer Vision, and Reinforcement Learning."
         />
         
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
           {projects.map((project) => (
-            <Card key={project.id} className="group overflow-hidden border-none shadow-md transition-all hover:shadow-xl hover:-translate-y-1 bg-background">
+            <Card key={project.id} className="group flex flex-col overflow-hidden border border-primary/5 shadow-xl transition-all hover:shadow-2xl hover:-translate-y-2 bg-card">
               <div className="relative aspect-video overflow-hidden">
                 <Image 
                   src={project.imageUrl} 
                   alt={project.title} 
                   fill 
-                  className="object-cover transition-transform duration-500 group-hover:scale-110"
-                  data-ai-hint={project.imageHint || "software project"}
+                  className="object-cover transition-transform duration-700 group-hover:scale-110"
+                  data-ai-hint={project.imageHint || "software architecture"}
                 />
-                <div className="absolute inset-0 bg-primary/20 opacity-0 group-hover:opacity-100 transition-opacity" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-6">
+                  <span className="text-white text-xs font-bold uppercase tracking-widest flex items-center gap-2">
+                    <Code2 className="h-4 w-4" />
+                    View Implementation
+                  </span>
+                </div>
               </div>
-              <CardHeader>
-                <div className="flex flex-wrap gap-2 mb-3">
-                  {project.tags.map(tag => (
-                    <Badge key={tag} variant="secondary" className="bg-primary/10 text-primary-foreground/90 border-none hover:bg-primary/20">
+              
+              <CardHeader className="flex-1">
+                <div className="flex flex-wrap gap-2 mb-4">
+                  {project.tags.slice(0, 3).map(tag => (
+                    <Badge key={tag} variant="secondary" className="bg-primary/5 text-primary text-[10px] uppercase font-black tracking-tighter border border-primary/10">
                       {tag}
                     </Badge>
                   ))}
                 </div>
-                <CardTitle className="text-xl group-hover:text-primary transition-colors">
+                <CardTitle className="text-2xl mb-2 group-hover:text-primary transition-colors leading-tight">
                   {project.title}
                 </CardTitle>
-                <CardDescription className="line-clamp-2">
+                <CardDescription className="text-muted-foreground leading-relaxed line-clamp-3">
                   {project.description}
                 </CardDescription>
               </CardHeader>
-              <CardFooter className="gap-3">
-                {project.liveUrl && (
-                  <Button size="sm" asChild className="rounded-full px-4">
-                    <a href={project.liveUrl} target="_blank" rel="noopener noreferrer">
-                      <ExternalLink className="mr-2 h-4 w-4" />
-                      Live Demo
+              
+              <CardFooter className="pt-0 pb-6 px-6 gap-3">
+                {project.repoUrl && (
+                  <Button size="sm" variant="default" asChild className="w-full rounded-xl bg-primary hover:bg-primary/90 transition-all font-bold group-hover:shadow-lg shadow-primary/20">
+                    <a href={project.repoUrl} target="_blank" rel="noopener noreferrer">
+                      <Github className="mr-2 h-4 w-4" />
+                      Repository
                     </a>
                   </Button>
                 )}
-                {project.repoUrl && (
-                  <Button size="sm" variant="outline" asChild className="rounded-full px-4">
-                    <a href={project.repoUrl} target="_blank" rel="noopener noreferrer">
-                      <Github className="mr-2 h-4 w-4" />
-                      Code
+                {project.liveUrl && (
+                  <Button size="sm" variant="outline" asChild className="w-full rounded-xl border-primary/20 hover:border-primary/50 font-bold transition-all">
+                    <a href={project.liveUrl} target="_blank" rel="noopener noreferrer">
+                      <ExternalLink className="mr-2 h-4 w-4" />
+                      Live Demo
                     </a>
                   </Button>
                 )}

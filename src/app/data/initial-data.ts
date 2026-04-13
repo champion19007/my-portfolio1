@@ -1,13 +1,4 @@
 import { PortfolioData } from '../types/portfolio';
-import { PlaceHolderImages } from '../lib/placeholder-images';
-
-const getPlaceholderData = (id: string) => {
-  const image = PlaceHolderImages.find(img => img.id === id);
-  return {
-    url: image ? image.imageUrl : `https://picsum.photos/seed/${id}/800/600`,
-    hint: image ? image.imageHint : "software project"
-  };
-};
 
 export const INITIAL_DATA: PortfolioData = {
   hero: {
@@ -62,8 +53,8 @@ export const INITIAL_DATA: PortfolioData = {
       id: "mlops-forge",
       title: "MLOps-Forge",
       description: "Comprehensive AI infrastructure and automated pipeline framework for production-grade machine learning.",
-      imageUrl: getPlaceholderData('mlops').url,
-      imageHint: getPlaceholderData('mlops').hint,
+      imageUrl: "https://picsum.photos/seed/mlops1/800/600",
+      imageHint: "server architecture",
       tags: ["Python", "MLOps", "Infrastructure"],
       repoUrl: "https://github.com/champion19007/MLOps-Forge"
     },
@@ -71,8 +62,8 @@ export const INITIAL_DATA: PortfolioData = {
       id: "data-pipeline",
       title: "End-to-End-Data-Pipeline",
       description: "Robust data engineering pipeline designed for scalability and high throughput data processing.",
-      imageUrl: getPlaceholderData('data-pipeline').url,
-      imageHint: getPlaceholderData('data-pipeline').hint,
+      imageUrl: "https://picsum.photos/seed/pipeline1/800/600",
+      imageHint: "data pipeline",
       tags: ["Python", "Data Engineering", "ETL"],
       repoUrl: "https://github.com/champion19007/End-to-End-Data-Pipeline"
     },
@@ -80,8 +71,8 @@ export const INITIAL_DATA: PortfolioData = {
       id: "cv-mlops",
       title: "end-to-end-cv-mlops-project",
       description: "A complete MLOps workflow for Computer Vision, from data ingestion to model deployment.",
-      imageUrl: getPlaceholderData('computer-vision').url,
-      imageHint: getPlaceholderData('computer-vision').hint,
+      imageUrl: "https://picsum.photos/seed/cv1/800/600",
+      imageHint: "computer vision",
       tags: ["Jupyter", "PyTorch", "Computer Vision"],
       repoUrl: "https://github.com/champion19007/end-to-end-cv-mlops-project"
     },
@@ -89,8 +80,8 @@ export const INITIAL_DATA: PortfolioData = {
       id: "ci-cd-mlops",
       title: "ci-cd-mlops",
       description: "CI/CD pipelines tailored for Machine Learning workflows ensuring seamless model integration.",
-      imageUrl: getPlaceholderData('cicd').url,
-      imageHint: getPlaceholderData('cicd').hint,
+      imageUrl: "https://picsum.photos/seed/cicd1/800/600",
+      imageHint: "automation code",
       tags: ["Python", "GitHub Actions", "Docker"],
       repoUrl: "https://github.com/champion19007/ci-cd-mlops"
     },
@@ -98,8 +89,8 @@ export const INITIAL_DATA: PortfolioData = {
       id: "bank-churn-pipeline",
       title: "bank-churn-mlops-pipeline",
       description: "Production-ready MLOps pipeline for predicting customer churn in banking environments.",
-      imageUrl: getPlaceholderData('banking').url,
-      imageHint: getPlaceholderData('banking').hint,
+      imageUrl: "https://picsum.photos/seed/bank1/800/600",
+      imageHint: "banking finance",
       tags: ["Python", "MLOps", "Azure"],
       repoUrl: "https://github.com/champion19007/bank-churn-mlops-pipeline"
     },
@@ -107,8 +98,8 @@ export const INITIAL_DATA: PortfolioData = {
       id: "aws-cicd",
       title: "aws-cicd-pipeline",
       description: "Automated deployment pipelines built on AWS for scalable cloud applications.",
-      imageUrl: getPlaceholderData('cloud').url,
-      imageHint: getPlaceholderData('cloud').hint,
+      imageUrl: "https://picsum.photos/seed/aws1/800/600",
+      imageHint: "cloud computing",
       tags: ["Shell", "AWS", "CI/CD"],
       repoUrl: "https://github.com/champion19007/aws-cicd-pipeline"
     },
@@ -116,8 +107,8 @@ export const INITIAL_DATA: PortfolioData = {
       id: "animal-detection",
       title: "Real-Time-Animal-Detection",
       description: "CCTV-based monitoring system using advanced Computer Vision for real-time safety and observation.",
-      imageUrl: getPlaceholderData('animal').url,
-      imageHint: getPlaceholderData('animal').hint,
+      imageUrl: "https://picsum.photos/seed/animal1/800/600",
+      imageHint: "animal monitoring",
       tags: ["OpenCV", "YOLO", "PyTorch"],
       repoUrl: "https://github.com/champion19007/Real-Time-Animal-Detection-Using-CCTV-Camera-OpenVision"
     },
@@ -125,8 +116,8 @@ export const INITIAL_DATA: PortfolioData = {
       id: "pdf-ai",
       title: "pdf-ai-saas",
       description: "SaaS platform leveraging AI for intelligent PDF parsing and interaction using LLMs.",
-      imageUrl: getPlaceholderData('pdf').url,
-      imageHint: getPlaceholderData('pdf').hint,
+      imageUrl: "https://picsum.photos/seed/pdf1/800/600",
+      imageHint: "document ai",
       tags: ["TypeScript", "Next.js", "AI"],
       repoUrl: "https://github.com/champion19007/pdf-ai-saas"
     },
@@ -134,8 +125,8 @@ export const INITIAL_DATA: PortfolioData = {
       id: "rl-chess-engine",
       title: "RL-Chess-Engine-Minimax-MCTS",
       description: "Hybrid chess engine leveraging Reinforcement Learning, Minimax, and Monte Carlo Tree Search for superior move selection.",
-      imageUrl: getPlaceholderData('chess').url,
-      imageHint: getPlaceholderData('chess').hint,
+      imageUrl: "https://picsum.photos/seed/chess1/800/600",
+      imageHint: "chess board",
       tags: ["Python", "Reinforcement Learning", "MCTS"],
       repoUrl: "https://github.com/champion19007/RL-Chess-Engine-Minimax-MCTS"
     },
@@ -143,8 +134,8 @@ export const INITIAL_DATA: PortfolioData = {
       id: "chess-engine-cpp",
       title: "Chess-Engine-Deep-RL-Cpp",
       description: "High-performance chess engine implemented in C++ with Deep Reinforcement Learning.",
-      imageUrl: getPlaceholderData('chess').url,
-      imageHint: getPlaceholderData('chess').hint,
+      imageUrl: "https://picsum.photos/seed/chess1/800/600",
+      imageHint: "chess board",
       tags: ["C++", "Deep RL", "Minimax"],
       repoUrl: "https://github.com/champion19007/Chess_engine_with_Deep_Reinforcement_learning-minmax-mcts-Cpp"
     },
@@ -152,8 +143,8 @@ export const INITIAL_DATA: PortfolioData = {
       id: "zoom-clone",
       title: "F-13-zoom-lite-clone",
       description: "A lightweight Zoom clone for real-time video conferencing.",
-      imageUrl: getPlaceholderData('video').url,
-      imageHint: getPlaceholderData('video').hint,
+      imageUrl: "https://picsum.photos/seed/video1/800/600",
+      imageHint: "video conference",
       tags: ["TypeScript", "WebRTC", "Next.js"],
       repoUrl: "https://github.com/champion19007/F-13-zoom-lite-clone-"
     },
@@ -161,8 +152,8 @@ export const INITIAL_DATA: PortfolioData = {
       id: "restaurant-recommender",
       title: "Restaurant-Recommender",
       description: "Recommendation system using Yelp dataset to suggest restaurants based on cuisine and city preferences.",
-      imageUrl: getPlaceholderData('restaurant').url,
-      imageHint: getPlaceholderData('restaurant').hint,
+      imageUrl: "https://picsum.photos/seed/food1/800/600",
+      imageHint: "restaurant food",
       tags: ["Jupyter", "Data Science", "RecSys"],
       repoUrl: "https://github.com/champion19007/City-Cuisine-Based-Restaurant-Recommender-Using-Yelp-Dataset"
     },
@@ -170,8 +161,8 @@ export const INITIAL_DATA: PortfolioData = {
       id: "stock-forecaster",
       title: "Advanced-Stock-Forecaster",
       description: "Deep learning time-series forecasting using CNN, BiLSTM, and GRU architectures for market trend analysis.",
-      imageUrl: getPlaceholderData('stock').url,
-      imageHint: getPlaceholderData('stock').hint,
+      imageUrl: "https://picsum.photos/seed/stock1/800/600",
+      imageHint: "stock market",
       tags: ["TensorFlow", "Finance", "Deep Learning"],
       repoUrl: "https://github.com/champion19007/Advanced-Stock-Forecaster-CNN-BiLSTM-GRU-"
     }
