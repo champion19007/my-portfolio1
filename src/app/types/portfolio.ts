@@ -12,7 +12,7 @@ export interface Project {
 
 export interface Skill {
   name: string;
-  category: 'Frontend' | 'Backend' | 'Tools' | 'Soft Skills';
+  category: 'Programming' | 'AI & ML' | 'Tools & Platforms' | 'Domains';
 }
 
 export interface PortfolioData {
@@ -24,6 +24,12 @@ export interface PortfolioData {
   };
   about: {
     content: string;
+    education: {
+      degree: string;
+      institution: string;
+      period: string;
+      highlights: string[];
+    };
     experience: {
       title: string;
       company: string;

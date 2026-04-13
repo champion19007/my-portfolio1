@@ -1,11 +1,6 @@
 import { PortfolioData } from '../types/portfolio';
 import { PlaceHolderImages } from '../lib/placeholder-images';
 
-/**
- * Safely finds a placeholder image URL by its ID.
- * @param id The ID of the image in placeholder-images.json
- * @param fallback The fallback URL if the ID is not found
- */
 const getPlaceholderUrl = (id: string, fallback: string): string => {
   if (!PlaceHolderImages) return fallback;
   const image = PlaceHolderImages.find(img => img.id === id);
@@ -14,66 +9,92 @@ const getPlaceholderUrl = (id: string, fallback: string): string => {
 
 export const INITIAL_DATA: PortfolioData = {
   hero: {
-    name: "Alex Dev",
-    title: "Full Stack Engineer & Innovation Catalyst",
-    description: "Building scalable digital solutions with a focus on clean code and exceptional user experiences.",
-    profileImage: getPlaceholderUrl('profile-pic', "https://picsum.photos/seed/dev1/400/400")
+    name: "Sai Yashwant Reddy Panthy",
+    title: "AI & Machine Learning Engineer",
+    description: "Experienced in Data Science, Computer Vision, and Generative AI. Delivering research-driven and analytical solutions for complex deep learning challenges.",
+    profileImage: getPlaceholderUrl('profile-pic', "https://picsum.photos/seed/sai1/400/400")
   },
   about: {
-    content: "With over 5 years of experience in the tech industry, I specialize in creating robust web applications using modern technologies. My journey started with a passion for problem-solving and has evolved into a career dedicated to high-performance software development.",
+    content: "I am an AI and Machine Learning Engineer with a strong foundation in building and evaluating deep learning models. I specialize in designing automated data pipelines and delivering research-backed solutions in both academic and industry settings. My expertise spans Computer Vision, NLP (LLMs, RAG), and High-Performance AI systems.",
+    education: {
+      degree: "B. Tech in Computer Science Engineering (AI&ML)",
+      institution: "Manipal University Jaipur | Rajasthan, India",
+      period: "Expected Dec 2025",
+      highlights: [
+        "Presented talks at IEEE and American Control Conference (ACC'24)",
+        "Winner, Codestellation CodeWar 4.0 Hackathon (1st Place)",
+        "Finalist, International Robotics Competition (eYRC)"
+      ]
+    },
     experience: [
       {
-        title: "Senior Full Stack Developer",
-        company: "GreenTech Solutions",
-        period: "2021 - Present",
-        description: "Leading the development of sustainable energy monitoring dashboards and optimizing cloud infrastructure."
+        title: "Data Science Intern",
+        company: "BCG (Boston Consulting Group)",
+        period: "Nov 2025 - Jan 2026",
+        description: "Executed customer churn analysis using Python, Pandas, and NumPy. Developed a Random Forest model achieving 80% recall and presented strategic insights for business decision-making."
       },
       {
-        title: "Software Engineer",
-        company: "LaunchPad Labs",
-        period: "2018 - 2021",
-        description: "Developed and maintained several high-traffic e-commerce platforms using React and Node.js."
+        title: "Data Analytics Intern",
+        company: "Deloitte",
+        period: "Oct 2025 - Nov 2025",
+        description: "Completed simulation involving data analysis and forensic technology. Created comprehensive data dashboards using Tableau and Excel to derive business-critical conclusions."
+      },
+      {
+        title: "Software Intern",
+        company: "Main Flow Services & Technologies",
+        period: "Jul 2024 - Nov 2024",
+        description: "Trained YOLO models for object detection and deployed Docker-based ROS2 systems. Automated ROS2 data processing pipelines and configured PLC-controlled motor systems."
       }
     ]
   },
   projects: [
     {
-      id: "1",
-      title: "Eco-Shop Dashboard",
-      description: "A comprehensive e-commerce management system with real-time inventory tracking.",
-      imageUrl: getPlaceholderUrl('project-1', "https://picsum.photos/seed/proj1/800/600"),
-      tags: ["Next.js", "TypeScript", "Tailwind CSS"],
-      liveUrl: "https://example.com",
-      repoUrl: "https://github.com",
-      achievements: ["Reduced load times by 40%", "Implemented automated testing suite"]
+      id: "res-1",
+      title: "Minimax-MCTS Chess Engine",
+      description: "A hybrid chess engine enhanced by RLHF using Stockfish and AlphaZero methodologies.",
+      imageUrl: getPlaceholderUrl('project-1', "https://picsum.photos/seed/chess/800/600"),
+      tags: ["Python", "Reinforcement Learning", "MCTS"],
+      achievements: ["Scaled self-play training to 10M games", "Improved playing strength by ~150 Elo"]
     },
     {
-      id: "2",
-      title: "Atmosphere App",
-      description: "A sleek weather forecasting application providing hyper-local climate insights.",
-      imageUrl: getPlaceholderUrl('project-2', "https://picsum.photos/seed/proj2/800/600"),
-      tags: ["React Native", "Firebase", "Weather API"],
-      liveUrl: "https://example.com",
-      repoUrl: "https://github.com"
+      id: "res-2",
+      title: "PolyPrimer Framework",
+      description: "Deep Learning framework for Multiplex PCR Primer Design integrating Transformer and CNN-BiLSTM architectures.",
+      imageUrl: getPlaceholderUrl('project-2', "https://picsum.photos/seed/bio/800/600"),
+      tags: ["Deep Learning", "Transformers", "Bioinformatics"],
+      achievements: ["Automated dataset generation", "Reduced invalid primer candidates by 40%"]
     },
     {
-      id: "3",
-      title: "Insight Analytics",
-      description: "AI-driven data visualization platform for enterprise-level decision making.",
-      imageUrl: getPlaceholderUrl('project-3', "https://picsum.photos/seed/proj3/800/600"),
-      tags: ["Python", "TensorFlow", "D3.js"],
-      liveUrl: "https://example.com",
-      repoUrl: "https://github.com"
+      id: "proj-1",
+      title: "Advanced Stock Forecaster",
+      description: "Deep learning system using CNN-BiLSTM-GRU to analyze historical market data and identify future trends.",
+      imageUrl: getPlaceholderUrl('project-3', "https://picsum.photos/seed/stock/800/600"),
+      tags: ["TensorFlow", "Finance", "Time Series"]
+    },
+    {
+      id: "proj-2",
+      title: "Real-Time Animal Detection",
+      description: "CCTV-based animal detection system for enhanced safety monitoring using computer vision.",
+      imageUrl: getPlaceholderUrl('project-2', "https://picsum.photos/seed/animal/800/600"),
+      tags: ["OpenCV", "YOLO", "PyTorch"]
     }
   ],
   skills: [
-    { name: "React", category: "Frontend" },
-    { name: "Next.js", category: "Frontend" },
-    { name: "TypeScript", category: "Frontend" },
-    { name: "Node.js", category: "Backend" },
-    { name: "PostgreSQL", category: "Backend" },
-    { name: "Docker", category: "Tools" },
-    { name: "AWS", category: "Tools" },
-    { name: "Git", category: "Tools" }
+    { name: "Python", category: "Programming" },
+    { name: "SQL", category: "Programming" },
+    { name: "Bash", category: "Programming" },
+    { name: "PyTorch", category: "AI & ML" },
+    { name: "TensorFlow", category: "AI & ML" },
+    { name: "scikit-learn", category: "AI & ML" },
+    { name: "OpenCV", category: "AI & ML" },
+    { name: "Transformers", category: "AI & ML" },
+    { name: "Docker", category: "Tools & Platforms" },
+    { name: "Git", category: "Tools & Platforms" },
+    { name: "MLflow", category: "Tools & Platforms" },
+    { name: "Weights & Biases", category: "Tools & Platforms" },
+    { name: "Computer Vision", category: "Domains" },
+    { name: "LLMs & RAG", category: "Domains" },
+    { name: "Deep Learning", category: "Domains" },
+    { name: "NLP", category: "Domains" }
   ]
 };

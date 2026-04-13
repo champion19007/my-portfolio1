@@ -1,7 +1,7 @@
 import { Badge } from '@/components/ui/badge';
 import { Skill } from '@/app/types/portfolio';
 import { SectionHeading } from './SectionHeading';
-import { Code2, Server, Wrench, Sparkles } from 'lucide-react';
+import { Terminal, BrainCircuit, Box, Focus } from 'lucide-react';
 
 interface SkillsProps {
   skills: Skill[];
@@ -9,18 +9,18 @@ interface SkillsProps {
 
 export function Skills({ skills }: SkillsProps) {
   const categories = [
-    { name: 'Frontend', icon: <Code2 className="h-5 w-5 text-primary" /> },
-    { name: 'Backend', icon: <Server className="h-5 w-5 text-primary" /> },
-    { name: 'Tools', icon: <Wrench className="h-5 w-5 text-primary" /> },
-    { name: 'Soft Skills', icon: <Sparkles className="h-5 w-5 text-primary" /> },
+    { name: 'Programming', icon: <Terminal className="h-5 w-5 text-primary" /> },
+    { name: 'AI & ML', icon: <BrainCircuit className="h-5 w-5 text-primary" /> },
+    { name: 'Tools & Platforms', icon: <Box className="h-5 w-5 text-primary" /> },
+    { name: 'Domains', icon: <Focus className="h-5 w-5 text-primary" /> },
   ];
 
   return (
     <section id="skills" className="py-20">
       <div className="container mx-auto px-4">
         <SectionHeading 
-          title="My Skills" 
-          subtitle="Core competencies and technologies I work with to bring ideas to life."
+          title="Expertise & Skills" 
+          subtitle="A comprehensive toolkit focused on Artificial Intelligence and Data Engineering."
         />
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
