@@ -12,7 +12,7 @@ export const INITIAL_DATA: PortfolioData = {
     name: "Sai Yashwant Reddy Panthy",
     title: "AI & Machine Learning Engineer",
     description: "Experienced in Data Science, Computer Vision, and Generative AI. Delivering research-driven and analytical solutions for complex deep learning challenges.",
-    profileImage: "" // Removed as requested
+    profileImage: ""
   },
   contact: {
     phone: "+91 8369682814",
@@ -57,38 +57,68 @@ export const INITIAL_DATA: PortfolioData = {
   },
   projects: [
     {
-      id: "res-1",
-      title: "Minimax-MCTS Chess Engine",
-      description: "A hybrid chess engine enhanced by RLHF using Stockfish and AlphaZero methodologies.",
-      imageUrl: getPlaceholderUrl('project-1', "https://picsum.photos/seed/chess/800/600"),
+      id: "gh-1",
+      title: "MLOps-Forge",
+      description: "Comprehensive AI infrastructure and automated pipeline framework for production-grade machine learning.",
+      imageUrl: getPlaceholderUrl('project-3', "https://picsum.photos/seed/mlops/800/600"),
+      tags: ["Python", "MLOps", "CI/CD"],
+      repoUrl: "https://github.com/champion19007/MLOps-Forge"
+    },
+    {
+      id: "gh-2",
+      title: "End-to-End-Data-Pipeline",
+      description: "Robust data engineering pipeline designed for scalability and high throughput data processing.",
+      imageUrl: getPlaceholderUrl('project-1', "https://picsum.photos/seed/pipeline/800/600"),
+      tags: ["Python", "Data Engineering", "ETL"],
+      repoUrl: "https://github.com/champion19007/End-to-End-Data-Pipeline"
+    },
+    {
+      id: "gh-3",
+      title: "RL-Chess-Engine-Minimax-MCTS",
+      description: "Hybrid chess engine leveraging Reinforcement Learning, Minimax, and Monte Carlo Tree Search for superior move selection.",
+      imageUrl: getPlaceholderUrl('project-2', "https://picsum.photos/seed/chess/800/600"),
       tags: ["Python", "Reinforcement Learning", "MCTS"],
-      repoUrl: "https://github.com/champion19007/ChessAI",
-      achievements: ["Scaled self-play training to 10M games", "Improved playing strength by ~150 Elo"]
+      repoUrl: "https://github.com/champion19007/RL-Chess-Engine-Minimax-MCTS"
     },
     {
-      id: "res-2",
-      title: "PolyPrimer Framework",
-      description: "Deep Learning framework for Multiplex PCR Primer Design integrating Transformer and CNN-BiLSTM architectures.",
-      imageUrl: getPlaceholderUrl('project-2', "https://picsum.photos/seed/bio/800/600"),
-      tags: ["Deep Learning", "Transformers", "Bioinformatics"],
-      repoUrl: "https://github.com/champion19007/PolyPrimer",
-      achievements: ["Automated dataset generation", "Reduced invalid primer candidates by 40%"]
-    },
-    {
-      id: "proj-1",
-      title: "Advanced Stock Forecaster",
-      description: "Deep learning system using CNN-BiLSTM-GRU to analyze historical market data and identify future trends.",
-      imageUrl: getPlaceholderUrl('project-3', "https://picsum.photos/seed/stock/800/600"),
-      tags: ["TensorFlow", "Finance", "Time Series"],
-      repoUrl: "https://github.com/champion19007/StockPredictor"
-    },
-    {
-      id: "proj-2",
-      title: "Real-Time Animal Detection",
-      description: "CCTV-based animal detection system for enhanced safety monitoring using computer vision.",
+      id: "gh-4",
+      title: "Real-Time-Animal-Detection",
+      description: "CCTV-based monitoring system using advanced Computer Vision for real-time safety and observation.",
       imageUrl: getPlaceholderUrl('project-2', "https://picsum.photos/seed/animal/800/600"),
       tags: ["OpenCV", "YOLO", "PyTorch"],
-      repoUrl: "https://github.com/champion19007/AnimalDetection"
+      repoUrl: "https://github.com/champion19007/Real-Time-Animal-Detection-Using-CCTV-Camera-OpenVision"
+    },
+    {
+      id: "gh-5",
+      title: "Advanced-Stock-Forecaster",
+      description: "Deep learning time-series forecasting using CNN, BiLSTM, and GRU architectures for market trend analysis.",
+      imageUrl: getPlaceholderUrl('project-3', "https://picsum.photos/seed/stock/800/600"),
+      tags: ["TensorFlow", "Finance", "Deep Learning"],
+      repoUrl: "https://github.com/champion19007/Advanced-Stock-Forecaster-CNN-BiLSTM-GRU-"
+    },
+    {
+      id: "gh-6",
+      title: "pdf-ai-saas",
+      description: "SaaS platform leveraging AI for intelligent PDF parsing and interaction using LLMs.",
+      imageUrl: getPlaceholderUrl('project-1', "https://picsum.photos/seed/pdf/800/600"),
+      tags: ["TypeScript", "Next.js", "AI"],
+      repoUrl: "https://github.com/champion19007/pdf-ai-saas"
+    },
+    {
+      id: "gh-7",
+      title: "bank-churn-mlops-pipeline",
+      description: "Production-ready MLOps pipeline for predicting customer churn in banking environments.",
+      imageUrl: getPlaceholderUrl('project-2', "https://picsum.photos/seed/bank/800/600"),
+      tags: ["Python", "MLOps", "Azure"],
+      repoUrl: "https://github.com/champion19007/bank-churn-mlops-pipeline"
+    },
+    {
+      id: "gh-8",
+      title: "City-Cuisine-Restaurant-Recommender",
+      description: "Recommendation system using Yelp dataset to suggest restaurants based on cuisine and city preferences.",
+      imageUrl: getPlaceholderUrl('project-3', "https://picsum.photos/seed/yelp/800/600"),
+      tags: ["Jupyter", "Data Science", "RecSys"],
+      repoUrl: "https://github.com/champion19007/City-Cuisine-Based-Restaurant-Recommender-Using-Yelp-Dataset"
     }
   ],
   skills: [
@@ -97,6 +127,7 @@ export const INITIAL_DATA: PortfolioData = {
     { name: "PyTorch", category: "AI & ML" },
     { name: "TensorFlow", category: "AI & ML" },
     { name: "Docker", category: "Tools & Platforms" },
+    { name: "AWS", category: "Tools & Platforms" },
     { name: "LLMs & RAG", category: "Domains" },
     { name: "Computer Vision", category: "Domains" }
   ]
