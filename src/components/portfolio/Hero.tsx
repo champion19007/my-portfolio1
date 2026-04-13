@@ -1,4 +1,3 @@
-import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { ArrowRight, Download } from 'lucide-react';
 
@@ -6,48 +5,42 @@ interface HeroProps {
   name: string;
   title: string;
   description: string;
-  profileImage: string;
+  resumeUrl: string;
 }
 
-export function Hero({ name, title, description, profileImage }: HeroProps) {
+export function Hero({ name, title, description, resumeUrl }: HeroProps) {
   return (
     <section id="home" className="relative pt-32 pb-20 overflow-hidden">
-      <div className="absolute top-0 right-0 -z-10 w-1/3 h-1/3 bg-primary/10 blur-[100px] rounded-full" />
-      <div className="absolute bottom-0 left-0 -z-10 w-1/4 h-1/4 bg-accent/20 blur-[120px] rounded-full" />
+      <div className="absolute top-0 right-0 -z-10 w-1/3 h-1/3 bg-primary/5 blur-[100px] rounded-full" />
+      <div className="absolute bottom-0 left-0 -z-10 w-1/4 h-1/4 bg-primary/10 blur-[120px] rounded-full" />
       
       <div className="container mx-auto px-4 flex flex-col items-center text-center">
-        <div className="relative mb-8 p-1 rounded-full bg-gradient-to-tr from-primary to-accent">
-          <div className="relative w-32 h-32 md:w-40 md:h-40 rounded-full overflow-hidden border-4 border-background">
-            <Image 
-              src={profileImage} 
-              alt={name} 
-              fill 
-              className="object-cover"
-              data-ai-hint="professional headshot"
-            />
-          </div>
+        <div className="mb-6 px-4 py-1.5 rounded-full bg-primary/10 text-primary text-sm font-semibold tracking-wide uppercase">
+          Available for new opportunities
         </div>
         
-        <h1 className="text-4xl md:text-6xl font-bold tracking-tight mb-4">
+        <h1 className="text-5xl md:text-7xl font-bold tracking-tight mb-6">
           Hi, I&apos;m <span className="text-primary">{name}</span>
         </h1>
-        <h2 className="text-xl md:text-2xl font-medium text-muted-foreground mb-6">
+        <h2 className="text-2xl md:text-3xl font-medium text-muted-foreground mb-8">
           {title}
         </h2>
-        <p className="max-w-2xl text-lg text-muted-foreground mb-10">
+        <p className="max-w-3xl text-xl text-muted-foreground mb-12 leading-relaxed">
           {description}
         </p>
         
-        <div className="flex flex-col sm:flex-row gap-4">
-          <Button size="lg" className="rounded-full px-8 shadow-lg shadow-primary/20 group">
+        <div className="flex flex-col sm:flex-row gap-6">
+          <Button size="lg" className="rounded-full px-10 py-7 text-lg shadow-xl shadow-primary/20 group bg-primary hover:bg-primary/90">
             <a href="#projects" className="flex items-center">
-              View My Work
-              <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+              Explore Projects
+              <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
             </a>
           </Button>
-          <Button size="lg" variant="outline" className="rounded-full px-8 border-primary text-primary hover:bg-primary/5">
-            <Download className="mr-2 h-4 w-4" />
-            Download CV
+          <Button size="lg" variant="outline" className="rounded-full px-10 py-7 text-lg border-primary text-primary hover:bg-primary/5">
+            <a href={resumeUrl} target="_blank" rel="noopener noreferrer" className="flex items-center">
+              <Download className="mr-2 h-5 w-5" />
+              Download Resume
+            </a>
           </Button>
         </div>
       </div>

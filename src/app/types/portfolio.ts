@@ -22,6 +22,14 @@ export interface PortfolioData {
     description: string;
     profileImage: string;
   };
+  contact: {
+    phone: string;
+    email: string;
+    location: string;
+    github: string;
+    linkedin: string;
+    resume: string;
+  };
   about: {
     content: string;
     education: {

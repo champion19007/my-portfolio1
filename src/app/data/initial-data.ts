@@ -12,7 +12,15 @@ export const INITIAL_DATA: PortfolioData = {
     name: "Sai Yashwant Reddy Panthy",
     title: "AI & Machine Learning Engineer",
     description: "Experienced in Data Science, Computer Vision, and Generative AI. Delivering research-driven and analytical solutions for complex deep learning challenges.",
-    profileImage: getPlaceholderUrl('profile-pic', "https://picsum.photos/seed/sai1/400/400")
+    profileImage: "" // Removed as requested
+  },
+  contact: {
+    phone: "+91 8369682814",
+    email: "saiyashwantreddypanth@gmail.com",
+    location: "Mumbai",
+    github: "https://github.com/champion19007",
+    linkedin: "https://linkedin.com/in/saiyashwantreddy",
+    resume: "https://drive.google.com/file/d/1qN0M9mAJjsOx-PQ9bgxT0HkqvuDuGhMv/view?usp=sharing"
   },
   about: {
     content: "I am an AI and Machine Learning Engineer with a strong foundation in building and evaluating deep learning models. I specialize in designing automated data pipelines and delivering research-backed solutions in both academic and industry settings. My expertise spans Computer Vision, NLP (LLMs, RAG), and High-Performance AI systems.",
@@ -54,6 +62,7 @@ export const INITIAL_DATA: PortfolioData = {
       description: "A hybrid chess engine enhanced by RLHF using Stockfish and AlphaZero methodologies.",
       imageUrl: getPlaceholderUrl('project-1', "https://picsum.photos/seed/chess/800/600"),
       tags: ["Python", "Reinforcement Learning", "MCTS"],
+      repoUrl: "https://github.com/champion19007/ChessAI",
       achievements: ["Scaled self-play training to 10M games", "Improved playing strength by ~150 Elo"]
     },
     {
@@ -62,6 +71,7 @@ export const INITIAL_DATA: PortfolioData = {
       description: "Deep Learning framework for Multiplex PCR Primer Design integrating Transformer and CNN-BiLSTM architectures.",
       imageUrl: getPlaceholderUrl('project-2', "https://picsum.photos/seed/bio/800/600"),
       tags: ["Deep Learning", "Transformers", "Bioinformatics"],
+      repoUrl: "https://github.com/champion19007/PolyPrimer",
       achievements: ["Automated dataset generation", "Reduced invalid primer candidates by 40%"]
     },
     {
@@ -69,32 +79,25 @@ export const INITIAL_DATA: PortfolioData = {
       title: "Advanced Stock Forecaster",
       description: "Deep learning system using CNN-BiLSTM-GRU to analyze historical market data and identify future trends.",
       imageUrl: getPlaceholderUrl('project-3', "https://picsum.photos/seed/stock/800/600"),
-      tags: ["TensorFlow", "Finance", "Time Series"]
+      tags: ["TensorFlow", "Finance", "Time Series"],
+      repoUrl: "https://github.com/champion19007/StockPredictor"
     },
     {
       id: "proj-2",
       title: "Real-Time Animal Detection",
       description: "CCTV-based animal detection system for enhanced safety monitoring using computer vision.",
       imageUrl: getPlaceholderUrl('project-2', "https://picsum.photos/seed/animal/800/600"),
-      tags: ["OpenCV", "YOLO", "PyTorch"]
+      tags: ["OpenCV", "YOLO", "PyTorch"],
+      repoUrl: "https://github.com/champion19007/AnimalDetection"
     }
   ],
   skills: [
     { name: "Python", category: "Programming" },
     { name: "SQL", category: "Programming" },
-    { name: "Bash", category: "Programming" },
     { name: "PyTorch", category: "AI & ML" },
     { name: "TensorFlow", category: "AI & ML" },
-    { name: "scikit-learn", category: "AI & ML" },
-    { name: "OpenCV", category: "AI & ML" },
-    { name: "Transformers", category: "AI & ML" },
     { name: "Docker", category: "Tools & Platforms" },
-    { name: "Git", category: "Tools & Platforms" },
-    { name: "MLflow", category: "Tools & Platforms" },
-    { name: "Weights & Biases", category: "Tools & Platforms" },
-    { name: "Computer Vision", category: "Domains" },
     { name: "LLMs & RAG", category: "Domains" },
-    { name: "Deep Learning", category: "Domains" },
-    { name: "NLP", category: "Domains" }
+    { name: "Computer Vision", category: "Domains" }
   ]
 };
