@@ -18,19 +18,25 @@
     --muted-foreground: 0 0% 45.1%;
     --accent: 0 100% 45%;
     --accent-foreground: 0 0% 98%;
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 0 0% 98%;
     --border: 0 0% 89.8%;
     --input: 0 0% 89.8%;
     --ring: 0 100% 50%;
-    --radius: 1.25rem;
+    --radius: 0.75rem;
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 0 0% 20%;
+    --sidebar-primary: 0 100% 50%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 0 100% 50%;
+    --sidebar-accent-foreground: 0 0% 100%;
+    --sidebar-border: 0 0% 90%;
+    --sidebar-ring: 0 100% 50%;
   }
   .dark {
-    --background: 0 0% 3%;
+    --background: 0 0% 5%;
     --foreground: 0 0% 98%;
-    --card: 0 0% 6%;
+    --card: 0 0% 8%;
     --card-foreground: 0 0% 98%;
-    --popover: 0 0% 3%;
+    --popover: 0 0% 5%;
     --popover-foreground: 0 0% 98%;
     --primary: 0 100% 50%;
     --primary-foreground: 0 0% 98%;
@@ -40,11 +46,17 @@
     --muted-foreground: 0 0% 63.9%;
     --accent: 0 100% 50%;
     --accent-foreground: 0 0% 98%;
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 0 0% 98%;
-    --border: 0 0% 12%;
-    --input: 0 0% 12%;
+    --border: 0 0% 15%;
+    --input: 0 0% 15%;
     --ring: 0 100% 50%;
+    --sidebar-background: 0 0% 8%;
+    --sidebar-foreground: 0 0% 90%;
+    --sidebar-primary: 0 100% 50%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 0 100% 50%;
+    --sidebar-accent-foreground: 0 0% 100%;
+    --sidebar-border: 0 0% 15%;
+    --sidebar-ring: 0 100% 50%;
   }
 }
 
@@ -64,17 +76,8 @@
   @apply bg-clip-text text-transparent bg-gradient-to-r from-red-600 via-red-400 to-red-600;
 }
 
-.bg-grid-pattern {
-  background-image: radial-gradient(hsl(var(--primary) / 0.15) 1px, transparent 1px);
-  background-size: 40px 40px;
-}
-
 .glass-card {
-  @apply bg-card/40 backdrop-blur-2xl border border-white/5 shadow-2xl;
-}
-
-.hero-glow {
-  background: radial-gradient(circle at 50% 50%, hsl(var(--primary) / 0.15) 0%, transparent 70%);
+  @apply bg-card/40 backdrop-blur-xl border border-white/5 shadow-xl;
 }
 
 html {
@@ -88,15 +91,4 @@ html {
 .no-scrollbar {
   -ms-overflow-style: none;
   scrollbar-width: none;
-}
-
-/* Page Transitions */
-.page-enter {
-  opacity: 0;
-  transform: translateY(10px);
-}
-.page-enter-active {
-  opacity: 1;
-  transform: translateY(0);
-  transition: opacity 400ms, transform 400ms;
 }

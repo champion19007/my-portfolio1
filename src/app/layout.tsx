@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import './globals.css';
-import { Navbar } from '@/components/portfolio/Navbar';
-import { Footer } from '@/components/portfolio/Footer';
+import { SidebarProvider } from '@/components/ui/sidebar';
+import { AppSidebar } from '@/components/portfolio/AppSidebar';
 import { INITIAL_DATA } from './data/initial-data';
 import { Toaster } from '@/components/ui/toaster';
 
@@ -23,12 +23,16 @@ export default function RootLayout({
         <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
       </head>
       <body className="font-body antialiased selection:bg-primary/20 bg-background text-foreground transition-colors duration-300">
-        <div className="fixed inset-0 -z-20 bg-grid-pattern opacity-20 pointer-events-none" />
-        <Navbar />
-        <div className="pt-20">
-          {children}
-        </div>
-        <Footer name={INITIAL_DATA.hero.name} contact={INITIAL_DATA.contact} />
+        <SidebarProvider>
+          <div className="flex h-screen w-full overflow-hidden bg-background">
+            <AppSidebar />
+            <main className="flex-1 overflow-y-auto relative no-scrollbar">
+              <div className="min-h-full">
+                {children}
+              </div>
+            </main>
+          </div>
+        </SidebarProvider>
         <Toaster />
       </body>
     </html>

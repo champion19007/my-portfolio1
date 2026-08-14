@@ -7,26 +7,25 @@ interface SectionHeadingProps {
   className?: string;
 }
 
-export function SectionHeading({ title, subtitle, centered = true, className }: SectionHeadingProps) {
+export function SectionHeading({ title, subtitle, centered = false, className }: SectionHeadingProps) {
   return (
-    <div className={cn("mb-16 space-y-4", centered && "text-center", className)}>
-      <div className={cn("flex items-center gap-4 mb-2", centered && "justify-center")}>
-        <div className="h-px w-8 bg-primary/40" />
-        <span className="text-primary font-black uppercase tracking-[0.3em] text-xs">Explore</span>
-        <div className="h-px w-8 bg-primary/40" />
+    <div className={cn("mb-12 space-y-3", centered && "text-center", className)}>
+      <div className={cn("flex items-center gap-3 mb-1", centered && "justify-center")}>
+        <div className="h-px w-6 bg-primary/40" />
+        <span className="text-primary font-black uppercase tracking-[0.2em] text-[10px]">Reference</span>
       </div>
       
-      <h2 className="text-4xl md:text-6xl font-black text-foreground uppercase tracking-tight">
+      <h2 className="text-3xl md:text-5xl font-black text-foreground uppercase tracking-tighter">
         {title}
       </h2>
       
       {subtitle && (
-        <p className="text-muted-foreground text-lg md:text-xl max-w-2xl mx-auto leading-relaxed font-medium">
+        <p className="text-muted-foreground text-sm md:text-base max-w-xl leading-relaxed font-medium">
           {subtitle}
         </p>
       )}
       
-      <div className={cn("h-1.5 w-24 bg-primary mt-6 rounded-full", centered && "mx-auto")} />
+      <div className={cn("h-1 w-12 bg-primary mt-4 rounded-full", centered && "mx-auto")} />
     </div>
   );
 }
