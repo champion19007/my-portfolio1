@@ -3,8 +3,6 @@ export interface Project {
   title: string;
   description: string;
   longDescription?: string;
-  imageUrl: string;
-  imageHint: string;
   tags: string[];
   liveUrl?: string;
   repoUrl?: string;
