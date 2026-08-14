@@ -1,3 +1,4 @@
+
 import { PortfolioData } from '../types/portfolio';
 
 export const INITIAL_DATA: PortfolioData = {
@@ -97,25 +98,25 @@ export const INITIAL_DATA: PortfolioData = {
     {
       id: "pdf-ai",
       title: "PDF AI SaaS — LLM Chat Application",
-      description: "RAG-based chatbot enabling natural-language Q&A over PDF documents using LangChain and Pinecone.",
+      description: "RAG-based chatbot enabling natural-language Q&A over PDF documents using LangChain, OpenAI embeddings, and Pinecone vector database.",
       imageUrl: "https://picsum.photos/seed/pdf1/800/600",
-      imageHint: "document analysis",
+      imageHint: "document ai",
       tags: ["LangChain", "OpenAI", "Pinecone"],
       repoUrl: "https://github.com/champion19007/pdf-ai-saas"
     },
     {
       id: "mlops-pipelines",
       title: "CI/CD & MLOps Pipelines",
-      description: "Automated pipelines for ML workloads using AWS services like CodePipeline and CloudFormation.",
-      imageUrl: "https://picsum.photos/seed/mlops1/800/600",
-      imageHint: "devops pipeline",
+      description: "Automated pipelines for ML workloads using AWS services like CodePipeline and CloudFormation. Implemented build, test, and deployment stages.",
+      imageUrl: "https://picsum.photos/seed/cicd1/800/600",
+      imageHint: "automation code",
       tags: ["AWS", "GitHub Actions", "Docker"],
       repoUrl: "https://github.com/champion19007/ci-cd-mlops"
     },
     {
       id: "stock-forecaster",
       title: "Advanced Stock Forecaster",
-      description: "Deep learning time-series forecasting system using CNN, BiLSTM, and GRU architectures.",
+      description: "Deep learning time-series forecasting system using CNN, BiLSTM, and GRU architectures to analyze historical market data.",
       imageUrl: "https://picsum.photos/seed/stock1/800/600",
       imageHint: "stock market",
       tags: ["TensorFlow", "BiLSTM", "Keras"],
@@ -124,9 +125,9 @@ export const INITIAL_DATA: PortfolioData = {
     {
       id: "animal-detection",
       title: "Real-Time Animal Detection",
-      description: "Computer vision system for real-time safety monitoring using YOLO and live CCTV streams.",
-      imageUrl: "https://picsum.photos/seed/cv1/800/600",
-      imageHint: "computer vision",
+      description: "Computer vision system for real-time safety monitoring using YOLO to automatically identify animals in live CCTV streams.",
+      imageUrl: "https://picsum.photos/seed/animal1/800/600",
+      imageHint: "animal detection",
       tags: ["YOLO", "OpenCV", "PyTorch"],
       repoUrl: "https://github.com/champion19007/Real-Time-Animal-Detection-Using-CCTV-Camera-OpenVision"
     },
@@ -147,6 +148,69 @@ export const INITIAL_DATA: PortfolioData = {
       imageHint: "data stream",
       tags: ["SQL", "ETL", "Python"],
       repoUrl: "https://github.com/champion19007/End-to-End-Data-Pipeline"
+    },
+    {
+      id: "cv-mlops",
+      title: "end-to-end-cv-mlops-project",
+      description: "A complete MLOps workflow for Computer Vision, from data ingestion to model deployment.",
+      imageUrl: "https://picsum.photos/seed/cv1/800/600",
+      imageHint: "computer vision",
+      tags: ["Jupyter", "PyTorch", "MLOps"],
+      repoUrl: "https://github.com/champion19007/end-to-end-cv-mlops-project"
+    },
+    {
+      id: "bank-churn",
+      title: "bank-churn-mlops-pipeline",
+      description: "Production-ready MLOps pipeline for predicting customer churn in banking environments.",
+      imageUrl: "https://picsum.photos/seed/bank1/800/600",
+      imageHint: "banking finance",
+      tags: ["Python", "MLOps", "Azure"],
+      repoUrl: "https://github.com/champion19007/bank-churn-mlops-pipeline"
+    },
+    {
+      id: "aws-cicd",
+      title: "aws-cicd-pipeline",
+      description: "Automated deployment pipelines built on AWS for scalable cloud applications.",
+      imageUrl: "https://picsum.photos/seed/aws1/800/600",
+      imageHint: "cloud computing",
+      tags: ["AWS", "Shell", "CI/CD"],
+      repoUrl: "https://github.com/champion19007/aws-cicd-pipeline"
+    },
+    {
+      id: "rl-chess",
+      title: "RL-Chess-Engine-Minimax-MCTS",
+      description: "Hybrid chess engine leveraging Reinforcement Learning, Minimax, and Monte Carlo Tree Search.",
+      imageUrl: "https://picsum.photos/seed/chess1/800/600",
+      imageHint: "chess board",
+      tags: ["Python", "RL", "MCTS"],
+      repoUrl: "https://github.com/champion19007/RL-Chess-Engine-Minimax-MCTS"
+    },
+    {
+      id: "chess-cpp",
+      title: "Chess-Engine-Deep-RL-Cpp",
+      description: "High-performance chess engine implemented in C++ with Deep Reinforcement Learning.",
+      imageUrl: "https://picsum.photos/seed/chess2/800/600",
+      imageHint: "coding logic",
+      tags: ["C++", "Deep RL", "Minimax"],
+      repoUrl: "https://github.com/champion19007/Chess_engine_with_Deep_Reinforcement_learning-minmax-mcts-Cpp"
+    },
+    {
+      id: "zoom-clone",
+      title: "F-13-zoom-lite-clone-",
+      description: "A lightweight Zoom clone for real-time video conferencing.",
+      imageUrl: "https://picsum.photos/seed/video1/800/600",
+      imageHint: "video conference",
+      tags: ["TypeScript", "WebRTC", "Next.js"],
+      repoUrl: "https://github.com/champion19007/F-13-zoom-lite-clone-"
+    },
+    {
+      id: "restaurant-recommender",
+      title: "Restaurant-Recommender",
+      description: "Recommendation system using Yelp dataset to suggest restaurants based on cuisine and city preferences.",
+      imageUrl: "https://picsum.photos/seed/food1/800/600",
+      imageHint: "restaurant food",
+      tags: ["Jupyter", "Data Science", "RecSys"],
+      repoUrl: "https://github.com/champion19007/City-Cuisine-Based-Restaurant-Recommender-Using-Yelp-Dataset"
     }
   ],
   skills: [
