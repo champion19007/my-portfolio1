@@ -1,3 +1,4 @@
+
 "use client";
 
 import { Github, Linkedin, Heart, FileText, ArrowUp } from 'lucide-react';
@@ -13,9 +14,11 @@ interface FooterProps {
 }
 
 export function Footer({ name, contact }: FooterProps) {
-  const [currentYear, setCurrentYear] = useState(2026);
+  // Use a default year that matches expected deployment to minimize hydration delta
+  const [currentYear, setCurrentYear] = useState<number | string>(2025);
 
   useEffect(() => {
+    // Safely update to the current year on the client after hydration
     setCurrentYear(new Date().getFullYear());
   }, []);
   
@@ -40,13 +43,13 @@ export function Footer({ name, contact }: FooterProps) {
           
           <div className="flex flex-col items-center gap-8">
             <div className="flex items-center gap-4">
-              <a href={contact.github} target="_blank" rel="noopener noreferrer" className="p-4 rounded-2xl bg-secondary/50 border border-transparent hover:border-primary/20 hover:text-primary transition-all">
+              <a href={contact.github} target="_blank" rel="noopener noreferrer" className="p-4 rounded-2xl bg-secondary/50 border border-transparent hover:border-primary/20 hover:text-primary transition-all" aria-label="GitHub">
                 <Github className="h-6 w-6" />
               </a>
-              <a href={contact.linkedin} target="_blank" rel="noopener noreferrer" className="p-4 rounded-2xl bg-secondary/50 border border-transparent hover:border-primary/20 hover:text-primary transition-all">
+              <a href={contact.linkedin} target="_blank" rel="noopener noreferrer" className="p-4 rounded-2xl bg-secondary/50 border border-transparent hover:border-primary/20 hover:text-primary transition-all" aria-label="LinkedIn">
                 <Linkedin className="h-6 w-6" />
               </a>
-              <a href={contact.resume} target="_blank" rel="noopener noreferrer" className="p-4 rounded-2xl bg-secondary/50 border border-transparent hover:border-primary/20 hover:text-primary transition-all">
+              <a href={contact.resume} target="_blank" rel="noopener noreferrer" className="p-4 rounded-2xl bg-secondary/50 border border-transparent hover:border-primary/20 hover:text-primary transition-all" aria-label="Resume">
                 <FileText className="h-6 w-6" />
               </a>
             </div>
@@ -63,9 +66,9 @@ export function Footer({ name, contact }: FooterProps) {
         
         <div className="mt-20 pt-10 border-t border-primary/5 flex flex-col md:flex-row justify-between items-center gap-6 text-muted-foreground">
           <p className="text-sm font-medium">© {currentYear} {name}. All rights reserved.</p>
-          <p className="flex items-center gap-2 text-sm font-medium">
-            Developed with <Heart className="h-4 w-4 text-primary fill-primary" /> in Mumbai
-          </p>
+          <div className="flex items-center gap-2 text-sm font-medium">
+            Developed with <Heart className="h-4 w-4 text-primary fill-primary animate-pulse" /> in Mumbai
+          </div>
         </div>
       </div>
     </footer>

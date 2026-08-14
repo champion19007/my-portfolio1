@@ -1,3 +1,4 @@
+
 'use server';
 /**
  * @fileOverview A Genkit flow for generating concise project summaries and achievement bullet points from raw notes.
@@ -40,7 +41,13 @@ export type GenerateProjectSummaryOutput = z.infer<
 export async function generateProjectSummary(
   input: GenerateProjectSummaryInput
 ): Promise<GenerateProjectSummaryOutput> {
-  return generateProjectSummaryFlow(input);
+  try {
+    const result = await generateProjectSummaryFlow(input);
+    return result;
+  } catch (error) {
+    console.error('Genkit Flow Error:', error);
+    throw new Error('Could not process project summary. Please try again.');
+  }
 }
 
 const projectSummaryPrompt = ai.definePrompt({
@@ -65,6 +72,9 @@ const generateProjectSummaryFlow = ai.defineFlow(
   },
   async input => {
     const {output} = await projectSummaryPrompt(input);
-    return output!;
+    if (!output) {
+      throw new Error('AI failed to generate a valid response.');
+    }
+    return output;
   }
 );
