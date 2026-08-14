@@ -1,4 +1,4 @@
-import type {Metadata} from 'next';
+import type { Metadata } from 'next';
 import './globals.css';
 import { Navbar } from '@/components/portfolio/Navbar';
 import { Footer } from '@/components/portfolio/Footer';
@@ -6,8 +6,8 @@ import { INITIAL_DATA } from './data/initial-data';
 import { Toaster } from '@/components/ui/toaster';
 
 export const metadata: Metadata = {
-  title: 'DevLaunch Portfolio | Professional Developer Showcase',
-  description: 'A professional developer portfolio showcasing innovative projects and skills.',
+  title: 'Sai Yashwant Reddy Panthy | AI & ML Engineer',
+  description: 'AI & Machine Learning Engineer specializing in Computer Vision, NLP, and MLOps. Explore Sai Yashwant Reddy Panthy\'s engineering portfolio.',
 };
 
 export default function RootLayout({
