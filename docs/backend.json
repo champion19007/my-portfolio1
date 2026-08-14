@@ -1,0 +1,23 @@
+{
+  "entities": {
+    "Resume": {
+      "title": "Resume",
+      "description": "Metadata and configuration for the professional resume stored in Firebase Storage.",
+      "type": "object",
+      "properties": {
+        "filePath": {
+          "type": "string",
+          "description": "Storage path for the resume (e.g., resumes/my-file.pdf)."
+        },
+        "publicUrl": {
+          "type": "string",
+          "description": "Publicly accessible URL for the resume."
+        }
+      },
+      "required": ["filePath"]
+    }
+  },
+  "auth": {
+    "providers": ["google.com", "password"]
+  }
+}
