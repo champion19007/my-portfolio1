@@ -9,7 +9,7 @@ export const INITIAL_DATA: PortfolioData = {
   },
   contact: {
     phone: "+91 8369682814",
-    email: "saiyashwantreddypanth@gmail.com",
+    email: "saiyashwantreddypanthy@gmail.com",
     location: "Mumbai",
     github: "https://github.com/champion19007",
     linkedin: "https://linkedin.com/in/saiyashwantreddy",

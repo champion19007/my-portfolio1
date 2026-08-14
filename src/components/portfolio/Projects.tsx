@@ -3,7 +3,7 @@
 import { Card, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { ExternalLink, Github } from 'lucide-react';
+import { ExternalLink, Github, CodeXml } from 'lucide-react';
 import { Project } from '@/app/types/portfolio';
 import { SectionHeading } from './SectionHeading';
 
@@ -18,14 +18,15 @@ export function Projects({ projects }: ProjectsProps) {
         <SectionHeading 
           title="Engineering Portfolio" 
           subtitle="Research-driven projects in MLOps, Computer Vision, and Reinforcement Learning."
+          centered={true}
         />
         
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
           {projects.map((project) => (
             <Card key={project.id} className="group flex flex-col overflow-hidden border border-primary/5 shadow-xl transition-all hover:shadow-2xl hover:-translate-y-2 bg-card">
               <CardHeader className="flex-1 p-8">
                 <div className="flex flex-wrap gap-2 mb-6">
-                  {project.tags.slice(0, 3).map(tag => (
+                  {project.tags.map(tag => (
                     <Badge key={tag} variant="secondary" className="bg-primary/5 text-primary text-[10px] uppercase font-black tracking-tighter border border-primary/10">
                       {tag}
                     </Badge>
