@@ -1,10 +1,9 @@
 "use client";
 
-import { Home, User, FolderCode, Briefcase, Mail, Github, Linkedin, FileText, Moon, Sun } from 'lucide-react';
+import { Home, User, FolderCode, Briefcase, Mail, Github, Linkedin } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
-import { useState, useEffect } from 'react';
 import {
   Sidebar,
   SidebarContent,
@@ -20,22 +19,6 @@ import {
 
 export function AppSidebar() {
   const pathname = usePathname();
-  const [theme, setTheme] = useState<'light' | 'dark'>('dark');
-
-  useEffect(() => {
-    const savedTheme = localStorage.getItem('theme') as 'light' | 'dark' | null;
-    if (savedTheme) {
-      setTheme(savedTheme);
-      document.documentElement.classList.toggle('dark', savedTheme === 'dark');
-    }
-  }, []);
-
-  const toggleTheme = () => {
-    const newTheme = theme === 'light' ? 'dark' : 'light';
-    setTheme(newTheme);
-    localStorage.setItem('theme', newTheme);
-    document.documentElement.classList.toggle('dark', newTheme === 'dark');
-  };
 
   const navItems = [
     { name: 'Dashboard', href: '/', icon: Home },
@@ -104,15 +87,6 @@ export function AppSidebar() {
                   <Linkedin className="h-4 w-4" />
                   <span className="text-sm">LinkedIn</span>
                 </a>
-              </SidebarMenuItem>
-              <SidebarMenuItem>
-                <button 
-                  onClick={toggleTheme}
-                  className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-muted-foreground hover:bg-secondary/50 hover:text-foreground transition-all"
-                >
-                  {theme === 'dark' ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
-                  <span className="text-sm">{theme === 'dark' ? 'Light Mode' : 'Dark Mode'}</span>
-                </button>
               </SidebarMenuItem>
             </SidebarMenu>
           </SidebarGroupContent>
