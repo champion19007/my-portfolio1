@@ -13,7 +13,13 @@ export interface Project {
 
 export interface Skill {
   name: string;
-  category: 'Programming' | 'AI & ML' | 'Tools & Platforms' | 'Domains';
+  category: 'Programming' | 'AI / LLM' | 'Gen AI / Agentic' | 'MLOps / Cloud' | 'Domains' | 'Data Tools' | 'Web & APIs';
+}
+
+export interface Research {
+  title: string;
+  conference: string;
+  highlights: string[];
 }
 
 export interface PortfolioData {
@@ -44,7 +50,9 @@ export interface PortfolioData {
       company: string;
       period: string;
       description: string;
+      bullets?: string[];
     }[];
+    research?: Research[];
   };
   projects: Project[];
   skills: Skill[];
