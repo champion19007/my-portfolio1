@@ -13,7 +13,7 @@ interface FooterProps {
 }
 
 export function Footer({ name, contact }: FooterProps) {
-  const [currentYear, setCurrentYear] = useState(2025);
+  const [currentYear, setCurrentYear] = useState(2026);
 
   useEffect(() => {
     setCurrentYear(new Date().getFullYear());
@@ -33,7 +33,7 @@ export function Footer({ name, contact }: FooterProps) {
             <div className="text-4xl font-black text-primary tracking-tighter">
               SYRP<span className="text-foreground">.</span>
             </div>
-            <p className="text-muted-foreground font-black uppercase tracking-[0.2em] text-xs">
+            <p className="text-muted-foreground font-bold uppercase tracking-[0.2em] text-xs">
               AI & Machine Learning Engineer
             </p>
           </div>

@@ -66,7 +66,7 @@ export function Navbar() {
           
           <button 
             onClick={toggleTheme}
-            className="p-2 rounded-xl bg-secondary hover:bg-primary/10 text-primary transition-colors border border-primary/5"
+            className="p-2 rounded-xl bg-secondary/50 hover:bg-primary/10 text-primary transition-colors border border-primary/5"
           >
             {theme === 'light' ? <Moon className="h-4 w-4" /> : <Sun className="h-4 w-4" />}
           </button>
