@@ -23,18 +23,18 @@
     --border: 0 0% 89.8%;
     --input: 0 0% 89.8%;
     --ring: 0 100% 50%;
-    --radius: 1rem;
+    --radius: 1.25rem;
   }
   .dark {
-    --background: 0 0% 0%;
+    --background: 0 0% 3%;
     --foreground: 0 0% 98%;
-    --card: 0 0% 4%;
+    --card: 0 0% 6%;
     --card-foreground: 0 0% 98%;
     --popover: 0 0% 3%;
     --popover-foreground: 0 0% 98%;
     --primary: 0 100% 50%;
     --primary-foreground: 0 0% 98%;
-    --secondary: 0 0% 8%;
+    --secondary: 0 0% 10%;
     --secondary-foreground: 0 0% 98%;
     --muted: 0 0% 12%;
     --muted-foreground: 0 0% 63.9%;
@@ -65,30 +65,38 @@
 }
 
 .bg-grid-pattern {
-  background-image: radial-gradient(hsl(var(--primary) / 0.1) 1px, transparent 1px);
+  background-image: radial-gradient(hsl(var(--primary) / 0.15) 1px, transparent 1px);
   background-size: 40px 40px;
 }
 
 .glass-card {
-  @apply bg-card/60 backdrop-blur-2xl border border-white/5 shadow-2xl;
+  @apply bg-card/40 backdrop-blur-2xl border border-white/5 shadow-2xl;
 }
 
 .hero-glow {
   background: radial-gradient(circle at 50% 50%, hsl(var(--primary) / 0.15) 0%, transparent 70%);
 }
 
-/* Smooth Scrolling */
 html {
   scroll-behavior: smooth;
 }
 
-/* Hide scrollbar for Chrome, Safari and Opera */
 .no-scrollbar::-webkit-scrollbar {
   display: none;
 }
 
-/* Hide scrollbar for IE, Edge and Firefox */
 .no-scrollbar {
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;  /* Firefox */
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Page Transitions */
+.page-enter {
+  opacity: 0;
+  transform: translateY(10px);
+}
+.page-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 400ms, transform 400ms;
 }

@@ -11,7 +11,7 @@ interface HeroProps {
 
 export function Hero({ name, title, description, resumeUrl }: HeroProps) {
   return (
-    <section id="home" className="relative min-h-[80vh] flex items-center overflow-hidden">
+    <section id="home" className="relative min-h-[90vh] flex items-center pt-20 overflow-hidden">
       <div className="absolute top-0 right-0 -z-10 w-[500px] h-[500px] bg-primary/5 blur-[120px] rounded-full animate-pulse" />
       <div className="absolute bottom-0 left-0 -z-10 w-[400px] h-[400px] bg-primary/10 blur-[100px] rounded-full" />
       
