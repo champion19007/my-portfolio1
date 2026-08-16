@@ -5,7 +5,7 @@ export const INITIAL_DATA: PortfolioData = {
     name: "Sai Yashwant Reddy Panthy",
     title: "AI & Machine Learning Engineer",
     description: "Specializing in RAG applications, ML pipelines, and Agentic AI systems. Published IEEE researcher and hackathon winner focused on building production-grade AI-powered analytics solutions.",
-    profileImage: ""
+    profileImage: "profile-pic"
   },
   contact: {
     phone: "+91 8369682814",
@@ -99,91 +99,56 @@ export const INITIAL_DATA: PortfolioData = {
       title: "PDF AI SaaS — LLM Chat Application",
       description: "RAG-based chatbot enabling natural-language Q&A over PDF documents using LangChain, OpenAI embeddings, and Pinecone vector database.",
       tags: ["LangChain", "OpenAI", "Pinecone"],
-      repoUrl: "https://github.com/champion19007/pdf-ai-saas"
+      repoUrl: "https://github.com/champion19007/pdf-ai-saas",
+      image: "pdf"
     },
     {
       id: "mlops-pipelines",
       title: "CI/CD & MLOps Pipelines",
       description: "Automated pipelines for ML workloads using AWS services like CodePipeline and CloudFormation. Implemented build, test, and deployment stages.",
       tags: ["AWS", "GitHub Actions", "Docker"],
-      repoUrl: "https://github.com/champion19007/ci-cd-mlops"
+      repoUrl: "https://github.com/champion19007/ci-cd-mlops",
+      image: "cicd"
     },
     {
       id: "stock-forecaster",
       title: "Advanced Stock Forecaster",
       description: "Deep learning time-series forecasting system using CNN, BiLSTM, and GRU architectures to analyze historical market data.",
       tags: ["TensorFlow", "BiLSTM", "Keras"],
-      repoUrl: "https://github.com/champion19007/Advanced-Stock-Forecaster-CNN-BiLSTM-GRU-"
+      repoUrl: "https://github.com/champion19007/Advanced-Stock-Forecaster-CNN-BiLSTM-GRU-",
+      image: "stock"
     },
     {
       id: "animal-detection",
       title: "Real-Time Animal Detection",
       description: "Computer vision system for real-time safety monitoring using YOLO to automatically identify animals in live CCTV streams.",
       tags: ["YOLO", "OpenCV", "PyTorch"],
-      repoUrl: "https://github.com/champion19007/Real-Time-Animal-Detection-Using-CCTV-Camera-OpenVision"
+      repoUrl: "https://github.com/champion19007/Real-Time-Animal-Detection-Using-CCTV-Camera-OpenVision",
+      image: "animal"
     },
     {
       id: "mlops-forge",
       title: "MLOps-Forge",
       description: "Comprehensive AI infrastructure and automated pipeline framework for production machine learning.",
       tags: ["Python", "MLOps", "Terraform"],
-      repoUrl: "https://github.com/champion19007/MLOps-Forge"
+      repoUrl: "https://github.com/champion19007/MLOps-Forge",
+      image: "mlops"
     },
     {
       id: "data-pipeline",
       title: "End-to-End Data Pipeline",
       description: "Robust data engineering pipeline designed for high throughput data processing and ETL.",
       tags: ["SQL", "ETL", "Python"],
-      repoUrl: "https://github.com/champion19007/End-to-End-Data-Pipeline"
+      repoUrl: "https://github.com/champion19007/End-to-End-Data-Pipeline",
+      image: "data-pipeline"
     },
     {
       id: "cv-mlops",
       title: "end-to-end-cv-mlops-project",
       description: "A complete MLOps workflow for Computer Vision, from data ingestion to model deployment.",
       tags: ["Jupyter", "PyTorch", "MLOps"],
-      repoUrl: "https://github.com/champion19007/end-to-end-cv-mlops-project"
-    },
-    {
-      id: "bank-churn",
-      title: "bank-churn-mlops-pipeline",
-      description: "Production-ready MLOps pipeline for predicting customer churn in banking environments.",
-      tags: ["Python", "MLOps", "Azure"],
-      repoUrl: "https://github.com/champion19007/bank-churn-mlops-pipeline"
-    },
-    {
-      id: "aws-cicd",
-      title: "aws-cicd-pipeline",
-      description: "Automated deployment pipelines built on AWS for scalable cloud applications.",
-      tags: ["AWS", "Shell", "CI/CD"],
-      repoUrl: "https://github.com/champion19007/aws-cicd-pipeline"
-    },
-    {
-      id: "rl-chess",
-      title: "RL-Chess-Engine-Minimax-MCTS",
-      description: "Hybrid chess engine leveraging Reinforcement Learning, Minimax, and Monte Carlo Tree Search.",
-      tags: ["Python", "RL", "MCTS"],
-      repoUrl: "https://github.com/champion19007/RL-Chess-Engine-Minimax-MCTS"
-    },
-    {
-      id: "chess-cpp",
-      title: "Chess-Engine-Deep-RL-Cpp",
-      description: "High-performance chess engine implemented in C++ with Deep Reinforcement Learning.",
-      tags: ["C++", "Deep RL", "Minimax"],
-      repoUrl: "https://github.com/champion19007/Chess_engine_with_Deep_Reinforcement_learning-minmax-mcts-Cpp"
-    },
-    {
-      id: "zoom-clone",
-      title: "F-13-zoom-lite-clone-",
-      description: "A lightweight Zoom clone for real-time video conferencing.",
-      tags: ["TypeScript", "WebRTC", "Next.js"],
-      repoUrl: "https://github.com/champion19007/F-13-zoom-lite-clone-"
-    },
-    {
-      id: "restaurant-recommender",
-      title: "Restaurant-Recommender",
-      description: "Recommendation system using Yelp dataset to suggest restaurants based on cuisine and city preferences.",
-      tags: ["Jupyter", "Data Science", "RecSys"],
-      repoUrl: "https://github.com/champion19007/City-Cuisine-Based-Restaurant-Recommender-Using-Yelp-Dataset"
+      repoUrl: "https://github.com/champion19007/end-to-end-cv-mlops-project",
+      image: "computer-vision"
     }
   ],
   skills: [

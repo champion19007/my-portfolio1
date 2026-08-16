@@ -7,6 +7,7 @@ export interface Project {
   liveUrl?: string;
   repoUrl?: string;
   achievements?: string[];
+  image?: string;
 }
 
 export interface Skill {
