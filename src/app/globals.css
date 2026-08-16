@@ -79,7 +79,7 @@
 *, *::before, *::after {
   transition-property: background-color, border-color, color, fill, stroke, box-shadow;
   transition-duration: 1000ms;
-  transition-timing-function: cubic-bezier(0.65, 0, 0.35, 1); /* Smoother, slower quintic easing */
+  transition-timing-function: cubic-bezier(0.65, 0, 0.35, 1);
 }
 
 .text-gradient {
