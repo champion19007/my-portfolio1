@@ -54,12 +54,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`dark ${poppins.variable}`}>
-      <body className="font-body antialiased selection:bg-primary/20 bg-background text-foreground transition-colors duration-300">
+      <body className="font-body antialiased selection:bg-primary/20 bg-background text-foreground transition-colors duration-500 ease-in-out">
         <FirebaseClientProvider>
           <SidebarProvider>
-            <div className="flex h-screen w-full overflow-hidden bg-background">
+            <div className="flex h-screen w-full overflow-hidden bg-background transition-colors duration-500">
               <AppSidebar />
-              <main className="flex-1 overflow-y-auto relative no-scrollbar">
+              <main className="flex-1 overflow-y-auto relative no-scrollbar bg-background transition-colors duration-500">
                 <div className="min-h-full">
                   {children}
                 </div>

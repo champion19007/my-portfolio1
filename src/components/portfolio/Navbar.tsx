@@ -5,6 +5,7 @@ import { usePathname } from 'next/navigation';
 import { Moon, Sun } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
+import { motion, AnimatePresence } from 'framer-motion';
 
 export function Navbar() {
   const pathname = usePathname();
@@ -42,7 +43,7 @@ export function Navbar() {
   };
 
   return (
-    <nav className="sticky top-0 z-30 flex h-16 items-center justify-between border-b border-border/50 bg-background/80 px-4 md:px-6 backdrop-blur-xl">
+    <nav className="sticky top-0 z-30 flex h-16 items-center justify-between border-b border-border/50 bg-background/80 px-4 md:px-6 backdrop-blur-xl transition-all duration-500">
       <div className="flex items-center gap-2 md:gap-4">
         <SidebarTrigger className="flex lg:hidden h-9 w-9 text-primary hover:bg-primary/10" />
         <div className="h-4 w-px bg-border/50 lg:hidden mx-1" />
@@ -57,10 +58,25 @@ export function Navbar() {
             variant="ghost" 
             size="icon" 
             onClick={toggleTheme}
-            className="rounded-full h-9 w-9 hover:bg-primary/10 hover:text-primary transition-colors"
+            className="rounded-full h-9 w-9 hover:bg-primary/10 hover:text-primary transition-colors relative overflow-hidden"
             aria-label={theme === 'dark' ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
           >
-            {theme === 'dark' ? <Sun className="h-4 w-4 md:h-5 md:w-5" /> : <Moon className="h-4 w-4 md:h-5 md:w-5" />}
+            <AnimatePresence mode="wait" initial={false}>
+              <motion.div
+                key={theme}
+                initial={{ y: 20, opacity: 0, rotate: -90 }}
+                animate={{ y: 0, opacity: 1, rotate: 0 }}
+                exit={{ y: -20, opacity: 0, rotate: 90 }}
+                transition={{ duration: 0.2 }}
+                className="flex items-center justify-center"
+              >
+                {theme === 'dark' ? (
+                  <Sun className="h-4 w-4 md:h-5 md:w-5" />
+                ) : (
+                  <Moon className="h-4 w-4 md:h-5 md:w-5" />
+                )}
+              </motion.div>
+            </AnimatePresence>
           </Button>
         )}
 
