@@ -13,7 +13,7 @@ export const INITIAL_DATA: PortfolioData = {
     location: "Mumbai",
     github: "https://github.com/champion19007",
     linkedin: "https://linkedin.com/in/saiyashwantreddy",
-    resume: `https://firebasestorage.googleapis.com/v0/b/${process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID || 'your-project-id'}.appspot.com/o/resumes%2Fmy-file.pdf?alt=media`
+    resume: `https://firebasestorage.googleapis.com/v0/b/studio-4998510886-b3bf2.firebasestorage.app/o/resumes%2Fmy-file.pdf?alt=media`
   },
   about: {
     content: "I am an AI and Machine Learning Engineer with a strong foundation in building and evaluating deep learning models. I specialize in designing automated data pipelines and delivering research-backed solutions in both academic and industry settings. My expertise spans Computer Vision, NLP (LLMs, RAG), and High-Performance AI systems.",
