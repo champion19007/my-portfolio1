@@ -1,6 +1,6 @@
 # DevLaunch Portfolio
 
-DevLaunch Portfolio is a modern, high-performance portfolio template for software developers. It features a fresh forest green aesthetic, responsive design, and an AI-powered project brief generator.
+DevLaunch Portfolio is a modern, high-performance portfolio template for software developers. It features a bold red aesthetic, responsive design, and an AI-powered project brief generator.
 
 ## Key Features
 
@@ -11,7 +11,7 @@ DevLaunch Portfolio is a modern, high-performance portfolio template for softwar
 
 ## Theming
 
-- **Primary**: Forest Green (#2ED259)
-- **Background**: Pale Green (#E8F2EB)
-- **Accent**: Lime Green (#66F51A)
+- **Primary**: Red (#FF0000)
+- **Background**: Pale Red (#FFF5F5)
+- **Accent**: Bright Red (#FF3300)
 - **Font**: Poppins (Sans-serif)

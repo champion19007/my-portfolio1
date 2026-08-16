@@ -67,7 +67,7 @@ export function Navbar() {
             animate={{ clipPath: `circle(150% at ${reveal.x}px ${reveal.y}px)` }}
             exit={{ opacity: 0 }}
             transition={{ duration: 1, ease: [0.65, 0, 0.35, 1] }}
-            className={`fixed inset-0 z-[100] pointer-events-none ${reveal.nextTheme === 'dark' ? 'bg-[#060d08]' : 'bg-[#e8f2eb]'}`}
+            className={`fixed inset-0 z-[100] pointer-events-none ${reveal.nextTheme === 'dark' ? 'bg-[#0a0000]' : 'bg-[#fff5f5]'}`}
           />
         )}
       </AnimatePresence>
