@@ -1,6 +1,12 @@
 import { INITIAL_DATA } from '../data/initial-data';
 import { Contact } from '@/components/portfolio/Contact';
 import { Navbar } from '@/components/portfolio/Navbar';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Connect',
+  description: 'Get in touch with Sai Yashwant Reddy Panthy for research collaborations, engineering roles, and AI projects.',
+};
 
 export default function ContactPage() {
   const { contact } = INITIAL_DATA;

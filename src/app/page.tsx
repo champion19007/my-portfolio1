@@ -1,6 +1,12 @@
 import { INITIAL_DATA } from './data/initial-data';
 import { Hero } from '@/components/portfolio/Hero';
 import { Navbar } from '@/components/portfolio/Navbar';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'AI & ML Engineer Portfolio',
+  description: 'Welcome to the portfolio of Sai Yashwant Reddy Panthy. Specializing in RAG applications, ML pipelines, and Agentic AI systems.',
+};
 
 export default function Home() {
   const { hero, contact } = INITIAL_DATA;
