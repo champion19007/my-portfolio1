@@ -20,6 +20,13 @@ export interface Research {
   highlights: string[];
 }
 
+export interface Offering {
+  title: string;
+  description: string;
+  icon: string;
+  benefits: string[];
+}
+
 export interface PortfolioData {
   hero: {
     name: string;
@@ -54,4 +61,5 @@ export interface PortfolioData {
   };
   projects: Project[];
   skills: Skill[];
+  offerings: Offering[];
 }

@@ -1,4 +1,3 @@
-
 "use client";
 
 import { SidebarTrigger } from '@/components/ui/sidebar';
@@ -36,6 +35,7 @@ export function Navbar() {
       case '/about': return 'About Me';
       case '/projects': return 'Portfolio Projects';
       case '/skills': return 'Expertise';
+      case '/services': return 'Professional Offerings';
       case '/contact': return 'Connect';
       default: return 'Portfolio';
     }

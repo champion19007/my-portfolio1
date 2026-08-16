@@ -217,5 +217,47 @@ export const INITIAL_DATA: PortfolioData = {
     { name: "RESTful APIs", category: "Web & APIs" },
     { name: "Next.js", category: "Web & APIs" },
     { name: "JSON", category: "Web & APIs" }
+  ],
+  offerings: [
+    {
+      title: "GenAI & RAG Development",
+      description: "I build advanced Retrieval-Augmented Generation systems and AI agents that can chat with your private documents and data.",
+      icon: "BrainCircuit",
+      benefits: [
+        "Custom LLM fine-tuning and prompt engineering",
+        "Vector database integration (Pinecone, Chroma)",
+        "Automated document processing pipelines"
+      ]
+    },
+    {
+      title: "MLOps & CI/CD Automation",
+      description: "I architect production-ready infrastructure to deploy and monitor machine learning models at scale.",
+      icon: "Workflow",
+      benefits: [
+        "AWS and Docker-based deployment",
+        "Automated retraining and testing pipelines",
+        "Model monitoring and drift detection"
+      ]
+    },
+    {
+      title: "Computer Vision Solutions",
+      description: "Developing real-time object detection, segmentation, and tracking systems for security and industry.",
+      icon: "ScanSearch",
+      benefits: [
+        "YOLO-based real-time detection",
+        "Embedded system optimization (ROS2)",
+        "Image preprocessing and data augmentation"
+      ]
+    },
+    {
+      title: "Data Analytics & Forecasting",
+      description: "Transforming raw data into actionable insights using deep learning time-series models and Tableau.",
+      icon: "LineChart",
+      benefits: [
+        "BiLSTM/GRU time-series forecasting",
+        "Interactive business intelligence dashboards",
+        "Exploratory Data Analysis (EDA) for risk assessment"
+      ]
+    }
   ]
 };

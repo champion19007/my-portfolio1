@@ -1,6 +1,6 @@
 "use client";
 
-import { Home, User, FolderCode, Briefcase, Mail, Github, Linkedin } from 'lucide-react';
+import { Home, User, FolderCode, Briefcase, Mail, Github, Linkedin, Zap } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
@@ -25,6 +25,7 @@ export function AppSidebar() {
     { name: 'About Me', href: '/about', icon: User },
     { name: 'Projects', href: '/projects', icon: FolderCode },
     { name: 'Expertise', href: '/skills', icon: Briefcase },
+    { name: 'Offerings', href: '/services', icon: Zap },
     { name: 'Connect', href: '/contact', icon: Mail },
   ];
 
