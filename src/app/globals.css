@@ -65,18 +65,21 @@
     @apply border-border;
   }
   body {
-    @apply bg-background text-foreground font-body antialiased selection:bg-primary/20 selection:text-primary overflow-x-hidden transition-colors duration-500 ease-in-out;
+    @apply bg-background text-foreground font-body antialiased selection:bg-primary/20 selection:text-primary overflow-x-hidden;
   }
   h1, h2, h3, h4, h5, h6 {
     @apply font-headline tracking-tighter;
   }
 }
 
-/* Global transition for theme changes */
+/* 
+  Global transition for theme changes 
+  Using 1000ms duration for a "slow fill" effect as requested 
+*/
 *, *::before, *::after {
-  transition-property: background-color, border-color, color, fill, stroke;
-  transition-duration: 500ms;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-property: background-color, border-color, color, fill, stroke, box-shadow;
+  transition-duration: 1000ms;
+  transition-timing-function: cubic-bezier(0.65, 0, 0.35, 1); /* Smoother, slower quintic easing */
 }
 
 .text-gradient {

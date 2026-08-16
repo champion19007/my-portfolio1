@@ -43,7 +43,7 @@ export function Navbar() {
   };
 
   return (
-    <nav className="sticky top-0 z-30 flex h-16 items-center justify-between border-b border-border/50 bg-background/80 px-4 md:px-6 backdrop-blur-xl transition-all duration-500">
+    <nav className="sticky top-0 z-30 flex h-16 items-center justify-between border-b border-border/50 bg-background/80 px-4 md:px-6 backdrop-blur-xl">
       <div className="flex items-center gap-2 md:gap-4">
         <SidebarTrigger className="flex lg:hidden h-9 w-9 text-primary hover:bg-primary/10" />
         <div className="h-4 w-px bg-border/50 lg:hidden mx-1" />
@@ -64,10 +64,10 @@ export function Navbar() {
             <AnimatePresence mode="wait" initial={false}>
               <motion.div
                 key={theme}
-                initial={{ y: 20, opacity: 0, rotate: -90 }}
-                animate={{ y: 0, opacity: 1, rotate: 0 }}
-                exit={{ y: -20, opacity: 0, rotate: 90 }}
-                transition={{ duration: 0.2 }}
+                initial={{ y: 20, opacity: 0, scale: 0.5 }}
+                animate={{ y: 0, opacity: 1, scale: 1 }}
+                exit={{ y: -20, opacity: 0, scale: 1.5 }}
+                transition={{ duration: 0.6, ease: "anticipate" }}
                 className="flex items-center justify-center"
               >
                 {theme === 'dark' ? (
