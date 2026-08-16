@@ -13,7 +13,7 @@ export const INITIAL_DATA: PortfolioData = {
     location: "Mumbai",
     github: "https://github.com/champion19007",
     linkedin: "https://linkedin.com/in/saiyashwantreddy",
-    resume: "https://drive.google.com/file/d/1234567890abcdefghijklmnopqrstuvwxyz/view?usp=sharing"
+    resume: "https://docs.google.com/document/d/1xV0Od6ttBZYJI9imnWTNa3P2EBx2PDOq/edit?usp=drive_link&ouid=104186115979117347302&rtpof=true&sd=true"
   },
   about: {
     content: "I am an AI and Machine Learning Engineer with a strong foundation in building and evaluating deep learning models. I specialize in designing automated data pipelines and delivering research-backed solutions in both academic and industry settings. My expertise spans Computer Vision, NLP (LLMs, RAG), and High-Performance AI systems.",
