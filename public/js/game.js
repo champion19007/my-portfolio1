@@ -53,7 +53,15 @@ const ANIM = {
   run:  { row: 2, frames: 8, fps: 13, loop: true  },
   jump: { row: 3, frames: 4, fps: 10, loop: false },
   fall: { row: 4, frames: 4, fps: 8,  loop: false },
+  /* The sheet's last row is a collapse: upright, a slow sink, then prone.
+     Started partway in it reads as lying down rather than falling over,
+     and its final two frames differ enough to breathe on a loop. `from`
+     is the column the clip starts at. */
+  doze:  { row: 6, from: 3, frames: 7, fps: 9,   loop: false },
+  sleep: { row: 6, from: 8, frames: 2, fps: 1.6, loop: true  },
 };
+
+const SLEEP_AFTER = 6.5;    // seconds of standing still before he nods off
 
 /* ------------------------------------------------------------------ *
  * 2. The stages
@@ -474,7 +482,7 @@ const player = {
   vx: 0, vy: 0,
   dir: 1,                    // +1 right, -1 left
   onGround: true, coyote: 0, held: 0,
-  surf: 0, park: 0,
+  surf: 0, park: 0, still: 0,
   anim: 'idle', frame: 0, clock: 0,
 };
 
@@ -723,7 +731,7 @@ function placeOnStage(fromLeft) {
     : (fromLeft ? st.x0 + halfW() + 4 : st.x1 - halfW() - 4);
   const d = dropOnto(st, player.x);
   player.feet = st.entryFeet !== undefined ? st.entryFeet : (d ? d.feet : st.feetY);
-  player.surf = d ? d.surf : 0; player.park = 0;
+  player.surf = d ? d.surf : 0; player.park = 0; player.still = 0;
   player.vy = 0;
   player.onGround = true;
 }
@@ -862,13 +870,23 @@ function updatePlayer(dt) {
   }
 
   /* ---- animation ---- */
+  /* How long he has been left alone. Anything at all resets it, being
+     spoken to included - he is not going to fall asleep while somebody is
+     telling him about their life's work. */
+  const busy = !p.onGround || wants !== 0 || Math.abs(p.vx) > 2 * z || fade || speaking;
+  p.still = busy ? 0 : p.still + dt;
+
   if (!p.onGround)                              setAnim(p, p.vy < 0 ? 'jump' : 'fall');
   // thresholds against `top`, not the flat walk speed, so a hero climbing
   // a stair at two thirds pace still plays the walk cycle
   else if (Math.abs(p.vx) > top * 0.82 && p.held >= RUN_RAMP * 0.9) setAnim(p, 'run');
   else if (Math.abs(p.vx) > 2 * z)                 setAnim(p, 'walk');
+  else if (p.still > SLEEP_AFTER)  setAnim(p, p.anim === 'sleep' ? 'sleep' : 'doze');
   else                                             setAnim(p, 'idle');
   advanceAnim(p, dt);
+
+  // the lying-down runs once; after its last frame he just breathes
+  if (p.anim === 'doze' && p.frame >= ANIM.doze.frames - 1) setAnim(p, 'sleep');
 
   /* ---- anyone close enough to speak? ----
      Several stages are crowded, so the nearest one wins: walking along a
@@ -1050,7 +1068,7 @@ function drawHero(x, feet, z) {
   ctx.fill();
   ctx.restore();
 
-  const sx = player.frame * F_W, sy = a.row * F_H;
+  const sx = ((a.from || 0) + player.frame) * F_W, sy = a.row * F_H;
   ctx.imageSmoothingEnabled = false;
   ctx.save();
   if (player.dir > 0) {
@@ -1060,6 +1078,25 @@ function drawHero(x, feet, z) {
   } else {
     ctx.drawImage(sheet, sx, sy, F_W, F_H,
                   Math.round(x - BODY_CX * z), Math.round(feet - h), w, h);
+  }
+  ctx.restore();
+}
+
+/* Three z's drifting off a sleeping hero. Drawn rather than spritesheeted
+   because the game already owns this typeface - the gate's label and the
+   NPC bubbles are the same eight pixels. */
+function drawSleepZs(t) {
+  if (player.anim !== 'sleep') return;
+  const z = stage().scale;
+  const hx = player.x + (player.dir > 0 ? 9 : -9) * z;   // over his head
+  ctx.save();
+  ctx.font = '8px "Press Start 2P", monospace';
+  ctx.textAlign = 'center';
+  ctx.fillStyle = '#ece7dc';
+  for (let i = 0; i < 3; i++) {
+    const k = (t * 0.42 + i / 3) % 1;                    // each one rises and fades
+    ctx.globalAlpha = Math.max(0, 0.85 - k * 0.95);
+    ctx.fillText('z', hx + k * 9, player.feet - 9 * z - k * 20);
   }
   ctx.restore();
 }
@@ -1091,9 +1128,9 @@ function drawOneNpc(st, n, t) {
       if (faceRight) {
         ctx.translate(Math.round(n.x + (F_W - BODY_CX) * z), Math.round(feetOf(st, n) - h));
         ctx.scale(-1, 1);
-        ctx.drawImage(sheet, frame * F_W, a.row * F_H, F_W, F_H, 0, 0, w, h);
+        ctx.drawImage(sheet, ((a.from || 0) + frame) * F_W, a.row * F_H, F_W, F_H, 0, 0, w, h);
       } else {
-        ctx.drawImage(sheet, frame * F_W, a.row * F_H, F_W, F_H,
+        ctx.drawImage(sheet, ((a.from || 0) + frame) * F_W, a.row * F_H, F_W, F_H,
                       Math.round(n.x - BODY_CX * z), Math.round(feetOf(st, n) - h), w, h);
       }
       ctx.restore();
@@ -1192,6 +1229,7 @@ function render(t) {
   drawGate(t);
   drawNpcs(t);
   drawHero(player.x, player.feet, stage().scale);
+  drawSleepZs(t);
 
   // A little top shade so the labels stay legible over bright skies.
   const v = ctx.createLinearGradient(0, 0, 0, VIEW_H);
@@ -1532,6 +1570,7 @@ async function boot() {
 window.TCO = {
   where: () => ({ stage: stage().slug, x: +player.x.toFixed(2), feet: +player.feet.toFixed(2),
                   onGround: player.onGround, surf: player.surf,
+                  anim: player.anim, frame: player.frame, still: +player.still.toFixed(1),
                   standingOn: surfaces(stage())[player.surf] }),
   stage: () => stage(),
   surfaces: () => surfaces(stage()),
