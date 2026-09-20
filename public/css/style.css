@@ -305,10 +305,13 @@ body{
 
 /* ---------------------------------- touch controls */
 .pad{
-  position:fixed; left:0; right:0; bottom:14px;
-  z-index:7;
-  display:none; gap:10px; justify-content:center;
+  position:fixed; left:0; right:0; bottom:10px;
+  z-index:9;
+  display:none; justify-content:space-between;
+  padding:0 12px;
+  pointer-events:none;              /* only the buttons take taps */
 }
+.pad-side{ display:flex; gap:10px; pointer-events:auto; }
 .pad button{
   font-family:var(--font); font-size:10px;
   background:rgba(29,39,64,.9);
@@ -320,7 +323,7 @@ body{
   -webkit-user-select:none; user-select:none;
 }
 .pad button:active{ background:var(--gold); color:#2a1d05; }
-@media (hover:none) and (pointer:coarse){ .pad{ display:flex; } }
+.touch .pad{ display:flex; }
 
 
 /* ---------------------------------- navigation
@@ -373,9 +376,7 @@ body{
 
 
 @media (max-width:640px){
-  .nav{ top:8px; gap:6px; width:calc(100vw - 16px); }
-  .nav button, .tools button{ font-size:7px; padding:8px 9px; }
-  .tools{ bottom:auto; top:52px; right:8px; }
+  .tools button{ font-size:7px; padding:8px 9px; }
 }
 
 /* ---------------------------------- credit */
@@ -775,3 +776,57 @@ body{
 /* the switch out to the ordinary site - an anchor, so it still looks
    like its neighbour but behaves like a link */
 a.menu-btn{ text-decoration:none; display:inline-block; }
+
+
+/* ---------------------------------- turn the phone
+   The game is a 16:9 picture; in portrait it would be a letterbox with a
+   hero two pixels tall. Nothing loads until the phone is sideways. */
+.rotate{
+  position:fixed; inset:0; z-index:60;
+  display:grid; place-items:center;
+  padding:24px;
+  background:radial-gradient(120% 90% at 50% 45%, #141827, #0a0c13);
+  text-align:center;
+}
+.rotate[hidden]{ display:none; }
+.rotate-box{ max-width:420px; }
+.rotate h2{ margin:22px 0 10px; font-size:13px; color:var(--gold); }
+.rotate p{ margin:0; font-size:9px; line-height:2.1; color:var(--paper); }
+.rotate-phone{
+  width:54px; height:92px; margin:0 auto;
+  border:3px solid var(--gold-dk); border-radius:9px;
+  position:relative;
+  animation:turn 2.4s ease-in-out infinite;
+}
+.rotate-phone i{
+  position:absolute; left:50%; bottom:5px; transform:translateX(-50%);
+  width:16px; height:2px; background:var(--gold-dk); border-radius:2px;
+}
+@keyframes turn{
+  0%, 30%   { transform:rotate(0deg); }
+  55%, 85%  { transform:rotate(-90deg); }
+  100%      { transform:rotate(0deg); }
+}
+
+/* ---------------------------------- a phone, sideways
+   Landscape on a handset is about 360px tall, so every piece of chrome
+   gets out of the picture: the buttons go to the top, the thumbs to the
+   bottom corners, and the dialogue sits between them. */
+.touch .topleft{ top:6px; left:6px; gap:6px; }
+.touch .menu-btn{ font-size:7px; padding:7px 9px; }
+
+.touch .tools{ top:6px; right:6px; bottom:auto; gap:5px; max-width:58vw; }
+.touch .tools button{ font-size:6px; padding:7px 8px; }
+
+.touch .pad button{ font-size:8px; padding:13px 15px; min-width:52px; opacity:.82; }
+
+/* clear of the thumbs, not of the button bar - that is at the top now */
+.touch .say{ bottom:76px; padding:10px 12px; }
+.touch .say.top{ bottom:auto; top:44px; }
+.touch .say-face{ width:54px; height:54px; }
+.touch .say h2{ font-size:9px; }
+.touch .say header span{ font-size:7px; }
+.touch .say p{ font-size:8px; line-height:1.85; }
+
+.touch .toast{ bottom:150px; font-size:8px; }
+.touch .doc{ max-height:88vh; }
