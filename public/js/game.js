@@ -104,6 +104,11 @@ const STAGES = [
       { y:268.4, x0:349.7, x1:470   },   // the garden - runs past x1 so the
                                          // stage edge, not a wall, ends it
     ],
+    /* The east end of the solar is a wall in the collision map, not a
+       ledge. Without it the hero steps off the upper floor and drops into
+       the hall. The map's other verticals all bound floors that are not
+       walkable, so nothing could ever reach them. */
+    walls: [ [299.5, 146.8, 171.9] ],
     ramps: [
       [133.4, 169.4, 160.4, 199.6],      // flight C, solar down to the landing
       [123.8, 228.7, 151.1, 199.6],      // flight A, the turn up to the landing
@@ -760,11 +765,25 @@ function updatePlayer(dt) {
   if (p.vy > MAX_FALL * z) p.vy = MAX_FALL * z;
 
   /* ---- integrate, then settle onto the painted ground ---- */
-  const prevFeet = p.feet;
+  const prevFeet = p.feet, prevX = p.x;
   p.x += p.vx * dt;
   p.feet += p.vy * dt;
 
   settle(st, p, prevFeet);
+
+  /* ---- walls ----
+     A floor can end at a wall rather than at a drop. Without one the hero
+     walks off the east end of the solar and falls into the hall, which is
+     not what the house looks like. Each wall is [x, yTop, yBottom] in
+     design coordinates and only bites while his soles are between them,
+     so a wall on one storey does not block the floor above or below. */
+  for (const w of (st.walls || [])) {
+    const [wx, wy0, wy1] = w;
+    if (p.feet < wy0 || p.feet > wy1) continue;
+    const half = halfW();
+    if (prevX + half <= wx + 0.01 && p.x + half > wx)      { p.x = wx - half; p.vx = 0; }
+    else if (prevX - half >= wx - 0.01 && p.x - half < wx) { p.x = wx + half; p.vx = 0; }
+  }
 
   /* Nobody is solid. A villager standing mid-stage would otherwise wall
      off the only route onward, and the hero draws on top anyway, so
