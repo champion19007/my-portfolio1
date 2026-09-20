@@ -2,7 +2,7 @@
 
 import { SidebarTrigger } from '@/components/ui/sidebar';
 import { usePathname } from 'next/navigation';
-import { Moon, Sun } from 'lucide-react';
+import { Moon, Sun, Gamepad2 } from 'lucide-react';
 import { useState, useEffect, useRef } from 'react';
 import { Button } from '@/components/ui/button';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -47,7 +47,7 @@ export function Navbar() {
   
   const getPageTitle = () => {
     switch(pathname) {
-      case '/': return 'Dashboard';
+      case '/site': return 'Dashboard';
       case '/about': return 'About Me';
       case '/projects': return 'Portfolio Projects';
       case '/skills': return 'Expertise';
@@ -82,6 +82,15 @@ export function Navbar() {
         </div>
 
         <div className="flex items-center gap-2 md:gap-3">
+          {/* back to the playable version, which is what lives at '/' */}
+          <a
+            href="/"
+            className="flex items-center gap-2 px-3 py-1.5 rounded-full border border-primary/30 bg-primary/10 text-primary text-[10px] font-black uppercase tracking-widest hover:bg-primary/20 transition-colors"
+          >
+            <Gamepad2 className="h-3.5 w-3.5" />
+            <span className="hidden sm:inline">Play it instead</span>
+          </a>
+
           {mounted && (
             <Button 
               variant="ghost" 

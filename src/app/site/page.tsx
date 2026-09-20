@@ -1,4 +1,4 @@
-import { INITIAL_DATA } from './data/initial-data';
+import { INITIAL_DATA } from '../data/initial-data';
 import { Hero } from '@/components/portfolio/Hero';
 import { Navbar } from '@/components/portfolio/Navbar';
 import { Metadata } from 'next';

@@ -1,0 +1,777 @@
+/* ---------------------------------------------------------------
+   THE CHOSEN ONE
+
+   The canvas is the page: fixed, sized in JS to cover the window, so
+   there are never letterbox bars. Everything else is an overlay in the
+   pixel-RPG chrome — dark navy plates, gold rules, brown scrolls.
+----------------------------------------------------------------*/
+
+:root{
+  --void:    #0c0f18;
+  --plate:   #161d31;   /* panel fill        */
+  --plate-2: #101628;   /* panel fill, inner */
+  --slot:    #1d2740;   /* item slot         */
+  --gold:    #e8b13a;
+  --gold-dk: #8a6a22;
+  --brown:   #6b3b2f;   /* description scroll */
+  --brown-b: #9a6048;
+  --paper:   #ece7dc;
+  --muted:   #9aa4bd;
+  --green:   #86cf52;
+  --blue:    #6aa8e6;
+
+  --font: "Press Start 2P", "Courier New", monospace;
+}
+
+*,*::before,*::after{ box-sizing:border-box; }
+
+html,body{ height:100%; }
+
+body{
+  margin:0;
+  background:var(--void);
+  color:var(--paper);
+  font-family:var(--font);
+  overflow:hidden;                 /* the game is the whole page */
+  -webkit-font-smoothing:antialiased;
+  -webkit-tap-highlight-color:transparent;
+}
+
+@media (prefers-reduced-motion: reduce){
+  *{ animation-duration:.001ms !important; transition-duration:.001ms !important; }
+}
+
+/* ---------------------------------- the game surface
+   position/size are written by the engine's fit(); it scales to cover
+   the viewport and biases the crop upward so the ground always shows. */
+#game{
+  position:fixed;
+  display:block;
+  image-rendering:pixelated;
+  image-rendering:crisp-edges;
+  background:var(--void);
+}
+#game:focus-visible{ outline:none; }
+
+/* ---------------------------------- full-screen overlays */
+.screen{
+  position:fixed; inset:0;
+  display:grid; place-items:center;
+  padding:20px;
+  background:
+    radial-gradient(120% 90% at 50% 45%, rgba(12,15,24,.72), rgba(12,15,24,.94));
+  backdrop-filter:blur(2px);
+  z-index:10;
+}
+.screen[hidden]{ display:none; }
+
+/* ---------------------------------- loading
+   The painted scene is the screen. It is a wide 1380x640 plate, so it is
+   cover-fitted and anchored low - the road and the coach sit in the lower
+   half, and that is what should survive a tall window. */
+#loader{
+  background:
+    linear-gradient(180deg, rgba(8,10,16,.34) 0%, rgba(8,10,16,0) 34%,
+                             rgba(8,10,16,.30) 68%, rgba(8,10,16,.88) 100%),
+    url('../assets/ui/loading.gif') center 62% / cover no-repeat,
+    var(--void);
+  backdrop-filter:none;
+  /* push the bar to the foot of the art rather than the middle of it */
+  align-content:end;
+  padding-bottom:min(11vh, 86px);
+}
+.bar{
+  width:min(340px, 70vw);
+  box-shadow:0 4px 18px rgba(0,0,0,.65);
+  height:14px;
+  background:var(--plate-2);
+  border:2px solid var(--gold-dk);
+  border-radius:3px;
+  padding:2px;
+  overflow:hidden;
+}
+.bar i{
+  display:block; height:100%;
+  width:0%;
+  background:
+    repeating-linear-gradient(90deg, rgba(0,0,0,.18) 0 1px, transparent 1px 4px),
+    linear-gradient(180deg, #f2c85c, var(--gold) 60%, #b5851f);
+  transition:width .18s linear;
+}
+.pct{
+  margin:14px 0 0;
+  text-shadow:0 2px 6px rgba(0,0,0,.9);
+  font-size:14px;
+  color:var(--gold);
+  letter-spacing:.06em;
+}
+
+/* ---------------------------------- the RPG plate
+   A dark panel, a gold rule inset from the edge, rounded corners —
+   the frame the reference menus are built on. */
+.plate{
+  position:relative;
+  width:min(680px, 100%);
+  background:linear-gradient(180deg, var(--plate), var(--plate-2));
+  border:2px solid var(--gold-dk);
+  border-radius:14px;
+  padding:34px 22px 22px;
+  box-shadow:
+    0 0 0 1px rgba(0,0,0,.6),
+    inset 0 0 0 1px rgba(232,177,58,.10),
+    0 26px 70px rgba(0,0,0,.65);
+}
+/* the inner gold rule */
+.plate::before{
+  content:"";
+  position:absolute; inset:7px;
+  border:1px solid rgba(232,177,58,.30);
+  border-radius:9px;
+  pointer-events:none;
+}
+
+.plate-title{
+  position:absolute; top:-14px; left:50%;
+  transform:translateX(-50%);
+  display:flex; align-items:center; gap:12px;
+  white-space:nowrap;
+  font-size:15px;
+  color:var(--gold);
+  text-shadow:0 2px 0 #000;
+  background:var(--void);
+  padding:4px 14px;
+  border-radius:6px;
+}
+.chip{
+  font-size:8px;
+  color:var(--muted);
+  background:var(--slot);
+  border:1px solid #33406a;
+  border-radius:4px;
+  padding:4px 6px;
+}
+
+.plate-body{ display:grid; gap:18px; }
+
+/* ---------------------------------- the ability-slot grid */
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit, minmax(96px,1fr));
+  gap:10px;
+}
+.cell{
+  background:var(--slot);
+  border:1px solid #2c3a5e;
+  border-radius:8px;
+  padding:12px 8px;
+  text-align:center;
+  display:grid; gap:8px;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.05);
+}
+.cell b{ font-size:10px; color:var(--paper); }
+.cell span{ font-size:8px; color:var(--muted); }
+
+/* ---------------------------------- the brown description scroll */
+.scroll{
+  background:var(--brown);
+  border:2px solid var(--brown-b);
+  border-radius:8px;
+  padding:16px 18px;
+  box-shadow:inset 0 0 0 1px rgba(0,0,0,.25);
+}
+.scroll header{
+  display:flex; align-items:baseline; justify-content:space-between; gap:14px;
+  margin-bottom:12px;
+}
+.scroll h1{
+  margin:0;
+  font-size:13px;
+  color:var(--gold);
+  line-height:1.5;
+}
+.rank{ font-size:9px; color:#e6cdb6; }
+.scroll p{
+  margin:0;
+  font-size:10px;
+  line-height:2;
+  color:var(--paper);
+}
+.scroll em{ font-style:normal; color:var(--green); }
+.scroll em.gold{ color:var(--gold); }
+
+/* ---------------------------------- buttons */
+.row{ display:flex; gap:12px; flex-wrap:wrap; justify-content:center; }
+
+.btn{
+  font-family:var(--font); font-size:12px; line-height:1;
+  background:linear-gradient(180deg, #f2c85c, var(--gold) 55%, #c08f22);
+  color:#2a1d05;
+  border:2px solid var(--gold-dk);
+  border-radius:8px;
+  padding:16px 22px;
+  cursor:pointer;
+  box-shadow:0 4px 0 #6d5117, 0 10px 20px rgba(0,0,0,.45);
+  transition:transform .08s ease, box-shadow .08s ease;
+}
+.btn:hover{ transform:translateY(-1px); box-shadow:0 5px 0 #6d5117, 0 12px 22px rgba(0,0,0,.5); }
+.btn:active{ transform:translateY(3px); box-shadow:0 1px 0 #6d5117; }
+
+.btn.ghost{
+  background:var(--slot);
+  color:var(--paper);
+  border-color:#33406a;
+  box-shadow:0 4px 0 #0d1220;
+}
+.btn.ghost:hover{ border-color:var(--gold-dk); color:var(--gold); }
+
+/* ---------------------------------- dialogue
+   The same brown scroll the menus use, parked along the bottom edge. */
+.say{
+  position:fixed; left:50%;
+  /* clear of the button bar, however many rows it has wrapped onto */
+  bottom:calc(var(--tools-h, 44px) + 22px);
+  transform:translateX(-50%);
+  z-index:9;
+  width:min(760px, calc(100vw - 32px));
+  background:var(--brown);
+  border:2px solid var(--brown-b);
+  border-radius:10px;
+  padding:16px 20px;
+  box-shadow:inset 0 0 0 1px rgba(0,0,0,.25), 0 16px 40px rgba(0,0,0,.6);
+  animation:rise .18s ease;
+}
+.say[hidden]{ display:none; }
+
+/* who is talking, cut live out of the painting they are standing in */
+.say{ display:flex; align-items:flex-start; gap:16px; }
+.say-face{
+  flex:0 0 auto;
+  width:84px; height:84px;
+  /* The busts are drawn square with the head at the top, so contain shows
+     the whole of one without ever cropping a face. */
+  object-fit:contain; object-position:50% 0;
+  image-rendering:pixelated;
+  background:radial-gradient(120% 90% at 50% 25%, rgba(0,0,0,.10), rgba(0,0,0,.42));
+  border:2px solid var(--brown-b);
+  border-radius:8px;
+  box-shadow:inset 0 0 12px rgba(0,0,0,.5);
+}
+.say-face[hidden]{ display:none; }
+.say-body{ flex:1 1 auto; min-width:0; }
+
+.say header{
+  display:flex; align-items:baseline; justify-content:space-between;
+  gap:16px; margin-bottom:12px;
+}
+/* the subject leads; the speaker's name is the footnote */
+.say h2{
+  margin:0; font-size:12px; color:var(--gold); line-height:1.5;
+}
+.say header span{ font-size:8px; color:#e6cdb6; text-align:right; white-space:nowrap; }
+
+
+/* Stages whose people stand low in the frame put the box at the top
+   instead, so the box is never over the thing it is describing. */
+.say.top{ bottom:auto; top:64px; animation:drop .18s ease; }
+@keyframes drop{ from{ transform:translate(-50%,-10px); opacity:0 } }
+.say p{
+  margin:0; font-size:10px; line-height:2; color:var(--paper);
+}
+.say a{
+  color:var(--gold);
+  text-decoration:underline;
+  text-underline-offset:3px;
+}
+.say a:hover{ color:#fff0c4; }
+@keyframes rise{ from{ transform:translate(-50%,10px); opacity:0 } }
+
+/* ---------------------------------- in-world prompt */
+.toast{
+  position:fixed; left:50%; bottom:120px;
+  transform:translateX(-50%);
+  z-index:8;
+  font-size:11px;
+  color:var(--paper);
+  background:var(--brown);
+  border:2px solid var(--brown-b);
+  border-radius:8px;
+  padding:12px 18px;
+  white-space:nowrap;
+  box-shadow:0 10px 24px rgba(0,0,0,.55);
+  animation:pop .2s ease;
+}
+.toast[hidden]{ display:none; }
+@keyframes pop{ from{ transform:translate(-50%,8px); opacity:0 } }
+
+/* ---------------------------------- touch controls */
+.pad{
+  position:fixed; left:0; right:0; bottom:14px;
+  z-index:7;
+  display:none; gap:10px; justify-content:center;
+}
+.pad button{
+  font-family:var(--font); font-size:10px;
+  background:rgba(29,39,64,.9);
+  color:var(--paper);
+  border:2px solid #33406a;
+  border-radius:8px;
+  padding:16px 18px; min-width:62px;
+  cursor:pointer; touch-action:none;
+  -webkit-user-select:none; user-select:none;
+}
+.pad button:active{ background:var(--gold); color:#2a1d05; }
+@media (hover:none) and (pointer:coarse){ .pad{ display:flex; } }
+
+
+/* ---------------------------------- navigation
+   Buttons over the game, in the same chrome as the plates. */
+.nav, .tools{
+  position:fixed; z-index:8;
+  display:flex; flex-wrap:wrap; gap:8px;
+}
+.nav[hidden], .tools[hidden]{ display:none; }
+.tools{
+  right:12px; bottom:12px;
+  z-index:11;                 /* always clickable, even mid-conversation */
+  flex-wrap:wrap; justify-content:flex-end;
+  max-width:calc(100vw - 24px);
+}
+
+/* the way back to the menu, and out of the game entirely, side by side */
+.topleft{
+  position:fixed; top:12px; left:12px; z-index:7;
+  display:flex; gap:8px; flex-wrap:wrap;
+}
+.topleft[hidden]{ display:none; }
+.menu-btn{
+  font:inherit; font-size:9px; letter-spacing:.06em;
+  color:var(--paper); cursor:pointer;
+  background:linear-gradient(180deg, #2a3050, #1d2340);
+  border:2px solid var(--gold-dk); border-radius:7px;
+  padding:9px 13px;
+  box-shadow:0 3px 0 rgba(0,0,0,.45);
+}
+.menu-btn[hidden]{ display:none; }
+.menu-btn:hover{ border-color:var(--gold); color:#fff0c4; }
+.menu-btn:active{ transform:translateY(2px); box-shadow:none; }
+
+.nav button, .tools button{
+  font-family:var(--font); font-size:9px; line-height:1;
+  color:var(--paper);
+  background:rgba(22,29,49,.92);
+  border:2px solid var(--gold-dk);
+  border-radius:7px;
+  padding:10px 12px;
+  cursor:pointer;
+  box-shadow:0 3px 0 rgba(0,0,0,.5);
+  transition:color .12s ease, border-color .12s ease, transform .08s ease;
+}
+.nav button:hover, .tools button:hover{
+  color:var(--gold); border-color:var(--gold); transform:translateY(-1px);
+}
+.nav button:active, .tools button:active{ transform:translateY(2px); box-shadow:none; }
+
+
+@media (max-width:640px){
+  .nav{ top:8px; gap:6px; width:calc(100vw - 16px); }
+  .nav button, .tools button{ font-size:7px; padding:8px 9px; }
+  .tools{ bottom:auto; top:52px; right:8px; }
+}
+
+/* ---------------------------------- credit */
+.credit{
+  position:fixed; left:12px; bottom:10px;
+  z-index:6;
+  font-size:7px;
+  color:rgba(154,164,189,.65);
+  letter-spacing:.04em;
+  pointer-events:none;
+}
+.credit b{ color:rgba(236,231,220,.8); }
+
+@media (max-width:560px){
+  .say{ bottom:96px; padding:12px 14px; }
+  .say h2{ font-size:10px; }
+  .say p{ font-size:8px; line-height:1.9; }
+  .plate{ padding:30px 14px 16px; }
+  .plate-title{ font-size:11px; }
+  .scroll p{ font-size:9px; line-height:1.9; }
+  .credit{ bottom:86px; }
+}
+
+/* ==================================================================
+   PANELS — light document cards over the dark game.
+
+   The in-world UI (dialogue, title cards, pause) stays in the pixel-RPG
+   chrome. These are documents: white paper, big headings, real links.
+   Two registers on purpose — one for the world, one for reading.
+   ================================================================== */
+
+:root{
+  --paper-w:  #fdfdfb;
+  --ink-d:    #17181d;
+  --ink-m:    #4b4f5a;
+  --ink-l:    #8b9099;
+  --rule:     #e2e2dd;
+}
+
+.panel{ padding:0; align-items:start; }
+
+/* ---------------------------------- the sheet */
+.doc{
+  position:relative;
+  width:min(940px, 100%);
+  max-height:100dvh;
+  overflow-y:auto;
+  background:var(--paper-w);
+  color:var(--ink-d);
+  border-radius:18px;
+  padding:52px clamp(20px,5vw,60px) 60px;
+  margin:20px auto;
+  box-shadow:0 40px 90px rgba(0,0,0,.65);
+  -webkit-overflow-scrolling:touch;
+}
+.doc.narrow{ width:min(680px, 100%); }
+.doc.wide{ width:min(1180px, 100%); }
+
+.doc h1{
+  font-size:clamp(15px,2.4vw,22px);
+  line-height:1.6;
+  margin:34px 0 18px;
+  color:var(--ink-d);
+}
+.doc h1.big{
+  font-size:clamp(22px,4.6vw,44px);
+  text-align:center;
+  margin:6px 0 20px;
+}
+.doc h2{ font-size:clamp(14px,2.2vw,20px); margin:0 0 8px; line-height:1.5; }
+.doc h3{ font-size:12px; margin:0 0 10px; }
+.doc p{
+  font-size:11px; line-height:2.1; color:var(--ink-m);
+  margin:0 0 14px;
+}
+.doc p.lead{
+  text-align:center; max-width:60ch; margin:0 auto 34px;
+  color:var(--ink-m);
+}
+.doc p.role{ color:var(--ink-l); font-size:10px; margin-bottom:10px; }
+.doc b{ color:var(--ink-d); font-weight:400; }
+.doc a{ color:#1f6feb; text-decoration:underline; text-underline-offset:3px; }
+
+/* the close cross, echoing the reference */
+.x{
+  position:absolute; top:14px; right:14px;
+  z-index:3;
+  font-family:var(--font); font-size:14px; line-height:1;
+  width:44px; height:44px;
+  color:#fff; background:#d9534f;
+  border:3px solid #a33b38; border-radius:8px;
+  cursor:pointer;
+  box-shadow:0 4px 0 #7d2b29;
+}
+.x:hover{ background:#e2645f; }
+.x:active{ transform:translateY(3px); box-shadow:none; }
+
+/* ---------------------------------- lists */
+.ticks{ list-style:none; padding:0; margin:0 0 20px; }
+.ticks li{
+  position:relative; padding-left:22px; margin-bottom:10px;
+  font-size:11px; line-height:1.9; color:var(--ink-m);
+}
+.ticks li::before{
+  content:"◆"; position:absolute; left:0; top:0;
+  color:#c9a227; font-size:9px;
+}
+.ticks.two{ columns:2; column-gap:34px; }
+@media (max-width:640px){ .ticks.two{ columns:1; } }
+
+.tags{ list-style:none; display:flex; flex-wrap:wrap; gap:8px; padding:0; margin:14px 0 0; }
+.tags li{
+  font-size:8px; color:var(--ink-m);
+  border:2px solid var(--rule); border-radius:5px;
+  padding:6px 9px;
+}
+
+/* ---------------------------------- About: the id card */
+.idcard{
+  display:flex; align-items:center; gap:18px;
+  background:#dbeafe;
+  border-radius:12px;
+  padding:16px 20px;
+  margin-bottom:10px;
+}
+.portrait{
+  width:80px; height:64px; flex:none;
+  background-image:url("../assets/sprites/hero.png");
+  background-repeat:no-repeat;
+  background-position:0 0;
+  image-rendering:pixelated;
+  transform:scale(1.35);
+  transform-origin:left center;
+}
+.idcard-who{ flex:1; min-width:0; margin-left:22px; }
+.idcard-who h2{ margin:0 0 6px; font-size:clamp(12px,2vw,17px); }
+.idcard-who p{ margin:0; font-size:9px; color:var(--ink-l); }
+.idcard-link{ color:#0a66c2; flex:none; }
+
+/* the "want to know more" footer box */
+.ask{
+  border:3px solid var(--ink-d);
+  border-radius:4px;
+  padding:22px;
+  margin-top:34px;
+  text-align:center;
+}
+.ask h3{ margin:0 0 8px; }
+.ask p{ margin:0 0 14px; }
+.ask .lnk{ color:#0a66c2; display:inline-block; }
+
+.btn-doc{
+  display:inline-block;
+  font-family:var(--font); font-size:10px; line-height:1;
+  color:var(--ink-d); background:#fff;
+  border:3px solid var(--ink-d); border-radius:4px;
+  padding:14px 18px;
+  text-decoration:none;
+  box-shadow:4px 4px 0 var(--ink-d);
+  margin-top:8px;
+}
+.btn-doc:hover{ background:#f3f3ef; }
+.btn-doc:active{ transform:translate(3px,3px); box-shadow:1px 1px 0 var(--ink-d); }
+
+/* ---------------------------------- CV: the timeline */
+.tl{ margin:10px 0 0; }
+.tl-row{ display:flex; gap:20px; padding-bottom:30px; position:relative; }
+.tl-row::before{
+  content:""; position:absolute; left:29px; top:66px; bottom:0;
+  width:4px; background:var(--ink-d);
+}
+.tl-row:last-child::before{ display:none; }
+.tl-side{ flex:none; width:62px; text-align:center; }
+.tl-logo{
+  width:62px; height:62px;
+  display:grid; place-items:center;
+  font-size:13px; color:#fff;
+  border-radius:6px;
+}
+.tl-logo.tata{ background:#1f4e8c; }
+.tl-logo.jpm { background:#3f2a14; }
+.tl-logo.bcg { background:#0b7a4b; font-size:10px; }
+.tl-logo.del { background:#0f7b3e; }
+.tl-logo.mf  { background:#6b3b8f; }
+.tl-year{
+  display:inline-block; margin-top:8px;
+  font-size:9px; color:#fff; background:var(--ink-d);
+  padding:5px 7px;
+}
+.tl-main{ flex:1; min-width:0; padding-top:2px; }
+.badge{
+  display:inline-block; margin-bottom:12px;
+  font-size:8px; color:var(--ink-d); background:#ffd84d;
+  padding:6px 10px;
+}
+
+/* ---------------------------------- Projects */
+.proj{ border-top:2px solid var(--rule); padding:30px 0 10px; }
+.proj:first-of-type{ border-top:0; }
+.proj-art{
+  height:132px;
+  display:grid; place-items:center;
+  font-size:34px; color:#fff;
+  border-radius:10px;
+  margin-bottom:18px;
+}
+.proj-art.rag  { background:linear-gradient(135deg,#1d4ed8,#0ea5e9); font-size:20px; }
+.proj-art.chess{ background:linear-gradient(135deg,#312e29,#6b5b45); }
+.proj-art.fc   { background:linear-gradient(135deg,#065f46,#10b981); }
+.proj-art.cv   { background:linear-gradient(135deg,#7c2d12,#ea580c); }
+.proj-art.ci   { background:linear-gradient(135deg,#4c1d95,#8b5cf6); font-size:20px; }
+.proj-art.agt  { background:linear-gradient(135deg,#0f172a,#334155); font-size:20px; }
+.proj-art.care { background:linear-gradient(135deg,#0e7490,#22d3ee); }
+.proj-art.qw   { background:linear-gradient(135deg,#581c87,#c026d3); font-size:20px; }
+.proj-art.fox  { background:linear-gradient(135deg,#9a3412,#f59e0b); }
+
+/* ---------------------------------- Technologies: full-bleed cards */
+.tech{
+  display:flex; align-items:center; gap:22px;
+  padding:26px clamp(16px,3vw,30px);
+  margin:0 clamp(-20px,-5vw,-60px) 0;
+  color:#fff;
+}
+.tech + .tech{ margin-top:0; }
+.tech-logo{
+  flex:none; width:104px; height:104px;
+  display:grid; place-items:center;
+  font-size:26px;
+  background:rgba(255,255,255,.14);
+  border-radius:10px;
+}
+.tech-body{ flex:1; min-width:0; }
+.tech h2{ color:#fff; margin-bottom:4px; letter-spacing:.04em; }
+.tech .sub{ color:rgba(255,255,255,.62); font-size:9px; margin-bottom:12px; }
+.tech p{ color:rgba(255,255,255,.92); margin:0; }
+
+.tech.py   { background:#2b5b84; }
+.tech.torch{ background:#8a3b12; }
+.tech.lang { background:#14532d; }
+.tech.cvt  { background:#3f3f46; }
+.tech.ops  { background:#1e3a5f; }
+.tech.js   { background:#8a8420; }
+
+/* ---------------------------------- Contact rows */
+.crow{
+  display:flex; align-items:center; gap:18px;
+  border:3px solid var(--rule); border-radius:6px;
+  padding:18px 20px;
+  margin-bottom:16px;
+  text-decoration:none;
+}
+.crow:hover{ border-color:var(--ink-d); }
+.crow-ico{ flex:none; display:grid; place-items:center; width:44px; height:44px; }
+.crow-ico.mail{ color:#d93025; }
+.crow-ico.gh  { color:#17181d; }
+.crow-ico.li  { color:#0a66c2; }
+.crow-txt{ font-size:11px; color:var(--ink-d); line-height:1.9; }
+.crow-txt b{ display:block; font-size:9px; color:var(--ink-l); margin-bottom:4px; }
+
+/* ---------------------------------- MAP: a CRT sitting in the dark */
+.crt{
+  position:relative;
+  width:min(880px, calc(100vw - 24px));
+  margin:auto;
+  background:#cfc7b4;
+  border-radius:18px;
+  padding:22px 22px 0;
+  box-shadow:0 40px 90px rgba(0,0,0,.7), inset 0 2px 0 rgba(255,255,255,.5);
+}
+.crt-x{ top:-14px; right:-14px; }
+.crt-bezel{
+  background:#3a352c;
+  border-radius:12px;
+  padding:16px;
+  box-shadow:inset 0 0 0 3px #22201a;
+}
+.crt-glass{
+  position:relative;
+  background:radial-gradient(120% 120% at 50% 40%, #12301d, #071108 80%);
+  border-radius:8px;
+  padding:18px;
+  min-height:300px;
+  overflow:hidden;
+}
+.crt-legend{
+  display:flex; gap:18px; flex-wrap:wrap;
+  font-size:8px; color:#8ff0a8;
+  margin-bottom:16px;
+}
+.crt-legend i{
+  display:inline-block; width:9px; height:9px; margin-right:6px;
+  vertical-align:-1px;
+}
+.k-here{ background:#ffd84d; }
+.k-seen{ background:#8ff0a8; }
+.k-dark{ background:#2f5c3d; }
+
+.crt-grid{
+  display:grid; grid-template-columns:repeat(auto-fit,minmax(112px,1fr)); gap:10px;
+}
+.crt-grid .cell{
+  background:rgba(12,40,22,.75);
+  border:2px solid #2f5c3d;
+  border-radius:6px;
+  padding:12px 8px;
+  text-align:center;
+  display:grid; gap:7px;
+  box-shadow:none;
+}
+.crt-grid .cell .shot{
+  display:block; width:100%; height:46px;
+  object-fit:cover; object-position:50% 72%;
+  image-rendering:pixelated;
+  border:1px solid rgba(80,190,110,.5);
+  border-radius:3px;
+  margin-bottom:6px;
+  /* the map is a phosphor screen, so the plates read as phosphor too */
+  filter:grayscale(1) sepia(1) hue-rotate(72deg) saturate(2.2) brightness(.85);
+}
+.crt-grid .cell.unseen .shot{ filter:grayscale(1) brightness(.28); }
+.crt-grid .cell b{ font-size:11px; color:#8ff0a8; }
+.crt-grid .cell span{ font-size:7px; color:#5fae76; line-height:1.7; }
+.crt-grid .cell.here{ border-color:#ffd84d; background:rgba(60,48,10,.6); }
+.crt-grid .cell.here b, .crt-grid .cell.here span{ color:#ffd84d; }
+.crt-grid .cell.unseen{ opacity:.42; }
+.crt-note{ margin:16px 0 0; font-size:8px; line-height:2; color:#6fbf85; }
+
+.crt-scan{
+  position:absolute; inset:0; pointer-events:none;
+  background:repeating-linear-gradient(180deg, rgba(0,0,0,.22) 0 1px, transparent 1px 3px);
+}
+.crt-foot{
+  display:flex; align-items:center; gap:10px;
+  padding:14px 6px 16px;
+}
+.crt-led{
+  width:10px; height:10px; border-radius:50%;
+  background:#7ef08f; box-shadow:0 0 8px #7ef08f;
+}
+.crt-brand{ font-size:8px; color:#6d6455; }
+
+/* ---------------------------------- Under the Hood: tabs */
+.hood{ padding:0; overflow:hidden; }
+.hood-head{
+  background:#2a2d34; color:#fff;
+  padding:32px 30px;
+  text-align:center;
+}
+.hood-head h1{ color:#fff; margin:0 0 10px; font-size:clamp(18px,3.4vw,32px); }
+.hood-head p{ color:#aeb3bd; margin:0; font-size:10px; }
+
+.hood-split{ display:flex; min-height:min(66dvh, 560px); }
+.hood-tabs{
+  flex:none; width:210px;
+  border-right:2px solid var(--rule);
+  background:#f6f6f2;
+  padding:14px 0;
+}
+.hood-tabs button{
+  display:block; width:100%;
+  font-family:var(--font); font-size:9px; line-height:1.6;
+  text-align:left;
+  color:var(--ink-m); background:none;
+  border:0; border-left:4px solid transparent;
+  padding:16px 16px;
+  cursor:pointer;
+}
+.hood-tabs button:hover{ color:var(--ink-d); background:#ecece6; }
+.hood-tabs button.on{
+  color:var(--ink-d); background:#fff;
+  border-left-color:#c9a227;
+}
+.hood-body{ flex:1; min-width:0; padding:30px clamp(18px,3vw,38px) 40px; overflow-y:auto; }
+.hood-body h2{ margin-bottom:16px; }
+
+@media (max-width:720px){
+  .hood-split{ display:block; }
+  .hood-tabs{
+    width:auto; display:flex; overflow-x:auto;
+    border-right:0; border-bottom:2px solid var(--rule); padding:0;
+  }
+  .hood-tabs button{ white-space:nowrap; border-left:0; border-bottom:4px solid transparent; }
+  .hood-tabs button.on{ border-bottom-color:#c9a227; }
+}
+
+@media (max-width:560px){
+  .doc{ border-radius:12px; padding:46px 16px 40px; margin:10px auto; }
+  .doc p{ font-size:10px; line-height:2; }
+  .tech{ flex-direction:column; text-align:center; gap:14px; }
+  .tl-row{ gap:12px; }
+  .tl-row::before{ left:24px; }
+  .tl-side{ width:52px; }
+  .tl-logo{ width:52px; height:52px; font-size:11px; }
+}
+
+
+/* the switch out to the ordinary site - an anchor, so it still looks
+   like its neighbour but behaves like a link */
+a.menu-btn{ text-decoration:none; display:inline-block; }

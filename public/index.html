@@ -1,1 +1,580 @@
-<!DOCTYPE html><html><head><title>My Portfolio</title></head><body style="font-family:sans-serif;text-align:center;padding-top:100px;"><h1>Welcome to My Portfolio</h1><p>Data Annotation Specialist</p><a href="/resume.pdf" download style="display:inline-block;background:#007bff;color:#fff;padding:10px 20px;text-decoration:none;border-radius:5px;font-weight:bold;">Download My Resume</a></body></html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>The Chosen One</title>
+<meta name="description" content="A small pixel-art exploration game. Eight painted stages, one screen each.">
+<meta name="theme-color" content="#0c0f18">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css?v=36">
+</head>
+<body>
+
+<!-- the game fills the window; everything else sits on top of it -->
+<canvas id="game" width="512" height="288" aria-label="Playable pixel-art exploration game"></canvas>
+
+<!-- ===================== LOADING ===================== -->
+<div class="screen" id="loader">
+  <div class="bar"><i id="barFill"></i></div>
+  <p class="pct" id="pct">0%</p>
+</div>
+
+<!-- ===================== TITLE MENU ===================== -->
+<div class="screen" id="menu" hidden>
+  <div class="plate">
+    <div class="plate-title">The Chosen One</div>
+
+    <div class="plate-body">
+      <div class="grid">
+        <div class="cell"><b>←&nbsp;→</b><span>walk</span></div>
+        <div class="cell"><b>hold</b><span>run</span></div>
+        <div class="cell"><b>Space</b><span>jump</span></div>
+        <div class="cell"><b>↑</b><span>enter</span></div>
+        <div class="cell"><b>Esc</b><span>pause</span></div>
+      </div>
+
+      <div class="scroll">
+        <header><h1>A Walk Through Eight Places</h1><span class="rank">Rank 1</span></header>
+        <p>Every screen is a <em>painting</em>. Walk to its edge and the world
+           moves on. Stand near the <em>people</em> and they will tell you who built
+           this. Somewhere out there a <em class="gold">gate</em> is waiting.</p>
+      </div>
+
+      <button class="btn" id="startBtn">▶ Begin</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== PAUSE ===================== -->
+<div class="screen" id="pause" hidden>
+  <div class="plate">
+    <div class="plate-title">Paused</div>
+    <div class="plate-body">
+      <div class="grid">
+        <div class="cell"><b>←&nbsp;→</b><span>walk</span></div>
+        <div class="cell"><b>hold</b><span>run</span></div>
+        <div class="cell"><b>Space</b><span>jump</span></div>
+        <div class="cell"><b>↑</b><span>enter</span></div>
+        <div class="cell"><b>Esc</b><span>resume</span></div>
+      </div>
+      <div class="row">
+        <button class="btn" id="resumeBtn">Resume</button>
+        <button class="btn ghost" id="restartBtn">Start Over</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== MENU + NAV ===================== -->
+<div class="topleft" id="topleft" hidden>
+  <button class="menu-btn" id="menuBtn">&#9776;&nbsp; Menu</button>
+  <a class="menu-btn" id="plainBtn" href="/site">&#9636;&nbsp; Normal site</a>
+
+<div class="tools" id="tools" hidden>
+  <button data-panel="about">About me</button>
+  <button data-panel="cv">CV</button>
+  <button data-panel="projects">Projects</button>
+  <button data-panel="tech">Technologies</button>
+  <button data-panel="contact">Contact</button>
+  <button data-panel="map">MAP</button>
+  <button data-panel="hood">Under the Hood</button>
+  <button id="fsBtn" title="Fullscreen">[ ]</button>
+</div>
+
+<!-- ===================== PANELS ===================== -->
+
+<div class="screen panel" id="p-about" hidden>
+  <div class="doc">
+    <button class="x close" aria-label="Close">✕</button>
+
+    <div class="idcard">
+      <div class="portrait" aria-hidden="true"></div>
+      <div class="idcard-who">
+        <h2>Sai Yashwant Reddy Panthy</h2>
+        <p>AI / ML Engineer</p>
+      </div>
+      <a class="idcard-link" href="https://www.linkedin.com/in/saiyashwantreddy" target="_blank" rel="noopener" aria-label="LinkedIn">
+        <svg viewBox="0 0 24 24" width="28" height="28" fill="currentColor"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9h4v12H3zM9 9h3.8v1.7h.05c.53-.95 1.83-1.95 3.77-1.95 4.03 0 4.78 2.5 4.78 5.76V21h-4v-5.5c0-1.31-.02-3-1.9-3-1.9 0-2.2 1.43-2.2 2.9V21H9z"/></svg>
+      </a>
+    </div>
+
+    <h1>Building AI That Has to Survive Production</h1>
+    <p>I'm an AI/ML engineer working on LLM and RAG applications, computer vision, and the
+       backend and MLOps plumbing that keeps them running. My work has spanned document
+       intelligence, distributed self-play, ROS2 robotics and automated ML pipelines.</p>
+    <p>I like the part most people skip: the ingestion that doesn't silently drop rows, the
+       pipeline that can be re-run without fear, the model that still behaves when the data
+       shifts underneath it. A demo is easy. Something that holds up is the interesting problem.</p>
+
+    <h1>Education</h1>
+    <p><b>B.Tech, Computer Science Engineering (AI &amp; ML)</b><br>
+       Manipal University Jaipur — December 2025</p>
+    <ul class="ticks">
+      <li>Presented at IEEE and the American Control Conference (ACC'24)</li>
+      <li>Paper published at ACROSET 2025, IEEE Xplore</li>
+      <li>Winner — Codestellation CodeWar 4.0 Hackathon</li>
+      <li>Finalist — international eYRC robotics competition, Next Big Thing Hackathon</li>
+    </ul>
+
+    <div class="ask">
+      <h3>Want to know more?</h3>
+      <p>The CV panel has the full career path. Or just walk over and ask someone.</p>
+      <a class="lnk" href="https://www.linkedin.com/in/saiyashwantreddy" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" width="34" height="34" fill="currentColor"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9h4v12H3zM9 9h3.8v1.7h.05c.53-.95 1.83-1.95 3.77-1.95 4.03 0 4.78 2.5 4.78 5.76V21h-4v-5.5c0-1.31-.02-3-1.9-3-1.9 0-2.2 1.43-2.2 2.9V21H9z"/></svg>
+      </a>
+    </div>
+  </div>
+</div>
+
+<div class="screen panel" id="p-cv" hidden>
+  <div class="doc">
+    <button class="x close" aria-label="Close">✕</button>
+    <h1 class="big">Curriculum Vitae</h1>
+    <p class="lead">Five roles across consulting, banking, industrial software and GenAI —
+       plus the degree that ran alongside them.</p>
+
+    <div class="tl">
+      <div class="tl-row">
+        <div class="tl-side"><div class="tl-logo tata">TG</div><div class="tl-year">2026</div></div>
+        <div class="tl-main">
+          <h2>Tata Group</h2>
+          <p class="role">Gen AI Data Analyst — Jan to Jul 2026</p>
+          <span class="badge">Most recent</span>
+          <p>Exploratory data analysis with GenAI tooling to judge data quality and surface risk
+             indicators. Proposed a no-code predictive framework for scoring customer delinquency,
+             and an AI-driven collections strategy built on agentic automation — with ethics,
+             regulatory compliance and scale designed in rather than bolted on.</p>
+        </div>
+      </div>
+
+      <div class="tl-row">
+        <div class="tl-side"><div class="tl-logo jpm">JP</div><div class="tl-year">2026</div></div>
+        <div class="tl-main">
+          <h2>JPMorgan Chase &amp; Co.</h2>
+          <p class="role">Quantitative Researcher — Feb to Apr 2026</p>
+          <p>Analysed a book of loans to estimate each customer's probability of default, using
+             dynamic programming to turn raw FICO scores into categorical bands the model could
+             actually use.</p>
+        </div>
+      </div>
+
+      <div class="tl-row">
+        <div class="tl-side"><div class="tl-logo bcg">BCG</div><div class="tl-year">2025</div></div>
+        <div class="tl-main">
+          <h2>BCG</h2>
+          <p class="role">Data Science Intern — Nov 2025 to Jan 2026</p>
+          <p>Customer churn analysis in Python, Pandas and NumPy. Built and tuned a Random Forest
+             to 50% recall, then carried the findings up into an executive summary that fed a
+             business decision.</p>
+        </div>
+      </div>
+
+      <div class="tl-row">
+        <div class="tl-side"><div class="tl-logo del">D</div><div class="tl-year">2025</div></div>
+        <div class="tl-main">
+          <h2>Deloitte</h2>
+          <p class="role">Data Analytics Trainee — Oct to Nov 2025</p>
+          <p>A data analysis and forensic technology simulation built around business investigation
+             workflows. Classified and cleaned records in Excel, then built a Tableau dashboard to
+             make the patterns visible and arguable.</p>
+        </div>
+      </div>
+
+      <div class="tl-row">
+        <div class="tl-side"><div class="tl-logo mf">MF</div><div class="tl-year">2024</div></div>
+        <div class="tl-main">
+          <h2>Main Flow Services &amp; Technologies</h2>
+          <p class="role">Software Intern, Remote — Jul to Nov 2024</p>
+          <p>Trained YOLO models for object detection and deployed Docker-based ROS2 systems
+             integrating sensors and control modules. Automated the ROS2 data processing pipelines
+             and configured PLC-controlled motor systems.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="ask">
+      <h3>The full document</h3>
+      <p>Every role, every date, in one page.</p>
+    </div>
+  </div>
+</div>
+
+<div class="screen panel" id="p-projects" hidden>
+  <div class="doc">
+    <button class="x close" aria-label="Close">✕</button>
+    <h1 class="big">Projects</h1>
+    <p class="lead">Things built end to end, all of them public. The three below are the ones
+       worth reading the source of.</p>
+
+    <div class="proj">
+      <div class="proj-art agt">⟳</div>
+      <h2>agentd</h2>
+      <p class="role">A scheduled runner that repairs its own extractions — Go</p>
+      <p>Agents run checks against external sources on a schedule. The hard part is not running
+         them, it is what happens when a source quietly changes shape and the extraction starts
+         returning nothing: agentd detects that failure and proposes a verified repair for a
+         human to approve, instead of reporting a silent zero. SQLite in WAL mode for durable
+         state, MCP plugins for the tool surface, and a hexagonal architecture whose boundaries
+         are enforced by import-graph tests rather than by convention.</p>
+      <ul class="tags"><li>Go</li><li>SQLite</li><li>MCP</li><li>Hexagonal</li></ul>
+      <a class="btn-doc" href="https://github.com/champion19007/agentd" target="_blank" rel="noopener">Source</a>
+    </div>
+
+    <div class="proj">
+      <div class="proj-art care">✚</div>
+      <h2>CareNest</h2>
+      <p class="role">Healthcare booking for India — TypeScript, Next.js 16</p>
+      <p>Clinic visits, video consultations, lab tests, surgery and veterinary care under one
+         booking flow, over Postgres split across three schemas. The part I would point at is
+         the search: instead of geocoding every query, areas are connected by a pre-computed
+         proximity graph with hand-authored adjacency, so "near me" resolves locally with no
+         map provider in the request path.</p>
+      <ul class="tags"><li>Next.js 16</li><li>TypeScript</li><li>Postgres</li><li>Prisma</li></ul>
+      <a class="btn-doc" href="https://github.com/champion19007/carenest" target="_blank" rel="noopener">Source</a>
+    </div>
+
+    <div class="proj">
+      <div class="proj-art qw">◐</div>
+      <h2>QWERTY Studio</h2>
+      <p class="role">Self-hosted anti-detect browser — Python, Playwright, React</p>
+      <p>An open alternative to GoLogin and Multilogin. Most fingerprint tools randomise each
+         value independently, which is exactly what gives them away — a GPU that never ships
+         with that screen, a timezone that never ships with that locale. This one draws every
+         value from a single device archetype out of roughly four hundred, so the profile stays
+         internally consistent.</p>
+      <ul class="tags"><li>Python</li><li>Playwright</li><li>React</li><li>Fingerprinting</li></ul>
+      <a class="btn-doc" href="https://github.com/champion19007/qwerty-studio" target="_blank" rel="noopener">Source</a>
+    </div>
+
+    <div class="proj">
+      <div class="proj-art rag">RAG</div>
+      <h2>PDF AI SaaS</h2>
+      <p class="role">LLM chat over your own documents</p>
+      <p>A retrieval-augmented document intelligence app: upload a PDF and ask it questions in
+         plain language. Handles ingestion, chunking, embedding generation, semantic retrieval
+         and context-aware response generation, wired to REST APIs so document processing,
+         retrieval and conversation are separate, replaceable stages.</p>
+      <ul class="tags"><li>LangChain</li><li>OpenAI API</li><li>Pinecone</li><li>REST</li></ul>
+      <a class="btn-doc" href="https://github.com/champion19007/pdf-ai-saas" target="_blank" rel="noopener">Source</a>
+    </div>
+
+    <div class="proj">
+      <div class="proj-art chess">♟</div>
+      <h2>Hybrid Minimax–MCTS Chess Engine</h2>
+      <p class="role">Enhanced by RLHF, using Stockfish and AlphaZero — ACROSET 2025</p>
+      <p>A hybrid engine combining Minimax, Monte Carlo Tree Search and a reinforcement-learning
+         evaluation. Self-play training was scaled to 10 million games across distributed CPU
+         workers with automated evaluation pipelines, improving playing strength by roughly
+         100–150 Elo over baseline engines with full experiment tracking.</p>
+      <ul class="tags"><li>PyTorch</li><li>MCTS</li><li>RLHF</li><li>Distributed</li></ul>
+      <a class="btn-doc" href="https://ieeexplore.ieee.org/abstract/document/11280596" target="_blank" rel="noopener">Read the paper</a>
+      <a class="btn-doc" href="https://github.com/champion19007/RL-Chess-Engine-Minimax-MCTS" target="_blank" rel="noopener">Source</a>
+    </div>
+
+    <div class="proj">
+      <div class="proj-art fc">📈</div>
+      <h2>Advanced Stock Forecaster</h2>
+      <p class="role">CNN-BiLSTM-GRU</p>
+      <p>A deep forecasting stack reading historical market data for future trends. Three
+         architectures — CNN, BiLSTM and GRU — were trained and evaluated against each other to
+         find which actually captured the time-based structure rather than memorising it.</p>
+      <ul class="tags"><li>TensorFlow</li><li>Time series</li><li>NumPy</li></ul>
+      <a class="btn-doc" href="https://github.com/champion19007/Advanced-Stock-Forecaster-CNN-BiLSTM-GRU-" target="_blank" rel="noopener">Source</a>
+    </div>
+
+    <div class="proj">
+      <div class="proj-art cv">👁</div>
+      <h2>Real-Time Animal Detection</h2>
+      <p class="role">Computer vision on live CCTV</p>
+      <p>A detection system processing live video streams to identify animals as they appear,
+         for safety monitoring. Trained and deployed to run continuously against real camera
+         feeds rather than a curated test set.</p>
+      <ul class="tags"><li>OpenCV</li><li>YOLO</li><li>Streaming</li></ul>
+      <a class="btn-doc" href="https://github.com/champion19007/Real-Time-Animal-Detection-Using-CCTV-Camera-OpenVision" target="_blank" rel="noopener">Source</a>
+    </div>
+
+    <div class="proj">
+      <div class="proj-art fox">🦊</div>
+      <h2>The Adventures of the Heroic Fox</h2>
+      <p class="role">A platformer in Godot — GDScript</p>
+      <p>Not everything has a model in it. A small side-scroller built in Godot, which is also
+         where a fair amount of what you are currently standing in came from.</p>
+      <ul class="tags"><li>Godot</li><li>GDScript</li></ul>
+      <a class="btn-doc" href="https://github.com/champion19007/The-Adventures-of-the-Heroic-Fox" target="_blank" rel="noopener">Source</a>
+    </div>
+
+    <div class="proj">
+      <div class="proj-art ci">CI</div>
+      <h2>CI/CD &amp; MLOps Pipelines</h2>
+      <p class="role">Build, test and deploy without a human in the loop</p>
+      <p>Pipelines automating build, test and deployment for both ML and application workloads,
+         stood up on AWS using CodePipeline, CodeDeploy and CloudFormation.</p>
+      <ul class="tags"><li>AWS</li><li>Docker</li><li>MLflow</li><li>GitHub Actions</li></ul>
+      <a class="btn-doc" href="https://github.com/champion19007/MLOps-Forge" target="_blank" rel="noopener">Source</a>
+    </div>
+  </div>
+</div>
+
+<div class="screen panel" id="p-tech" hidden>
+  <div class="doc">
+    <button class="x close" aria-label="Close">✕</button>
+    <h1 class="big">Technologies</h1>
+    <p class="lead">The tools I reach for, and what I actually use each one to do.</p>
+
+    <div class="tech py">
+      <div class="tech-logo">Py</div>
+      <div class="tech-body">
+        <h2>Python</h2>
+        <p class="sub">My primary language</p>
+        <p>Everything starts here — models, pipelines, analysis, glue. Pandas and NumPy for the
+           data, scikit-learn for the classical work, and whatever the problem needs on top.</p>
+      </div>
+    </div>
+
+    <div class="tech torch">
+      <div class="tech-logo">🔥</div>
+      <div class="tech-body">
+        <h2>PyTorch</h2>
+        <p class="sub">Deep learning framework</p>
+        <p>CNNs, transformers and recurrent stacks. Used across the chess engine's evaluation
+           network and the CNN-BiLSTM-GRU forecaster. TensorFlow when a project already speaks it.</p>
+      </div>
+    </div>
+
+    <div class="tech lang">
+      <div class="tech-logo">🔗</div>
+      <div class="tech-body">
+        <h2>LangChain &amp; OpenAI</h2>
+        <p class="sub">LLM and RAG applications</p>
+        <p>Retrieval pipelines, embeddings, vector search in Pinecone, prompt engineering, and
+           agentic tool / planner / memory patterns. The PDF AI SaaS is built on this stack end
+           to end.</p>
+      </div>
+    </div>
+
+    <div class="tech cvt">
+      <div class="tech-logo">👁</div>
+      <div class="tech-body">
+        <h2>OpenCV &amp; YOLO</h2>
+        <p class="sub">Computer vision</p>
+        <p>Object detection and image classification, trained and deployed against live video
+           rather than static datasets — including ROS2 robotics systems running in Docker.</p>
+      </div>
+    </div>
+
+    <div class="tech ops">
+      <div class="tech-logo">⚙</div>
+      <div class="tech-body">
+        <h2>Docker &amp; AWS</h2>
+        <p class="sub">MLOps and deployment</p>
+        <p>Containers, CI/CD, and AWS CodePipeline, CodeDeploy and CloudFormation. MLflow and
+           Weights &amp; Biases for tracking, because an experiment you can't reproduce didn't
+           happen.</p>
+      </div>
+    </div>
+
+    <div class="tech js">
+      <div class="tech-logo">JS</div>
+      <div class="tech-body">
+        <h2>JavaScript &amp; TypeScript</h2>
+        <p class="sub">Interfaces and APIs</p>
+        <p>Node and REST APIs on the backend, Next.js on the front. This entire game is vanilla
+           JavaScript on one canvas — no framework, no engine, no dependencies.</p>
+      </div>
+    </div>
+
+    <h1>Other technologies and experience</h1>
+    <ul class="ticks two">
+      <li>SQL and relational data modelling</li>
+      <li>C++ and Bash</li>
+      <li>Hugging Face Transformers</li>
+      <li>scikit-learn</li>
+      <li>ROS2 and PLC control systems</li>
+      <li>Streamlit and Gradio</li>
+      <li>Tableau and Excel</li>
+      <li>Git, GitHub, Linux</li>
+    </ul>
+  </div>
+</div>
+
+<div class="screen panel" id="p-contact" hidden>
+  <div class="doc narrow">
+    <button class="x close" aria-label="Close">✕</button>
+    <h1 class="big">Contact</h1>
+    <p class="lead">Below you can find ways to get in touch with me.</p>
+
+    <a class="crow" href="mailto:saiyashwantreddypanthy@gmail.com">
+      <span class="crow-ico mail">
+        <svg viewBox="0 0 24 24" width="30" height="30" fill="currentColor"><path d="M2 5.5A1.5 1.5 0 0 1 3.5 4h17A1.5 1.5 0 0 1 22 5.5v13a1.5 1.5 0 0 1-1.5 1.5h-17A1.5 1.5 0 0 1 2 18.5zM4.2 6 12 12.2 19.8 6z"/></svg>
+      </span>
+      <span class="crow-txt"><b>Email</b>saiyashwantreddypanthy@gmail.com</span>
+    </a>
+
+    <a class="crow" href="https://github.com/champion19007" target="_blank" rel="noopener">
+      <span class="crow-ico gh">
+        <svg viewBox="0 0 24 24" width="30" height="30" fill="currentColor"><path d="M12 2a10 10 0 0 0-3.16 19.49c.5.09.68-.22.68-.48l-.01-1.7c-2.78.6-3.37-1.34-3.37-1.34-.45-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.61.07-.61 1 .07 1.53 1.03 1.53 1.03.89 1.53 2.34 1.09 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.56-1.11-4.56-4.95 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.64 0 0 .84-.27 2.75 1.02a9.5 9.5 0 0 1 5 0c1.91-1.29 2.75-1.02 2.75-1.02.55 1.37.2 2.39.1 2.64.64.7 1.03 1.59 1.03 2.68 0 3.85-2.34 4.7-4.57 4.94.36.31.68.92.68 1.86l-.01 2.75c0 .27.18.58.69.48A10 10 0 0 0 12 2z"/></svg>
+      </span>
+      <span class="crow-txt"><b>GitHub</b>github.com/champion19007</span>
+    </a>
+
+    <a class="crow" href="https://www.linkedin.com/in/saiyashwantreddy" target="_blank" rel="noopener">
+      <span class="crow-ico li">
+        <svg viewBox="0 0 24 24" width="30" height="30" fill="currentColor"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9h4v12H3zM9 9h3.8v1.7h.05c.53-.95 1.83-1.95 3.77-1.95 4.03 0 4.78 2.5 4.78 5.76V21h-4v-5.5c0-1.31-.02-3-1.9-3-1.9 0-2.2 1.43-2.2 2.9V21H9z"/></svg>
+      </span>
+      <span class="crow-txt"><b>LinkedIn</b>linkedin.com/in/saiyashwantreddy</span>
+    </a>
+  </div>
+</div>
+
+<div class="screen panel" id="p-map" hidden>
+  <div class="crt">
+    <button class="x close crt-x" aria-label="Close">✕</button>
+    <div class="crt-bezel">
+      <div class="crt-glass">
+        <div class="crt-legend">
+          <span><i class="k-here"></i>Here</span>
+          <span><i class="k-seen"></i>Visited</span>
+          <span><i class="k-dark"></i>Unseen</span>
+        </div>
+        <div class="crt-grid" id="mapGrid"></div>
+        <p class="crt-note" id="mapNote"></p>
+        <div class="crt-scan"></div>
+      </div>
+    </div>
+    <div class="crt-foot"><span class="crt-led"></span><span class="crt-brand">CHOSEN-ONE / MAP</span></div>
+  </div>
+</div>
+
+<div class="screen panel" id="p-hood" hidden>
+  <div class="doc wide hood">
+    <button class="x close" aria-label="Close">✕</button>
+
+    <header class="hood-head">
+      <h1>Under the Hood</h1>
+      <p>How does this portfolio work?</p>
+    </header>
+
+    <div class="hood-split">
+      <nav class="hood-tabs" id="hoodTabs">
+        <button class="on" data-tab="arch">Architecture</button>
+        <button data-tab="stages">Stage System</button>
+        <button data-tab="render">Rendering</button>
+        <button data-tab="anim">Animation</button>
+        <button data-tab="npc">NPC System</button>
+        <button data-tab="perf">Optimization</button>
+      </nav>
+
+      <div class="hood-body">
+        <section data-panel-tab="arch">
+          <h2>Architecture</h2>
+          <p>There is no framework and no game engine here. The whole thing is one
+             <b>&lt;canvas&gt;</b> element, one JavaScript file, and a fixed 60&nbsp;Hz accumulator
+             loop — about 900 lines with no dependencies at all.</p>
+          <p>The split is simple: the canvas draws the world, and ordinary DOM sits on top of it
+             for anything made of text. Menus, dialogue and these panels are HTML, which means
+             they get real fonts, real links and real accessibility for free, while the game
+             underneath stays a pure pixel surface.</p>
+          <p>State lives in three places — a stage table describing the world, a player object,
+             and a small amount of transition state. That's the entire model.</p>
+        </section>
+
+        <section data-panel-tab="stages" hidden>
+          <h2>Stage System</h2>
+          <p>Most 2D games build levels from a tilemap and a collision mesh. This one doesn't have
+             either. <b>Each painted image is a stage</b>, exactly one screen wide, and the ground
+             is part of the artwork.</p>
+          <p>So a stage needs only a few numbers: where the feet sit (<b>feetY</b>), how zoomed the
+             art is (<b>scale</b>), and how far the solid ground reaches (<b>x0</b> and <b>x1</b>).
+             Walk past x1 and the screen fades to the next stage; walk past x0 and it fades back.</p>
+          <p>Every one of those numbers was measured against the characters already painted into
+             the scene, so the hero stands on the same ground they do and matches their height.
+             That's why the zoom differs per stage — the source images were shot at wildly
+             different scales, from 1.2× to 3.0×.</p>
+        </section>
+
+        <section data-panel-tab="render" hidden>
+          <h2>Rendering</h2>
+          <p>The canvas is backed at <b>real display resolution</b> — viewport × devicePixelRatio —
+             and the 512×288 design space is mapped onto it with a single transform. Drawing code
+             works in design coordinates while every pixel it produces is an actual screen pixel.</p>
+          <p>That matters more than it sounds. The naive version draws into a fixed 512×288 buffer
+             and lets CSS stretch it, which crushes a 1280px painting to 512 and blows it back up
+             — throwing away 60% of the detail and then magnifying what's left.</p>
+          <p>Filtering is chosen per draw, from the direction of scaling: smoothing on when an
+             image is being shrunk, off when pixel art is being enlarged. Nearest-neighbour is
+             right for one and actively destructive for the other.</p>
+        </section>
+
+        <section data-panel-tab="anim" hidden>
+          <h2>Animation</h2>
+          <p>Several stages are animated. The obvious approach — drop an animated GIF in an
+             <b>&lt;img&gt;</b> and blit it each frame — does not work reliably: browsers only
+             advance GIF frames while the page is actively painting, so a clipped, backgrounded or
+             merely unlucky image freezes on frame one.</p>
+          <p>Instead each animated stage is decoded once with <b>WebCodecs ImageDecoder</b> into a
+             set of ImageBitmaps, and played from the game clock. Timing is under our control and
+             the result is identical everywhere.</p>
+          <p>The character is a different problem: an 800×448 sheet of 80×64 frames, composited at
+             build time from six separate paper-doll layers — skin, hair, shirt, trousers, boots —
+             into a single texture. The art faces left, so facing right is the mirrored case.</p>
+        </section>
+
+        <section data-panel-tab="npc" hidden>
+          <h2>NPC System</h2>
+          <p>Most of the people you can talk to were <b>already painted into the artwork</b>. Rather
+             than draw new sprites over them, each is just a trigger point at that figure's x
+             position. Two stages had nobody standing in them, so those get a villager composited
+             from the same paper-doll layers as the hero.</p>
+          <p>Proximity is <b>nearest-wins</b>, not first-in-range. On a crowded screen with five
+             people standing close together, "is anyone in range?" would let whichever one appears
+             first in the array hold the floor while you walk past the other four.</p>
+          <p>Nobody is solid. A villager standing mid-stage would otherwise wall off the only route
+             onward — and since the hero draws on top, walking past reads correctly as passing in
+             front of them.</p>
+        </section>
+
+        <section data-panel-tab="perf" hidden>
+          <h2>Optimization</h2>
+          <p>Decoded animation frames are the only real memory cost, so they're bounded on three
+             axes: a <b>frame budget per stage</b> (larger frames mean fewer of them), a decode
+             resolution matched to the display rather than the source, and an <b>LRU cache</b>
+             holding only a few stages at once.</p>
+          <p>Decoding is lazy and predictive — the current stage plus its neighbours, so the next
+             screen is ready before you reach it.</p>
+          <p>An IntersectionObserver pauses the loop entirely when the canvas scrolls out of view,
+             and the fixed-timestep accumulator clamps large deltas so a backgrounded tab doesn't
+             return and simulate thirty seconds in one frame.</p>
+        </section>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- someone is speaking -->
+<div class="say" id="say" hidden>
+  <img class="say-face" id="sayFace" alt="" aria-hidden="true">
+  <div class="say-body">
+    <header><h2 id="sayRole"></h2><span id="sayName"></span></header>
+    <p id="sayText"></p>
+  </div>
+</div>
+
+<!-- in-world prompt -->
+<div class="toast" id="toast" hidden></div>
+
+<!-- touch controls -->
+<div class="pad" id="touchpad" aria-hidden="true">
+  <button data-key="left">◀</button>
+  <button data-key="right">▶</button>
+  <button data-key="jump">JUMP</button>
+  <button data-key="up">ENTER</button>
+</div>
+
+<footer class="credit">Art by <b>GandalfHardcore</b></footer>
+
+<script src="js/game.js?v=36"></script>
+</body>
+</html>
