@@ -59,6 +59,8 @@ const ANIM = {
      is the column the clip starts at. */
   doze:  { row: 6, from: 3, frames: 7, fps: 9,   loop: false },
   sleep: { row: 6, from: 8, frames: 2, fps: 1.6, loop: true  },
+  // and the same seven frames played backwards to get him up again
+  wake:  { row: 6, from: 3, frames: 7, fps: 18,  loop: false, rev: true },
 };
 
 const SLEEP_AFTER = 6.5;    // seconds of standing still before he nods off
@@ -482,7 +484,7 @@ const player = {
   vx: 0, vy: 0,
   dir: 1,                    // +1 right, -1 left
   onGround: true, coyote: 0, held: 0,
-  surf: 0, park: 0, still: 0,
+  surf: 0, park: 0, still: 0, waking: 0,
   anim: 'idle', frame: 0, clock: 0,
 };
 
@@ -731,7 +733,7 @@ function placeOnStage(fromLeft) {
     : (fromLeft ? st.x0 + halfW() + 4 : st.x1 - halfW() - 4);
   const d = dropOnto(st, player.x);
   player.feet = st.entryFeet !== undefined ? st.entryFeet : (d ? d.feet : st.feetY);
-  player.surf = d ? d.surf : 0; player.park = 0; player.still = 0;
+  player.surf = d ? d.surf : 0; player.park = 0; player.still = 0; player.waking = 0;
   player.vy = 0;
   player.onGround = true;
 }
@@ -750,7 +752,11 @@ function updatePlayer(dt) {
   jumpBuffer = Math.max(0, jumpBuffer - dt);
 
   /* ---- stroll, then break into a run if the direction is held ---- */
-  const wants = (keys.right ? 1 : 0) - (keys.left ? 1 : 0);
+  let wants = (keys.right ? 1 : 0) - (keys.left ? 1 : 0);
+
+  /* Getting up takes a moment and he cannot walk through it. Brief enough
+     not to read as input lag, long enough to see him stand. */
+  if (p.waking > 0) { p.waking = Math.max(0, p.waking - dt); wants = 0; p.vx = 0; }
   if (wants !== 0) { p.dir = wants; p.held = Math.min(RUN_RAMP, p.held + dt); }
   else p.held = 0;
 
@@ -789,7 +795,11 @@ function updatePlayer(dt) {
      the way to. Outside the front door it is allowed again. */
   const penned = (st.noJump || []).some(b => p.x >= b[0] && p.x <= b[1]);
 
-  if (jumpBuffer > 0 && p.coyote > 0 && !fade && !penned) {
+  // and nobody jumps straight out of a lying-down pose: the tap that
+  // wakes him is spent on standing up, not on launching him
+  const abed = p.waking > 0 || p.anim === 'sleep' || p.anim === 'doze';
+
+  if (jumpBuffer > 0 && p.coyote > 0 && !fade && !penned && !abed) {
     p.vy = JUMP_VELOCITY * z;
     p.onGround = false; p.coyote = 0; jumpBuffer = 0;
     setAnim(p, 'jump');
@@ -873,10 +883,17 @@ function updatePlayer(dt) {
   /* How long he has been left alone. Anything at all resets it, being
      spoken to included - he is not going to fall asleep while somebody is
      telling him about their life's work. */
-  const busy = !p.onGround || wants !== 0 || Math.abs(p.vx) > 2 * z || fade || speaking;
+  const busy = !p.onGround || wants !== 0 || keys.jump || keys.up
+            || Math.abs(p.vx) > 2 * z || fade || speaking;
   p.still = busy ? 0 : p.still + dt;
 
-  if (!p.onGround)                              setAnim(p, p.vy < 0 ? 'jump' : 'fall');
+  // roused: stand up before anything else
+  if ((p.anim === 'sleep' || p.anim === 'doze') && busy && p.waking <= 0) {
+    p.waking = ANIM.wake.frames / ANIM.wake.fps;
+  }
+
+  if (p.waking > 0)                             setAnim(p, 'wake');
+  else if (!p.onGround)                         setAnim(p, p.vy < 0 ? 'jump' : 'fall');
   // thresholds against `top`, not the flat walk speed, so a hero climbing
   // a stair at two thirds pace still plays the walk cycle
   else if (Math.abs(p.vx) > top * 0.82 && p.held >= RUN_RAMP * 0.9) setAnim(p, 'run');
@@ -1068,7 +1085,8 @@ function drawHero(x, feet, z) {
   ctx.fill();
   ctx.restore();
 
-  const sx = ((a.from || 0) + player.frame) * F_W, sy = a.row * F_H;
+  const col = a.rev ? a.frames - 1 - player.frame : player.frame;
+  const sx = ((a.from || 0) + col) * F_W, sy = a.row * F_H;
   ctx.imageSmoothingEnabled = false;
   ctx.save();
   if (player.dir > 0) {
