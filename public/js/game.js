@@ -101,6 +101,8 @@ const STAGES = [
        a jump will find sooner or later; any higher and he cannot reach
        the turn. */
     x0:118.4, x1:427, flip:true, fit:'contain', mat:'#0b0d15',
+    // no jumping inside the house; the garden past the door steps is fine
+    noJump: [[0, 332]],
     floors: [
       { y:169.4, x0:133.4, x1:301.6 },   // the solar, the lit floor upstairs
       /* Ledges the map draws above the solar. The low one on the right is
@@ -773,7 +775,13 @@ function updatePlayer(dt) {
   if (p.onGround) p.coyote = COYOTE_TIME;
   else p.coyote = Math.max(0, p.coyote - dt);
 
-  if (jumpBuffer > 0 && p.coyote > 0 && !fade) {
+  /* Indoors nobody jumps. The manor is walkable end to end without one,
+     and a jump under a low ceiling only finds the seams between storeys -
+     clipping a ledge, or landing somewhere the stairs were meant to be
+     the way to. Outside the front door it is allowed again. */
+  const penned = (st.noJump || []).some(b => p.x >= b[0] && p.x <= b[1]);
+
+  if (jumpBuffer > 0 && p.coyote > 0 && !fade && !penned) {
     p.vy = JUMP_VELOCITY * z;
     p.onGround = false; p.coyote = 0; jumpBuffer = 0;
     setAnim(p, 'jump');
