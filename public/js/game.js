@@ -95,20 +95,38 @@ const STAGES = [
      the stair head, the cellar west of the stairwell, and the little
      mezzanine the flights pass. They stay as scenery.                  */
   { slug:'manor',   src:'manor.gif',   title:'The Manor',       feetY:248, scale:0.60,
-    x0:110, x1:427, flip:true, fit:'contain', mat:'#0b0d15',
+    /* x0 is chosen so that x0 + halfW lands exactly on 123.8, the foot of
+       the switchback and the westmost surface in the house. Any lower and
+       the hero can be clamped onto a strip with no floor under it, which
+       a jump will find sooner or later; any higher and he cannot reach
+       the turn. */
+    x0:118.4, x1:427, flip:true, fit:'contain', mat:'#0b0d15',
     floors: [
       { y:169.4, x0:133.4, x1:301.6 },   // the solar, the lit floor upstairs
+      /* Ledges the map draws above the solar. The low one on the right is
+         within a jump of it; the others are not, but they are here so that
+         a hero who reaches them by any route has something to stand on
+         rather than passing through the roof. */
+      { y:139.0, x0:192.4, x1:230.6 },   // the attic floor
+      { y:110.8, x0:291.1, x1:308.4 },   // the high ledge, east
+      { y:149.6, x0:298.8, x1:310.3 },   // the low ledge, east
+      { y:139.7, x0: 89.3, x1:100.2 },   // the shelf, west
       { y:199.6, x0:151.1, x1:160.4 },   // the half landing between flights
       { y:268.1, x0:158.9, x1:171.9 },   // foot of the stairwell
       { y:248.3, x0:189.6, x1:331.4 },   // the hall, where most of the house is
       { y:268.4, x0:349.7, x1:470   },   // the garden - runs past x1 so the
                                          // stage edge, not a wall, ends it
     ],
-    /* The east end of the solar is a wall in the collision map, not a
-       ledge. Without it the hero steps off the upper floor and drops into
-       the hall. The map's other verticals all bound floors that are not
-       walkable, so nothing could ever reach them. */
-    walls: [ [299.5, 146.8, 171.9] ],
+    /* Walls, [x, top, bottom]. The map draws these from the solar floor
+       upward; they are carried a little higher here (to y 130) because a
+       jumping hero would otherwise sail over the top of one and land
+       outside the house. */
+    walls: [
+      [299.4, 130,   171.9],           // east end of the solar
+      [ 89.7, 130,   170  ],           // west end of the solar
+      [192.4, 108.6, 139.4],           // the attic, left
+      [230.6,  89.1, 139.4],           // the attic, right
+    ],
     ramps: [
       [133.4, 169.4, 160.4, 199.6],      // flight C, solar down to the landing
       [123.8, 228.7, 151.1, 199.6],      // flight A, the turn up to the landing
@@ -692,7 +710,8 @@ function dropOnto(st, x) {
     const y = surfaceY(s, x);
     if (y < bestY) { bestY = y; best = i; }
   }
-  return best >= 0 ? { surf: best, feet: bestY } : { surf: 0, feet: st.feetY };
+  // null, not a guess: callers need to know when there is nothing here
+  return best >= 0 ? { surf: best, feet: bestY } : null;
 }
 
 function placeOnStage(fromLeft) {
@@ -701,8 +720,8 @@ function placeOnStage(fromLeft) {
     ? st.entryX
     : (fromLeft ? st.x0 + halfW() + 4 : st.x1 - halfW() - 4);
   const d = dropOnto(st, player.x);
-  player.feet = st.entryFeet !== undefined ? st.entryFeet : d.feet;
-  player.surf = d.surf; player.park = 0;
+  player.feet = st.entryFeet !== undefined ? st.entryFeet : (d ? d.feet : st.feetY);
+  player.surf = d ? d.surf : 0; player.park = 0;
   player.vy = 0;
   player.onGround = true;
 }
@@ -769,7 +788,27 @@ function updatePlayer(dt) {
   p.x += p.vx * dt;
   p.feet += p.vy * dt;
 
+  /* A ceiling at the top of the frame. A stage drawn at 3x zoom gives the
+     hero a jump taller than he is, and without this his head leaves the
+     picture entirely - most obvious at the gate, where the arc puts him a
+     clear body-length above the sky. */
+  const headroom = 45 * z;
+  if (p.feet < headroom) { p.feet = headroom; if (p.vy < 0) p.vy = 0; }
+
   settle(st, p, prevFeet);
+
+  /* ---- the floor of last resort ----
+     Falling out of the picture should be impossible, and when it happens
+     it is unrecoverable: there is nothing below to land on, so the hero
+     drops forever and the stage is lost. A stage with several storeys has
+     more gaps to get this wrong in than one painted ground line ever did,
+     so rather than trust the geometry, catch him and stand him back up on
+     whatever is nearest. */
+  if (p.feet > VIEW_H + 60) {
+    const back = dropOnto(st, p.x);
+    if (back) { p.surf = back.surf; p.feet = back.feet; p.vy = 0; p.vx = 0; p.park = 0; p.onGround = true; }
+    else placeOnStage(true);
+  }
 
   /* ---- walls ----
      A floor can end at a wall rather than at a drop. Without one the hero
