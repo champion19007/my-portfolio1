@@ -21,7 +21,7 @@ export function AppSidebar() {
   const pathname = usePathname();
 
   const navItems = [
-    { name: 'Dashboard', href: '/', icon: Home },
+    { name: 'Dashboard', href: '/site', icon: Home },
     { name: 'About Me', href: '/about', icon: User },
     { name: 'Projects', href: '/projects', icon: FolderCode },
     { name: 'Expertise', href: '/skills', icon: Briefcase },
@@ -32,7 +32,7 @@ export function AppSidebar() {
   return (
     <Sidebar className="border-r border-border/50 shadow-2xl">
       <SidebarHeader className="p-6 border-b border-border/50">
-        <Link href="/" className="flex items-center gap-3 group">
+        <Link href="/site" className="flex items-center gap-3 group">
           <div className="h-8 w-8 rounded-lg bg-primary flex items-center justify-center text-primary-foreground font-black text-xl shadow-lg shadow-primary/20 transition-transform group-hover:scale-105">
             S
           </div>
