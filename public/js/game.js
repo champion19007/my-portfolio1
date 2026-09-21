@@ -1426,6 +1426,51 @@ async function boot() {
     if (i >= 0) stageIndex = i;
   }
 
+  /* ---- a phone has to be turned first ----
+     The stage is a 16:9 painting. Held upright a phone would show it as a
+     thin letterbox with a hero a few pixels tall, so the game waits: the
+     loading screen does not even begin until the handset is sideways, and
+     the minimum dwell below is timed from the moment it is. */
+  const rotateEl = document.getElementById('rotate');
+  const loaderEl = document.getElementById('loader');
+
+  /* One test for "this is a handset", used by both the rotate gate and the
+     layout. A media query alone would do it, but hanging a class off <html>
+     keeps the two in step and means the phone layout can be switched on by
+     hand to look at. */
+  const onPhone = () => matchMedia('(hover: none) and (pointer: coarse)').matches;
+  const syncTouch = () => document.documentElement.classList.toggle('touch', onPhone());
+  addEventListener('resize', syncTouch);
+  syncTouch();
+
+  const mustTurn = () => onPhone() && innerHeight > innerWidth;
+
+  if (rotateEl && mustTurn()) {
+    rotateEl.hidden = false;
+    if (loaderEl) loaderEl.hidden = true;        // do not start the bar behind it
+    await new Promise(done => {
+      const look = () => {
+        if (mustTurn()) return;
+        removeEventListener('resize', look);
+        removeEventListener('orientationchange', turned);
+        rotateEl.hidden = true;
+        if (loaderEl) loaderEl.hidden = false;
+        fit();
+        done();
+      };
+      // orientationchange fires before the new size is readable, so look again
+      const turned = () => setTimeout(look, 180);
+      addEventListener('resize', look);
+      addEventListener('orientationchange', turned);
+    });
+  }
+  // and if it is turned back mid-game, ask again
+  if (rotateEl) {
+    const watch = () => { rotateEl.hidden = !mustTurn(); };
+    addEventListener('resize', watch);
+    addEventListener('orientationchange', () => setTimeout(watch, 180));
+  }
+
   /* ---- loading screen ----
      A first visit holds the painted screen for MIN_FIRST no matter how fast
      the assets land: it is the front door of the site and deserves to be
@@ -1439,7 +1484,7 @@ async function boot() {
   const MIN_MS = seen ? MIN_AGAIN : MIN_FIRST;
   const t0 = performance.now();
 
-  const loader = document.getElementById('loader');
+  const loader = loaderEl;
   const barFill = document.getElementById('barFill');
   const pctEl   = document.getElementById('pct');
 

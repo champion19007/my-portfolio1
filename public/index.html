@@ -9,12 +9,21 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/style.css?v=36">
+<link rel="stylesheet" href="css/style.css?v=49">
 </head>
 <body>
 
 <!-- the game fills the window; everything else sits on top of it -->
 <canvas id="game" width="512" height="288" aria-label="Playable pixel-art exploration game"></canvas>
+
+<!-- ===== turn the phone first: this one is played sideways ===== -->
+<div class="rotate" id="rotate" hidden>
+  <div class="rotate-box">
+    <div class="rotate-phone" aria-hidden="true"><i></i></div>
+    <h2>Turn your phone</h2>
+    <p>This one is played sideways.<br>Rotate to landscape and it starts.</p>
+  </div>
+</div>
 
 <!-- ===================== LOADING ===================== -->
 <div class="screen" id="loader">
@@ -567,13 +576,9 @@
 
 <!-- touch controls -->
 <div class="pad" id="touchpad" aria-hidden="true">
-  <button data-key="left">◀</button>
-  <button data-key="right">▶</button>
-  <button data-key="jump">JUMP</button>
-  <button data-key="up">ENTER</button>
+  <div class="pad-side"><button data-key="left">◀</button><button data-key="right">▶</button></div>
+  <div class="pad-side"><button data-key="up">▲</button><button data-key="jump">JUMP</button></div>
 </div>
-
-
-<script src="js/game.js?v=47"></script>
+<script src="js/game.js?v=49"></script>
 </body>
 </html>
