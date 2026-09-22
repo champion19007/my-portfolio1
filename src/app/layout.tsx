@@ -5,6 +5,7 @@ import { AppSidebar } from '@/components/portfolio/AppSidebar';
 import { FirebaseClientProvider } from '@/firebase/client-provider';
 import { Toaster } from '@/components/ui/toaster';
 import { Poppins } from 'next/font/google';
+import { Analytics } from '@vercel/analytics/next';
 
 const poppins = Poppins({
   subsets: ['latin'],
@@ -68,6 +69,7 @@ export default function RootLayout({
           </SidebarProvider>
         </FirebaseClientProvider>
         <Toaster />
+        <Analytics />
       </body>
     </html>
   );
