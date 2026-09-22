@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/style.css?v=50">
+<link rel="stylesheet" href="css/style.css?v=56">
 </head>
 <body>
 
@@ -72,7 +72,29 @@
       <div class="row">
         <button class="btn" id="resumeBtn">Resume</button>
         <button class="btn ghost" id="restartBtn">Start Over</button>
+        <button class="btn ghost touch-only" id="helpBtn">Controls</button>
       </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== HOW IT IS PLAYED =====================
+     Shown once, on the first tap of Begin on a phone, because the four
+     arrows do not say what they do. It is dismissed by touching it and
+     does not come back; the Controls button in the menu reopens it. -->
+<div class="screen" id="controls" hidden>
+  <div class="plate">
+    <div class="plate-title">The Controls</div>
+    <div class="plate-body">
+      <ul class="keys">
+        <li><b>◀&nbsp;▶</b><span>Walk. Keep holding and he breaks into a run.</span></li>
+        <li><b>▲</b><span>Jump. Not indoors — the house is walkable without it.</span></li>
+        <li><b>▼</b><span>Talk to whoever you are standing beside, and again to
+            send them away. On a gate, it takes you through.</span></li>
+        <li><b>&#9776;</b><span>The menu, the map, and everything written down.</span></li>
+      </ul>
+      <p class="dismiss">Walk to the edge of a picture and the world moves on.</p>
+      <button class="btn" id="gotItBtn">Got it</button>
     </div>
   </div>
 </div>
@@ -576,11 +598,15 @@
 
 <!-- touch controls -->
 <div class="pad" id="touchpad" aria-hidden="true">
-  <div class="pad-side"><button data-key="left">◀</button><button data-key="right">▶</button></div>
-  <div class="pad-side"><button data-key="up">▲</button><button data-key="jump">JUMP</button></div>
+  <button data-key="left"  class="pad-l" aria-label="Walk left">◀</button>
+  <button data-key="up"    class="pad-u" aria-label="Jump">▲</button>
+  <button data-key="down"  class="pad-d" aria-label="Talk, or go through a gate">▼</button>
+  <button data-key="right" class="pad-r" aria-label="Walk right">▶</button>
+</div>
 </div>
 
 
-<script src="js/game.js?v=50"></script>
+<script src="js/gifdec.js?v=56"></script>
+<script src="js/game.js?v=56"></script>
 </body>
 </html>

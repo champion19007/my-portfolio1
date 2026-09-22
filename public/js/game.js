@@ -316,8 +316,9 @@ async function loadAssets(onProgress) {
    Decoded once with WebCodecs and played from the game loop, which puts
    the timing under our control and makes the result identical
    everywhere. Lazy per stage, small LRU cache, downscaled at decode time
-   to the resolution the screen actually needs. Without ImageDecoder the
-   stage simply stays still. */
+   to the resolution the screen actually needs. Where WebCodecs is missing -
+   Safari, so every iPhone - the same frames come out of the decoder in
+   js/gifdec.js instead, and nothing downstream can tell. */
 
 const MAX_GIF_FRAMES = 14;
 const GIF_CACHE_MAX  = 3;
@@ -330,36 +331,97 @@ let   gifClock = 0;
 
 const isAnimated = st => st.src.endsWith('.gif');
 
+/* Two ways to get frames out of a GIF, behind one small interface: the
+   natural size, how many frames there are, and a frame(i) that hands back
+   something drawImage will take. Everything downstream - the sizing, the
+   budget, the stride, the cache, the clock - is common to both, so a stage
+   looks and moves the same whichever path produced it. */
+async function webCodecsFrames(buf) {
+  const dec = new ImageDecoder({ data: buf, type: 'image/gif' });
+  await dec.tracks.ready;      // tracks.ready, not completed: selectedTrack
+  await dec.completed;         // is still null when only `completed` has run
+  const probe = await dec.decode({ frameIndex: 0 });
+  const w = probe.image.displayWidth, h = probe.image.displayHeight;
+  probe.image.close();
+  return {
+    w, h, count: dec.tracks.selectedTrack.frameCount || 1,
+    async frame(i, fw, fh) {
+      const { image } = await dec.decode({ frameIndex: i });
+      const out = fw < w
+        ? await createImageBitmap(image, { resizeWidth: fw, resizeHeight: fh, resizeQuality: 'high' })
+        : await createImageBitmap(image);
+      const dur = (image.duration ?? 80000) / 1e6;   // microseconds -> seconds
+      image.close();
+      return { image: out, dur };
+    },
+    close() { dec.close(); },
+  };
+}
+
+/* The hand-rolled path, for Safari, which has no ImageDecoder at all. Its
+   decoder is forward-only and reuses one buffer, so each frame is drawn down
+   to size the moment it arrives and the full-size buffer is never kept.
+   Frames come back as canvases rather than ImageBitmaps: createImageBitmap's
+   resize options are not dependable in the browsers that need this path.
+
+   Unlike WebCodecs this runs on the main thread, and the longest stage is
+   forty frames of 1880x950 - well over a second of solid work on a desktop,
+   several on a phone. So it hands the thread back between frames. Decoding
+   a stage takes a little longer in wall-clock terms and the game keeps
+   running throughout, which is the right trade: stages are decoded ahead of
+   the player, so nobody is waiting on one. */
+const breathe = () => new Promise(r => setTimeout(r, 0));
+
+async function handRolledFrames(buf) {
+  const { width, height, count } = gifCount(buf);
+  const iter = gifFrames(buf);
+  const full = document.createElement('canvas');
+  full.width = width; full.height = height;
+  const fx = full.getContext('2d');
+  let at = -1;
+  return {
+    w: width, h: height, count,
+    async frame(i, fw, fh) {
+      let fr;                                  // no seeking - see js/gifdec.js
+      while (at < i) { await breathe(); fr = iter.next().value; at++; }
+      if (!fr) throw new Error('gif ended early');
+      fx.putImageData(new ImageData(fr.data, width, height), 0, 0);
+      const c = document.createElement('canvas');
+      c.width = fw; c.height = fh;
+      const cx = c.getContext('2d');
+      cx.imageSmoothingEnabled = fw < width;
+      cx.imageSmoothingQuality = 'high';
+      cx.drawImage(full, 0, 0, fw, fh);
+      return { image: c, dur: fr.delay / 1000 };
+    },
+    close() { full.width = full.height = 0; },
+  };
+}
+
 async function decodeStage(st) {
   if (!isAnimated(st) || gifCache.has(st.slug) || decoding.has(st.slug)) return;
-  if (typeof ImageDecoder === 'undefined') return;
   decoding.add(st.slug);
   try {
     const buf = await (await fetch('assets/stages/' + st.src)).arrayBuffer();
-    const dec = new ImageDecoder({ data: buf, type: 'image/gif' });
-    await dec.tracks.ready;      // tracks.ready, not completed: selectedTrack
-    await dec.completed;         // is still null when only `completed` has run
-
-    const count = dec.tracks.selectedTrack.frameCount || 1;
+    const src = typeof ImageDecoder !== 'undefined'
+      ? await webCodecsFrames(buf)
+      : await handRolledFrames(buf);
+    const nw = src.w, nh = src.h, count = src.count;
 
     /* Decode at the size the screen will actually show, not at the design
        size. Holding frames at 512 wide and then drawing them across 1280
        real pixels is exactly the blur we are trying to remove. Never
-       larger than the source though — upscaling into the cache would cost
-       memory and add nothing. */
-    const probe = await dec.decode({ frameIndex: 0 });
-    const nw = probe.image.displayWidth, nh = probe.image.displayHeight;
-    probe.image.close();
+       larger than the source though - upscaling into the cache would cost
+       memory and add nothing.
 
-    /* How wide this art is actually drawn. A contained stage is letterboxed
-       down to a fraction of the frame, so decoding it at full window width
-       would hold pixels nobody ever sees. */
+       How wide this art is actually drawn matters too: a contained stage is
+       letterboxed down to a fraction of the frame, so decoding it at full
+       window width would hold pixels nobody ever sees. */
     const shownW = st.fit === 'contain'
       ? nw * Math.min(VIEW_W / nw, VIEW_H / nh)
       : VIEW_W;
     let wantW = Math.min(nw, DECODE_CAP_PX, Math.max(VIEW_W, Math.ceil(shownW * view.k)));
-    let scale = wantW / nw;
-    let fw = Math.round(nw * scale), fh = Math.round(nh * scale);
+    let fw = Math.round(wantW), fh = Math.round(nh * (wantW / nw));
 
     /* Resolution and smoothness both come out of the same budget, and a
        long animation held at full width would be cut to four or five
@@ -370,7 +432,6 @@ async function decodeStage(st) {
     if (fw * fh > maxPx) {
       const k = Math.sqrt(maxPx / (fw * fh));
       fw = Math.round(fw * k); fh = Math.round(fh * k);
-      scale = fw / nw;
     }
 
     // Bigger frames mean fewer of them; the loop still reads the whole
@@ -381,14 +442,11 @@ async function decodeStage(st) {
 
     const frames = [], durs = [];
     for (let i = 0; i < count; i += step) {
-      const { image } = await dec.decode({ frameIndex: i });
-      frames.push(scale < 0.999
-        ? await createImageBitmap(image, { resizeWidth: fw, resizeHeight: fh, resizeQuality: 'high' })
-        : await createImageBitmap(image));
-      durs.push(((image.duration ?? 80000) / 1e6) * step);   // microseconds -> seconds
-      image.close();
+      const f = await src.frame(i, fw, fh);
+      frames.push(f.image);
+      durs.push(f.dur * step);
     }
-    dec.close();
+    src.close();
 
     if (frames.length) {
       gifCache.set(st.slug, { frames, durs, total: durs.reduce((a, b) => a + b, 0), used: performance.now() });
@@ -497,13 +555,21 @@ const halfW = () => (BODY_W / 2) * stage().scale;
  * 5. Input — move, and jump. That is all.
  * ------------------------------------------------------------------ */
 
-const keys = { left: false, right: false, jump: false, up: false };
+const keys = { left: false, right: false, jump: false, up: false, down: false };
 const KEYMAP = {
   ArrowLeft: 'left',  KeyA: 'left',
   ArrowRight:'right', KeyD: 'right',
   ArrowUp:   'up',    KeyE: 'up',
+  ArrowDown: 'down',  KeyS: 'down',
   KeyW:      'jump',  Space: 'jump',
 };
+
+/* Read from the class rather than kept in a variable, because the class is
+   re-synced on resize: an iPad that gets a keyboard, or a phone turned
+   around, changes the answer mid-session. */
+const onTouch = () => document.documentElement.classList.contains('touch');
+
+let upPrev = false;   // for the edge of the phone's ▲, which has two jobs
 
 let running = false;
 let paused  = false;
@@ -789,6 +855,14 @@ function updatePlayer(dt) {
   if (p.onGround) p.coyote = COYOTE_TIME;
   else p.coyote = Math.max(0, p.coyote - dt);
 
+  /* On a phone ▲ is the jump, and only the jump - going through a gate is
+     ▼, the same button as talking. The edge matters: holding ▲ down would
+     otherwise re-arm the buffer every frame and turn into a hop on every
+     landing. */
+  const upEdge = keys.up && !upPrev;
+  upPrev = keys.up;
+  if (onTouch() && upEdge) jumpBuffer = JUMP_BUFFER;
+
   /* Indoors nobody jumps. The manor is walkable end to end without one,
      and a jump under a low ceiling only finds the seams between storeys -
      clipping a ledge, or landing somewhere the stairs were meant to be
@@ -883,7 +957,7 @@ function updatePlayer(dt) {
   /* How long he has been left alone. Anything at all resets it, being
      spoken to included - he is not going to fall asleep while somebody is
      telling him about their life's work. */
-  const busy = !p.onGround || wants !== 0 || keys.jump || keys.up
+  const busy = !p.onGround || wants !== 0 || keys.jump || keys.up || keys.down
             || Math.abs(p.vx) > 2 * z || fade || speaking;
   p.still = busy ? 0 : p.still + dt;
 
@@ -918,13 +992,35 @@ function updatePlayer(dt) {
     const d = Math.abs(p.x - who.x);
     if (d < reach && d < bestD) { bestD = d; near = who; }
   }
-  setSpeaker(near);
-
   /* ---- the gate ---- */
   const g = st.portal;
   const atGate = g && !fade && p.x > g.x && p.x < g.x + g.w;
-  setPrompt(atGate ? g : null);
-  if (atGate && keys.up) { keys.up = false; startFade(+1, SECRET); }
+
+  /* ▼ is the phone's one "use this" button: it opens and closes dialogue,
+     and it steps through a gate. Talking is on a button at all because the
+     screen is small and the boxes are large - walking past three villagers
+     should not mean three pop-ups to read your way out of. Where both are
+     on offer the gate wins, since it is what the stage was leading you to.
+     On a desktop none of this applies: ▲ works the gate as it always did,
+     and standing near someone is still enough to hear them. */
+  if (!onTouch())        setSpeaker(near);
+  else if (!near)        setSpeaker(null);
+  else if (keys.down && !atGate) {
+    keys.down = false;
+    setSpeaker(speaking === near ? null : near);
+  }
+
+  if (atGate)
+    setPrompt(g, onTouch() ? `▼  ENTER  ${g.label}` : null);
+  else if (onTouch() && near && near !== speaking)
+    setPrompt(near, '▼  TALK');
+  else
+    setPrompt(null);
+
+  if (atGate && (keys.up || (onTouch() && keys.down))) {
+    keys.up = keys.down = false;
+    startFade(+1, SECRET);
+  }
 }
 
 /* ------------------------------------------------------------------ *
@@ -1359,11 +1455,15 @@ function setSpeaker(n) {
   sayEl.hidden = false;
 }
 
-function setPrompt(g) {
-  if (g === promptFor) return;
-  promptFor = g;
-  if (!g) { toast.hidden = true; return; }
-  toast.textContent = `▲  ENTER  ${g.label}`;
+/* Compared by the words rather than by the object, because the same gate
+   reads "▲ ENTER" on a keyboard and "▼ ENTER" on a phone, and a tablet can
+   change its mind about which it is halfway through a session. */
+function setPrompt(g, text) {
+  const label = !g ? null : (text || `▲  ENTER  ${g.label}`);
+  if (label === promptFor) return;
+  promptFor = label;
+  if (!label) { toast.hidden = true; return; }
+  toast.textContent = label;
   toast.hidden = false;
 }
 
@@ -1525,6 +1625,35 @@ async function boot() {
 
   const tools = document.getElementById('tools');
   const menuButton = document.getElementById('menuBtn');
+
+  /* ---- how it is played ----
+     A keyboard says what it does on the keys; four unlabelled arrows do
+     not. So the card is shown the first time Begin is pressed on a phone
+     and then never again - touching it is the acknowledgement, and the
+     answer is remembered. Anyone who waves it away too fast, or comes back
+     on a new day, finds it under Controls in the menu. A browser with
+     storage turned off simply sees it every time, which is the harmless
+     way for that to fail. */
+  const controlsEl = document.getElementById('controls');
+  const SEEN_CONTROLS = 'tco-controls-seen';
+  const seenControls = () => {
+    try { return !!localStorage.getItem(SEEN_CONTROLS); } catch (e) { return false; }
+  };
+  const showControls = () => {
+    if (!controlsEl) return;
+    controlsEl.hidden = false;
+    Object.keys(keys).forEach(k => (keys[k] = false));   // don't walk while reading
+  };
+  const hideControls = () => {
+    if (!controlsEl || controlsEl.hidden) return;
+    controlsEl.hidden = true;
+    try { localStorage.setItem(SEEN_CONTROLS, '1'); } catch (e) {}
+    canvasEl.focus();
+  };
+  if (controlsEl) controlsEl.addEventListener('pointerdown', hideControls);
+  const helpBtn = document.getElementById('helpBtn');
+  if (helpBtn) helpBtn.addEventListener('click', e => { e.stopPropagation(); showControls(); });
+
   const play = () => {
     menu.hidden = true;
     pausePanel.hidden = true;
@@ -1536,6 +1665,7 @@ async function boot() {
     visited.add(stageIndex);
     titleCard = 2.2;
     canvasEl.focus();
+    if (onTouch() && !seenControls()) showControls();
   };
   document.getElementById('startBtn').addEventListener('click', play);
   document.getElementById('resumeBtn').addEventListener('click', () => setPause(false));
