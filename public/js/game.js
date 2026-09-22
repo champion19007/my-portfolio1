@@ -1440,12 +1440,18 @@ let speaking  = null;
 /* Who is talking. Each NPC names a bust in assets/faces; the ones with
    no bust yet - the men who are not in full armour - simply show none,
    and the box closes up around the text. */
+/* The portraits are fetched by name at the moment somebody speaks, so
+   unlike the stylesheet and the script they carry no version in the page.
+   Bumped when the art itself changes, or a returning visitor keeps the
+   copy their browser already has. */
+const ART_V = 'v=63';
+
 const sayFace = document.getElementById('sayFace');
 
 function showFace(n) {
   if (!sayFace) return;
   if (!n.face) { sayFace.hidden = true; sayFace.removeAttribute('src'); return; }
-  const want = 'assets/faces/' + n.face + '.png';
+  const want = 'assets/faces/' + n.face + '.png?' + ART_V;
   if (!sayFace.src.endsWith(want)) sayFace.src = want;
   sayFace.hidden = false;
 }
