@@ -190,6 +190,37 @@ body{
 .touch-only{ display:none; }
 .touch .touch-only{ display:inline-block; }
 
+/* ---------------------------------- no long-press on a phone
+   Resting a thumb anywhere brought up iOS's select / copy / look-up
+   bubble, and on a link its own menu on top of that. In the middle of a
+   game that is only ever in the way: a long press here is someone holding
+   an arrow down, not someone trying to quote the page. Nothing is lost by
+   it - every contact detail is already a link, so the address is a tap
+   rather than a copy. Listed out as well as set on the root because Safari
+   does not reliably inherit either property into buttons.
+
+   touch-action:manipulation turns off the double-tap-to-zoom wait, which
+   otherwise swallows quick repeated taps of the same button. The pad keeps
+   its own touch-action:none, so holding an arrow can never pan the page. */
+.touch,
+.touch button,
+.touch a{
+  -webkit-touch-callout:none;
+  -webkit-user-select:none;
+  user-select:none;
+}
+.touch img{ -webkit-user-drag:none; user-drag:none; }
+.touch .tools button,
+.touch .menu-btn,
+.touch .btn,
+.touch .x,
+.touch .hood-tabs button,
+.touch .doc a,
+.touch .crt-grid .cell{
+  -webkit-tap-highlight-color:transparent;
+  touch-action:manipulation;
+}
+
 /* ---------------------------------- the brown description scroll */
 .scroll{
   background:var(--brown);
@@ -262,19 +293,37 @@ body{
 .say[hidden]{ display:none; }
 
 /* who is talking, cut live out of the painting they are standing in */
-.say{ display:flex; align-items:flex-start; gap:16px; }
+.say{ display:flex; align-items:flex-start; }
+/* The speaker is a bust standing at the left of the box, not a portrait in
+   a frame: no plate, no border, no rounded window. Its base sits on the
+   floor of the box and it is taller than the box is, so it rises past the
+   top edge and laps a little over the left one - which is what stops the
+   box reading as a rectangle with a picture stuck in it. It is out of the
+   flex flow and positioned, so the text is laid out as though it were not
+   there, and the room it needs is padding instead. The min-height gives it
+   somewhere to stand however short the line is. The busts are square, so a
+   square window shows all of one and never crops a face. */
+.say{ min-height:118px; }
 .say-face{
-  flex:0 0 auto;
-  width:84px; height:84px;
-  /* The busts are drawn square with the head at the top, so contain shows
-     the whole of one without ever cropping a face. */
-  object-fit:contain; object-position:50% 0;
+  position:absolute;
+  left:-8px; bottom:2px;
+  width:140px; height:140px;
+  object-fit:contain; object-position:50% 100%;   /* stand it on its base */
   image-rendering:pixelated;
-  background:radial-gradient(120% 90% at 50% 25%, rgba(0,0,0,.10), rgba(0,0,0,.42));
-  border:2px solid var(--brown-b);
-  border-radius:8px;
-  box-shadow:inset 0 0 12px rgba(0,0,0,.5);
+  background:none; border:0; border-radius:0; box-shadow:none;
+  /* the only thing holding it off the brown, and off the art it overhangs */
+  filter:drop-shadow(0 0 2px rgba(0,0,0,.7)) drop-shadow(0 3px 3px rgba(0,0,0,.55));
+  pointer-events:none;
 }
+/* Only make room when somebody is actually pictured - the narrator has no
+   bust, and the text should have the whole box when there is none. */
+.say-face:not([hidden]) + .say-body{ padding-left:138px; }
+
+/* Some stages put the box at the top of the screen, where there is nothing
+   above it to rise into and the window edge would simply cut the head off.
+   There the bust stays inside. */
+.say.top .say-face{ left:12px; bottom:7px; width:104px; height:104px; }
+.say.top .say-face:not([hidden]) + .say-body{ padding-left:122px; }
 .say-face[hidden]{ display:none; }
 .say-body{ flex:1 1 auto; min-width:0; }
 
@@ -843,7 +892,11 @@ a.menu-btn{ text-decoration:none; display:inline-block; }
   padding:8px 10px; gap:10px;
 }
 .touch .say.top{ bottom:auto; top:8px; }
-.touch .say-face{ width:54px; height:54px; }
+.touch .say{ min-height:84px; }
+.touch .say-face{ left:-4px; bottom:2px; width:100px; height:100px; }
+.touch .say-face:not([hidden]) + .say-body{ padding-left:98px; }
+.touch .say.top .say-face{ left:7px; bottom:5px; width:72px; height:72px; }
+.touch .say.top .say-face:not([hidden]) + .say-body{ padding-left:86px; }
 .touch .say h2{ font-size:9px; }
 .touch .say header span{ font-size:7px; }
 .touch .say p{ font-size:8px; line-height:1.85; }
