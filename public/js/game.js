@@ -320,10 +320,15 @@ async function loadAssets(onProgress) {
    Safari, so every iPhone - the same frames come out of the decoder in
    js/gifdec.js instead, and nothing downstream can tell. */
 
-const MAX_GIF_FRAMES = 14;
-const GIF_CACHE_MAX  = 3;
-const DECODE_CAP_PX  = 1600;   // no source here is wider; guards a 4K window
-const STAGE_BUDGET   = 34e6;   // bytes of decoded frames we will hold per stage
+/* A phone has a fraction of the memory, a far smaller screen, and - iOS
+   especially - a ceiling on how much canvas it will keep alive before it
+   starts throwing backing stores away. That does not raise an error: the
+   picture simply flashes. So a phone gets a smaller budget, which is also
+   less work to produce. capPx guards a 4K window; no source here is wider
+   than 1880. bytes is what we will hold in decoded frames per stage. */
+const GIF = () => onTouch()
+  ? { frames: 10, cache: 2, capPx:  900, bytes: 12e6 }
+  : { frames: 14, cache: 3, capPx: 1600, bytes: 34e6 };
 
 const gifCache = new Map();
 const decoding = new Set();
@@ -361,8 +366,10 @@ async function webCodecsFrames(buf) {
 /* The hand-rolled path, for Safari, which has no ImageDecoder at all. Its
    decoder is forward-only and reuses one buffer, so each frame is drawn down
    to size the moment it arrives and the full-size buffer is never kept.
-   Frames come back as canvases rather than ImageBitmaps: createImageBitmap's
-   resize options are not dependable in the browsers that need this path.
+   Each frame is scaled through a canvas, because createImageBitmap's resize
+   options are not dependable in the browsers that need this path - but the
+   canvas is handed straight to createImageBitmap and released. Keeping ten
+   live canvases per stage is what iOS will not have.
 
    Unlike WebCodecs this runs on the main thread, and the longest stage is
    forty frames of 1880x950 - well over a second of solid work on a desktop,
@@ -392,7 +399,12 @@ async function handRolledFrames(buf) {
       cx.imageSmoothingEnabled = fw < width;
       cx.imageSmoothingQuality = 'high';
       cx.drawImage(full, 0, 0, fw, fh);
-      return { image: c, dur: fr.delay / 1000 };
+      let image = c;
+      if (typeof createImageBitmap === 'function') {
+        image = await createImageBitmap(c);
+        c.width = c.height = 0;          // drop the backing store now, not at GC
+      }
+      return { image, dur: fr.delay / 1000 };
     },
     close() { full.width = full.height = 0; },
   };
@@ -407,6 +419,7 @@ async function decodeStage(st) {
       ? await webCodecsFrames(buf)
       : await handRolledFrames(buf);
     const nw = src.w, nh = src.h, count = src.count;
+    const lim = GIF();
 
     /* Decode at the size the screen will actually show, not at the design
        size. Holding frames at 512 wide and then drawing them across 1280
@@ -420,7 +433,7 @@ async function decodeStage(st) {
     const shownW = st.fit === 'contain'
       ? nw * Math.min(VIEW_W / nw, VIEW_H / nh)
       : VIEW_W;
-    let wantW = Math.min(nw, DECODE_CAP_PX, Math.max(VIEW_W, Math.ceil(shownW * view.k)));
+    let wantW = Math.min(nw, lim.capPx, Math.max(VIEW_W, Math.ceil(shownW * view.k)));
     let fw = Math.round(wantW), fh = Math.round(nh * (wantW / nw));
 
     /* Resolution and smoothness both come out of the same budget, and a
@@ -428,7 +441,7 @@ async function decodeStage(st) {
        frames - a slideshow. So if that is where we are heading, trade a
        little sharpness back for frames until about WANT_FRAMES fit. */
     const WANT_FRAMES = 10;
-    const maxPx = STAGE_BUDGET / Math.min(count, WANT_FRAMES) / 4;
+    const maxPx = lim.bytes / Math.min(count, WANT_FRAMES) / 4;
     if (fw * fh > maxPx) {
       const k = Math.sqrt(maxPx / (fw * fh));
       fw = Math.round(fw * k); fh = Math.round(fh * k);
@@ -436,8 +449,8 @@ async function decodeStage(st) {
 
     // Bigger frames mean fewer of them; the loop still reads the whole
     // animation, just at a coarser stride.
-    const budgetFrames = Math.max(4, Math.floor(STAGE_BUDGET / (fw * fh * 4)));
-    const cap  = Math.min(MAX_GIF_FRAMES, budgetFrames);
+    const budgetFrames = Math.max(4, Math.floor(lim.bytes / (fw * fh * 4)));
+    const cap  = Math.min(lim.frames, budgetFrames);
     const step = Math.max(1, Math.ceil(count / cap));
 
     const frames = [], durs = [];
@@ -460,7 +473,7 @@ async function decodeStage(st) {
 }
 
 function trimGifCache() {
-  while (gifCache.size > GIF_CACHE_MAX) {
+  while (gifCache.size > GIF().cache) {
     let oldest = null;
     for (const [k, v] of gifCache) if (!oldest || v.used < gifCache.get(oldest).used) oldest = k;
     gifCache.get(oldest).frames.forEach(b => b.close && b.close());
@@ -1717,7 +1730,11 @@ async function boot() {
   const menuBtn = document.getElementById('menuBtn');
   if (menuBtn) menuBtn.addEventListener('click', () => setPause(true));
 
+  /* iOS Safari has no Fullscreen API on the phone at all - only on iPad,
+     and only for video otherwise - so the button was there and did nothing
+     when tapped. Better to not offer it than to offer a dud. */
   const fsBtn = document.getElementById('fsBtn');
+  if (fsBtn && !document.documentElement.requestFullscreen) fsBtn.hidden = true;
   if (fsBtn) fsBtn.addEventListener('click', () => {
     const d = document.documentElement;
     try {

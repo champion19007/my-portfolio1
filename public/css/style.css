@@ -861,14 +861,78 @@ a.menu-btn{ text-decoration:none; display:inline-block; }
   padding:34px 16px 24px;
   border-radius:14px;
 }
-.touch .doc h1{ font-size:11px; line-height:1.7; margin:22px 0 12px; }
-.touch .doc h1.big{ font-size:14px; margin:2px 0 14px; }
+.touch .doc h1{ font-size:11px; line-height:1.7; margin:18px 0 10px; }
+.touch .doc h1.big{ font-size:14px; margin:2px 0 12px; }
 .touch .doc h2{ font-size:10px; }
 .touch .doc h3{ font-size:8px; }
-.touch .doc p{ font-size:8px; line-height:1.95; margin:0 0 11px; }
-.touch .doc p.lead{ margin-bottom:20px; }
+.touch .doc p{ font-size:8px; line-height:1.95; margin:0 0 10px; }
+.touch .doc p.lead{ margin-bottom:18px; }
 .touch .doc p.role{ font-size:7px; }
 .touch .screen{ padding:10px; }
+
+/* Everything else inside a panel, which the headings and paragraphs above
+   do not reach: the lists, the chips, the buttons, the id card, the map
+   plates and the tab rail. Left alone they stayed at desktop sizes while
+   the prose around them shrank, which reads worse than either. */
+.touch .ticks li{ font-size:8px; line-height:1.85; padding-left:16px; margin-bottom:7px; }
+.touch .ticks li::before{ font-size:7px; }
+.touch .ticks.two{ columns:1; }
+.touch .tags{ gap:5px; margin-top:10px; }
+.touch .tags li{ font-size:6px; padding:4px 6px; border-width:1px; }
+.touch .btn-doc{ font-size:8px; padding:10px 12px; border-width:2px; box-shadow:3px 3px 0 var(--ink-d); }
+.touch .rank{ font-size:7px; }
+.touch .idcard-who h2{ font-size:10px; }
+.touch .idcard-who p{ font-size:7px; }
+.touch .ask{ padding:14px; margin-top:22px; border-width:2px; }
+.touch .proj{ padding:18px 0 8px; }
+.touch .proj-art{ height:74px; font-size:22px; margin-bottom:12px; }
+.touch .proj-art.rag,
+.touch .proj-art.ci,
+.touch .proj-art.agt,
+.touch .proj-art.qw{ font-size:15px; }
+/* The map is not a .doc - it is its own screen-shaped thing, so none of
+   the sizing above reached it. Untouched it came out 437px tall inside a
+   360px phone, with no max-height and nothing to scroll, and 12px of
+   backdrop either side to try to tap. */
+.touch .crt{
+  width:min(880px, 88%);
+  max-height:82dvh; overflow-y:auto;
+  padding:14px 14px 0; border-radius:14px;
+}
+.touch .crt-bezel{ padding:9px; }
+.touch .crt-glass{ padding:11px; min-height:0; }
+.touch .crt-legend{ font-size:6px; gap:11px; margin-bottom:10px; }
+.touch .crt-legend i{ width:7px; height:7px; margin-right:4px; }
+.touch .crt-grid{ grid-template-columns:repeat(auto-fit,minmax(82px,1fr)); gap:7px; }
+.touch .crt-grid .cell{ padding:7px 5px; gap:5px; }
+.touch .crt-grid .cell b{ font-size:8px; }
+.touch .crt-grid .cell span{ font-size:6px; line-height:1.6; }
+.touch .crt-note{ font-size:7px; line-height:1.8; margin-top:10px; }
+.touch .crt-foot{ padding:8px 4px 10px; }
+.touch .crt-brand{ font-size:6px; }
+.touch .hood-head h1{ font-size:12px; margin-bottom:6px; }
+.touch .hood-head p{ font-size:7px; }
+.touch .hood-tabs button{ font-size:7px; padding:9px 11px; }
+
+/* Under the Hood could not be scrolled on a phone. The card sets
+   overflow:hidden on itself and hands scrolling to .hood-body, which works
+   while the two are side by side and .hood-body has a height to be bounded
+   by. Stacked, it has none - so the overflow was simply clipped, with
+   nothing to drag. On touch the card scrolls itself instead. The old
+   stacking rule keyed off a 720px media query, which a landscape phone is
+   too wide to match, so it is repeated here off the touch class. */
+.touch .doc.hood{ overflow-y:auto; }
+.touch .hood-split{ display:block; min-height:0; }
+.touch .hood-tabs{
+  width:auto; display:flex; overflow-x:auto;
+  border-right:0; border-bottom:2px solid var(--rule); padding:0;
+}
+.touch .hood-tabs button{
+  width:auto; white-space:nowrap;
+  border-left:0; border-bottom:4px solid transparent;
+}
+.touch .hood-tabs button.on{ border-bottom-color:#c9a227; }
+.touch .hood-body{ overflow:visible; padding:16px 14px 24px; }
 
 /* Fixed rather than absolute: the cross lives inside a panel that scrolls,
    so on a phone it slid off the top the moment you read anything - which is
