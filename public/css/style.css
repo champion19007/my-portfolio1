@@ -27,6 +27,17 @@
 
 html,body{ height:100%; }
 
+/* Safari on iOS inflates text it decides is "body content", picking a
+   boost per block from that block's width and how much text is in it. It
+   is why two dialogue boxes with identical CSS came back from a real phone
+   at wildly different sizes - the four-line one left alone, the seven-line
+   one blown up until it covered the game. Nothing in here is an article to
+   be made readable; every size is deliberate. */
+html{
+  -webkit-text-size-adjust:100%;
+  text-size-adjust:100%;
+}
+
 body{
   margin:0;
   background:var(--void);
@@ -891,12 +902,19 @@ a.menu-btn{ text-decoration:none; display:inline-block; }
   width:calc(100vw - 168px);
   padding:8px 10px; gap:10px;
 }
-.touch .say.top{ bottom:auto; top:8px; }
+/* The top of a phone screen is entirely chrome: Menu and Normal site on
+   the left, and seven tool buttons on the right that wrap onto two rows.
+   A box pinned up there lands underneath them, with the speaker's name and
+   the end of the title hidden behind MAP and Under the Hood. The point of
+   the top variant was to keep the sprites visible on a couple of stages;
+   on a phone the box is small enough at the bottom that it costs nothing,
+   so up there it simply is not worth it. */
+.touch .say.top{ top:auto; bottom:8px; }
 .touch .say{ min-height:84px; }
 .touch .say-face{ left:-4px; bottom:2px; width:100px; height:100px; }
 .touch .say-face:not([hidden]) + .say-body{ padding-left:98px; }
-.touch .say.top .say-face{ left:7px; bottom:5px; width:72px; height:72px; }
-.touch .say.top .say-face:not([hidden]) + .say-body{ padding-left:86px; }
+.touch .say.top .say-face{ left:-4px; bottom:2px; width:100px; height:100px; }
+.touch .say.top .say-face:not([hidden]) + .say-body{ padding-left:98px; }
 .touch .say h2{ font-size:9px; }
 .touch .say header span{ font-size:7px; }
 .touch .say p{ font-size:8px; line-height:1.85; }

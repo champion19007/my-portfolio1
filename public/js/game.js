@@ -1444,7 +1444,7 @@ let speaking  = null;
    unlike the stylesheet and the script they carry no version in the page.
    Bumped when the art itself changes, or a returning visitor keeps the
    copy their browser already has. */
-const ART_V = 'v=63';
+const ART_V = 'v=64';
 
 const sayFace = document.getElementById('sayFace');
 
