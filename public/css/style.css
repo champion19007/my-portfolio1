@@ -190,6 +190,37 @@ body{
 .touch-only{ display:none; }
 .touch .touch-only{ display:inline-block; }
 
+/* ---------------------------------- no long-press on a phone
+   Resting a thumb anywhere brought up iOS's select / copy / look-up
+   bubble, and on a link its own menu on top of that. In the middle of a
+   game that is only ever in the way: a long press here is someone holding
+   an arrow down, not someone trying to quote the page. Nothing is lost by
+   it - every contact detail is already a link, so the address is a tap
+   rather than a copy. Listed out as well as set on the root because Safari
+   does not reliably inherit either property into buttons.
+
+   touch-action:manipulation turns off the double-tap-to-zoom wait, which
+   otherwise swallows quick repeated taps of the same button. The pad keeps
+   its own touch-action:none, so holding an arrow can never pan the page. */
+.touch,
+.touch button,
+.touch a{
+  -webkit-touch-callout:none;
+  -webkit-user-select:none;
+  user-select:none;
+}
+.touch img{ -webkit-user-drag:none; user-drag:none; }
+.touch .tools button,
+.touch .menu-btn,
+.touch .btn,
+.touch .x,
+.touch .hood-tabs button,
+.touch .doc a,
+.touch .crt-grid .cell{
+  -webkit-tap-highlight-color:transparent;
+  touch-action:manipulation;
+}
+
 /* ---------------------------------- the brown description scroll */
 .scroll{
   background:var(--brown);
