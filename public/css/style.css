@@ -56,7 +56,11 @@ body{
 /* ---------------------------------- full-screen overlays */
 .screen{
   position:fixed; inset:0;
-  display:grid; place-items:center;
+  /* start, not centre, plus auto overflow: a plate taller than the window
+     scrolls instead of hiding its own button below the fold. It still
+     looks centred, because the body rule below re-centres what fits. */
+  display:grid; place-items:start center; align-content:safe center;
+  overflow-y:auto; -webkit-overflow-scrolling:touch;
   padding:20px;
   background:
     radial-gradient(120% 90% at 50% 45%, rgba(12,15,24,.72), rgba(12,15,24,.94));
@@ -141,14 +145,6 @@ body{
   background:var(--void);
   padding:4px 14px;
   border-radius:6px;
-}
-.chip{
-  font-size:8px;
-  color:var(--muted);
-  background:var(--slot);
-  border:1px solid #33406a;
-  border-radius:4px;
-  padding:4px 6px;
 }
 
 .plate-body{ display:grid; gap:18px; }
@@ -269,7 +265,6 @@ body{
 }
 .say header span{ font-size:8px; color:#e6cdb6; text-align:right; white-space:nowrap; }
 
-
 /* Stages whose people stand low in the frame put the box at the top
    instead, so the box is never over the thing it is describing. */
 .say.top{ bottom:auto; top:64px; animation:drop .18s ease; }
@@ -325,7 +320,6 @@ body{
 .pad button:active{ background:var(--gold); color:#2a1d05; }
 .touch .pad{ display:flex; }
 
-
 /* ---------------------------------- navigation
    Buttons over the game, in the same chrome as the plates. */
 .nav, .tools{
@@ -374,21 +368,9 @@ body{
 }
 .nav button:active, .tools button:active{ transform:translateY(2px); box-shadow:none; }
 
-
 @media (max-width:640px){
   .tools button{ font-size:7px; padding:8px 9px; }
 }
-
-/* ---------------------------------- credit */
-.credit{
-  position:fixed; left:12px; bottom:10px;
-  z-index:6;
-  font-size:7px;
-  color:rgba(154,164,189,.65);
-  letter-spacing:.04em;
-  pointer-events:none;
-}
-.credit b{ color:rgba(236,231,220,.8); }
 
 @media (max-width:560px){
   .say{ bottom:96px; padding:12px 14px; }
@@ -397,7 +379,6 @@ body{
   .plate{ padding:30px 14px 16px; }
   .plate-title{ font-size:11px; }
   .scroll p{ font-size:9px; line-height:1.9; }
-  .credit{ bottom:86px; }
 }
 
 /* ==================================================================
@@ -772,11 +753,9 @@ body{
   .tl-logo{ width:52px; height:52px; font-size:11px; }
 }
 
-
 /* the switch out to the ordinary site - an anchor, so it still looks
    like its neighbour but behaves like a link */
 a.menu-btn{ text-decoration:none; display:inline-block; }
-
 
 /* ---------------------------------- turn the phone
    The game is a 16:9 picture; in portrait it would be a letterbox with a
@@ -830,3 +809,21 @@ a.menu-btn{ text-decoration:none; display:inline-block; }
 
 .touch .toast{ bottom:150px; font-size:8px; }
 .touch .doc{ max-height:88vh; }
+
+/* ---------------------------------- the plates, on a handset
+   Landscape on a phone leaves about 330px of usable height once the
+   browser chrome has taken its share, and the title plate was taller than
+   that - Begin sat below the fold on a screen that does not scroll.
+   The keyboard grid is the thing to lose: it lists keys a phone does not
+   have, and the controls it describes are already on the game as thumb
+   buttons. */
+.touch #menu .grid,
+.touch #pause .grid{ display:none; }
+
+.touch .plate{ padding:26px 14px 14px; width:min(560px, 100%); }
+.touch .plate-title{ font-size:10px; top:-11px; }
+.touch .plate-body{ gap:12px; }
+.touch .scroll{ padding:12px 14px; }
+.touch .scroll header h1{ font-size:10px; }
+.touch .scroll p{ font-size:8px; line-height:1.85; }
+.touch .btn{ padding:12px 14px; font-size:10px; }

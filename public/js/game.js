@@ -1621,24 +1621,6 @@ async function boot() {
   requestAnimationFrame(frame);
 }
 
-/* A window onto the world state, for tuning stages. Every feetY, scale,
-   floor and ramp in the table above was measured against this rather than
-   guessed at, and the next stage that gets swapped will be too:
-
-     TCO.where()   where the hero is and what he is standing on
-     TCO.stage()   the current stage's table entry
-     TCO.surfaces() its segments, resolved
-
-   Reading only - nothing in the game consults it. */
-window.TCO = {
-  where: () => ({ stage: stage().slug, x: +player.x.toFixed(2), feet: +player.feet.toFixed(2),
-                  onGround: player.onGround, surf: player.surf,
-                  anim: player.anim, frame: player.frame, still: +player.still.toFixed(1),
-                  standingOn: surfaces(stage())[player.surf] }),
-  stage: () => stage(),
-  surfaces: () => surfaces(stage()),
-};
-
 if (document.readyState === 'loading') addEventListener('DOMContentLoaded', boot);
 else boot();
 
