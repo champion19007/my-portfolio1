@@ -183,7 +183,7 @@ const STAGES = [
         text:"Six repositories of it — MLOps-Forge, an end-to-end data pipeline, a bank-churn pipeline, a CV MLOps project, and CI/CD on AWS with CodePipeline, CodeDeploy and CloudFormation." },
     ] },
 
-  { slug:'croft',   src:'croft.gif',   title:'The Croft',       feetY:237, scale:1.45,
+  { slug:'croft',   src:'croft.gif',   title:'The Croft',       feetY:240, scale:1.45,
     x0: 24, x1:488,
     npcs: [
       { x:160, face:"auburn", name:"The Swineherd", role:"Research — ACROSET 2025, IEEE Xplore",
@@ -238,7 +238,7 @@ const STAGES = [
     ] },
 
   // ---- hidden: only reachable through the gate ----
-  { slug:'winter',  src:'winter.gif',  title:'Winter Watch',    feetY:206, scale:2.50,
+  { slug:'winter',  src:'winter.gif',  title:'Winter Watch',    feetY:213, scale:2.50,
     x0: 60, x1:420,
     entryX: 96, secret: true, backTo: 'gate',
     npcs: [
@@ -1444,7 +1444,7 @@ let speaking  = null;
    unlike the stylesheet and the script they carry no version in the page.
    Bumped when the art itself changes, or a returning visitor keeps the
    copy their browser already has. */
-const ART_V = 'v=63';
+const ART_V = 'v=64';
 
 const sayFace = document.getElementById('sayFace');
 
