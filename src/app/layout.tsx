@@ -2,8 +2,8 @@ import type { Metadata, Viewport } from 'next';
 import './globals.css';
 import { FirebaseClientProvider } from '@/firebase/client-provider';
 import { Toaster } from '@/components/ui/toaster';
-import { Poppins, Instrument_Serif } from 'next/font/google';
-import { LightVideoBackground } from '@/components/portfolio/LightVideoBackground';
+import { Poppins, Instrument_Serif, JetBrains_Mono } from 'next/font/google';
+import { SceneBackground } from '@/components/site/SceneBackground';
 
 const poppins = Poppins({
   subsets: ['latin'],
@@ -14,6 +14,16 @@ const poppins = Poppins({
 
 /* One weight, italic only - it is used for exactly one thing: the accent
    line under each section heading. */
+/* The micro-labels - FIG. 01, the tab names, the corner notes - are set
+   in mono, which is what gives the two technical references their
+   instrument-panel feel. */
+const mono = JetBrains_Mono({
+  subsets: ['latin'],
+  weight: ['400', '500'],
+  variable: '--font-mono',
+  display: 'swap',
+});
+
 const serif = Instrument_Serif({
   subsets: ['latin'],
   weight: ['400'],
@@ -62,9 +72,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${poppins.variable} ${serif.variable}`}>
+    <html lang="en" className={`${poppins.variable} ${serif.variable} ${mono.variable}`}>
       <body className="font-body antialiased selection:bg-primary/20 app-surface bg-background text-foreground">
-        <LightVideoBackground />
+        <SceneBackground />
         <FirebaseClientProvider>
           {/* The sidebar is gone with the six routes it navigated. `main`
               stays the scroll container rather than letting the body

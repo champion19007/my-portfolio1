@@ -4,23 +4,23 @@
 
 @layer base {
   :root {
-    --background: 0 30% 98%;
-    --foreground: 0 60% 5%;
-    --card: 0 20% 99%;
+    --background: 228 30% 98%;
+    --foreground: 230 45% 8%;
+    --card: 228 24% 99%;
     --card-foreground: 0 60% 5%;
     --popover: 0 30% 98%;
     --popover-foreground: 0 60% 5%;
-    --primary: 0 72% 51%;
+    --primary: 232 74% 52%;
     --primary-foreground: 0 0% 100%;
-    --secondary: 0 20% 94%;
+    --secondary: 228 24% 94%;
     --secondary-foreground: 0 60% 10%;
-    --muted: 0 20% 94%;
-    --muted-foreground: 0 20% 40%;
-    --accent: 10 100% 50%;
-    --accent-foreground: 0 60% 5%;
-    --border: 0 20% 90%;
-    --input: 0 20% 90%;
-    --ring: 0 72% 51%;
+    --muted: 228 24% 94%;
+    --muted-foreground: 230 18% 34%;
+    --accent: 272 76% 56%;
+    --accent-foreground: 230 45% 8%;
+    --border: 228 20% 88%;
+    --input: 228 20% 88%;
+    --ring: 232 74% 52%;
     --radius: 1rem;
     --sidebar-background: 0 20% 98%;
     --sidebar-foreground: 0 60% 10%;
@@ -32,23 +32,23 @@
     --sidebar-ring: 0 72% 51%;
   }
   .dark {
-    --background: 0 30% 4%;
-    --foreground: 0 20% 98%;
-    --card: 0 20% 7%;
+    --background: 285 32% 5%;
+    --foreground: 290 12% 97%;
+    --card: 285 24% 9%;
     --card-foreground: 0 20% 98%;
     --popover: 0 30% 4%;
     --popover-foreground: 0 20% 98%;
-    --primary: 0 72% 51%;
-    --primary-foreground: 0 0% 100%;
-    --secondary: 0 20% 10%;
+    --primary: 300 78% 68%;
+    --primary-foreground: 285 40% 6%;
+    --secondary: 285 20% 13%;
     --secondary-foreground: 0 20% 98%;
-    --muted: 0 20% 12%;
-    --muted-foreground: 0 10% 65%;
-    --accent: 10 100% 50%;
-    --accent-foreground: 0 20% 98%;
-    --border: 0 20% 15%;
-    --input: 0 20% 15%;
-    --ring: 0 72% 51%;
+    --muted: 285 18% 14%;
+    --muted-foreground: 288 14% 72%;
+    --accent: 265 85% 72%;
+    --accent-foreground: 290 12% 97%;
+    --border: 288 20% 20%;
+    --input: 288 20% 20%;
+    --ring: 300 78% 68%;
     --sidebar-background: 0 20% 6%;
     --sidebar-foreground: 0 20% 92%;
     --sidebar-primary: 0 72% 51%;
@@ -105,15 +105,14 @@ html {
   scrollbar-width: none;
 }
 
-/* ---- the light theme's video background ----
-   Three surfaces normally paint the page background - the body, the flex
-   shell and the scrolling main. In light mode they all step aside so the
-   fixed video behind them shows through; each keeps its bg-background
-   class, so dark mode is exactly what it was and the video is never even
-   mounted there. */
-:root:not(.dark) .app-surface { background-color: transparent; }
+/* ---- the picture behind the page ----
+   Both themes have one: the video in light, the crystal still in dark. The
+   surfaces that normally paint the page background step aside in both, so
+   the fixed scene behind them shows through. Each keeps its bg-background
+   class, so anything rendered outside this page is unaffected. */
+.app-surface { background-color: transparent; }
 
-.lightbg {
+.scene {
   position: fixed;
   inset: 0;
   z-index: -10;
@@ -122,31 +121,15 @@ html {
   background-color: hsl(var(--background));
 }
 
-.lightbg-video {
+/* No blur. The picture is meant to be sharp, so everything that has to
+   keep text readable is done with the scrim instead. */
+.scene-media {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  /* The facet edges in the clip are near-black and only a pixel or two
-     wide, which is exactly the frequency body text is made of - laid over
-     each other they compete. A small blur takes that detail out while
-     leaving the drifting shapes and the colour, and the scale hides the
-     transparent margin a blur leaves at the edges. */
-  transform: scale(1.06);
-  filter: blur(3px) saturate(1.05);
 }
 
-/* Heavier top and bottom, where the navbar and footer sit, and thinnest
-   through the middle where the cards already provide their own surface.
-
-   The middle band is 0.80 because that is where the measurement lands it.
-   Sampled against the darkest pixel the clip puts under the text, the
-   contrast with the muted foreground is 2.48:1 at 0.60, 3.23 at 0.70, 4.11
-   at 0.80 and 4.92 at 0.88. Only the last clears AA for body text - and it
-   washes the video out almost completely, which is the whole point of
-   having it. 0.80 clears AA for large text with room to spare and lands
-   just under it for body copy, whose colour is the real limit: rgb(122 82
-   82) is about 4.9:1 on the plain background before any video exists. */
-.lightbg-scrim {
+.scene-scrim {
   position: absolute;
   inset: 0;
   background:
