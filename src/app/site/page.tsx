@@ -1,22 +1,46 @@
+import type { Metadata } from 'next';
 import { INITIAL_DATA } from '../data/initial-data';
-import { Hero } from '@/components/portfolio/Hero';
-import { Navbar } from '@/components/portfolio/Navbar';
-import { Metadata } from 'next';
+import { SiteNav } from '@/components/site/SiteNav';
+import { SiteHero } from '@/components/site/SiteHero';
+import {
+  SiteWork,
+  SiteExperience,
+  SiteSkills,
+  SiteServices,
+  SiteContact,
+} from '@/components/site/SiteSections';
 
 export const metadata: Metadata = {
   title: 'AI & ML Engineer Portfolio',
-  description: 'Welcome to the portfolio of Sai Yashwant Reddy Panthy. Specializing in RAG applications, ML pipelines, and Agentic AI systems.',
+  description:
+    'Sai Yashwant Reddy Panthy — AI & ML engineer. RAG and LLM systems, MLOps pipelines, computer vision. IEEE published.',
 };
 
-export default function Home() {
-  const { hero, contact } = INITIAL_DATA;
+/* The written portfolio, which used to be six routes behind a sidebar and
+   is now one page you scroll. The sections kept their names so the old
+   URLs can redirect to them as anchors. */
+export default function SitePage() {
+  const { hero, contact, about, projects, skills, offerings } = INITIAL_DATA;
 
   return (
-    <div className="flex flex-col min-h-full">
-      <Navbar />
-      <div className="flex-1 flex items-center justify-center p-6 md:p-12">
-        <Hero {...hero} resumeUrl={contact.resume} />
+    <>
+      <SiteNav />
+      <SiteHero
+        name={hero.name}
+        title={hero.title}
+        resumeUrl={contact.resume}
+        calUrl={contact.cal}
+      />
+      <div className="space-y-4 pb-6 md:space-y-6 md:pb-10">
+        <SiteWork projects={projects} />
+        <SiteExperience about={about} />
+        <SiteSkills skills={skills} />
+        <SiteServices offerings={offerings} />
+        <SiteContact contact={contact} />
       </div>
-    </div>
+      <footer className="px-5 pb-12 text-center text-xs font-semibold text-muted-foreground">
+        <p>© {new Date().getFullYear()} Sai Yashwant Reddy Panthy</p>
+      </footer>
+    </>
   );
 }

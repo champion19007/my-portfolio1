@@ -1,22 +1,8 @@
-import { INITIAL_DATA } from '../data/initial-data';
-import { Contact } from '@/components/portfolio/Contact';
-import { Navbar } from '@/components/portfolio/Navbar';
-import { Metadata } from 'next';
+import { redirect } from 'next/navigation';
 
-export const metadata: Metadata = {
-  title: 'Connect',
-  description: 'Get in touch with Sai Yashwant Reddy Panthy for research collaborations, engineering roles, and AI projects.',
-};
-
-export default function ContactPage() {
-  const { contact } = INITIAL_DATA;
-
-  return (
-    <div className="flex flex-col min-h-full">
-      <Navbar />
-      <div className="p-6 md:p-12">
-        <Contact contact={contact} />
-      </div>
-    </div>
-  );
+/* This used to be its own route in a sidebar layout. The written portfolio
+   is one scrolling page now, so the URL survives as an anchor rather than
+   becoming a 404 for anyone holding an old link. */
+export default function Page() {
+  redirect('/site#contact');
 }

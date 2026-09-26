@@ -158,3 +158,25 @@ html {
       hsl(var(--background) / 0.92) 100%
     );
 }
+
+/* The accent line is filled with a gradient rather than a flat colour,
+   which is what gives the reference's serif its shimmer. background-clip
+   on text needs the colour made transparent to show through. */
+.accent-line {
+  background-image: linear-gradient(
+    100deg,
+    hsl(var(--primary)) 0%,
+    hsl(var(--accent)) 45%,
+    hsl(var(--primary)) 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  padding-bottom: 0.1em;
+}
+
+/* Words start dim and come up to full as the line crosses the middle of
+   the screen. Set from JS one word at a time - see RevealText. */
+.reveal-word {
+  transition: opacity 260ms ease, color 260ms ease;
+}

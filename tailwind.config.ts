@@ -11,6 +11,7 @@ export default {
     extend: {
       fontFamily: {
         body: ['Poppins', 'sans-serif'],
+        serif: ['var(--font-serif)', 'Georgia', 'serif'],
         headline: ['Poppins', 'sans-serif'],
         code: ['monospace'],
       },
