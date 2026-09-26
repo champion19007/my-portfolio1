@@ -163,3 +163,29 @@ html {
 .reveal-word {
   transition: opacity 260ms ease, color 260ms ease;
 }
+
+/* ---- one fluid scale, instead of breakpoint steps ----
+   Stepped sizes are wrong everywhere except the widths they were chosen
+   at: the display line was 41.6px on a 320px phone, where it took four
+   lines before you reached anything, and still only 60px on a 1920px
+   screen, where it looked lost. Each of these clamps between a size that
+   works at 320 and one that works at 1920, so there is no width left over
+   where the type is suddenly the wrong size. */
+.t-display { font-size: clamp(2.05rem, 5.9vw, 5.25rem); line-height: 0.94; }
+.t-word    { font-size: clamp(2.6rem, 8.2vw, 7.25rem);  line-height: 0.95; }
+.t-h2      { font-size: clamp(1.85rem, 4.3vw, 3.5rem);  line-height: 1.04; }
+.t-accent  { font-size: clamp(1.4rem, 3.4vw, 2.9rem);   line-height: 1.15; }
+.t-lead    { font-size: clamp(0.94rem, 1.15vw, 1.12rem); }
+
+/* A finger needs about 44px to hit something reliably. These labels are
+   10px mono and should stay that size - it is the hit area that has to
+   grow, not the text. */
+.tap {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+}
+
+/* Long names and headings break better when the browser balances the
+   lines itself than when a <br> is guessed in the markup. */
+.balance { text-wrap: balance; }

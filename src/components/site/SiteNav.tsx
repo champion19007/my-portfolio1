@@ -49,14 +49,14 @@ export function SiteNav() {
           <span className="grid h-8 w-8 place-items-center rounded-lg bg-primary text-[11px] font-black text-primary-foreground">
             SY
           </span>
-          <span className="text-base font-black tracking-tight md:text-lg">
+          <span className="whitespace-nowrap text-sm font-black tracking-tight sm:text-base lg:text-lg">
             Sai Yashwant
           </span>
         </a>
 
         <ul
           className={cn(
-            'hidden items-center gap-1 rounded-full md:flex',
+            'hidden items-center gap-1 rounded-full lg:flex',
             'border border-border/60 bg-background/75 px-2 py-1.5 backdrop-blur-2xl',
             'shadow-[0_10px_40px_-16px_rgba(0,0,0,0.4)]'
           )}
@@ -81,7 +81,7 @@ export function SiteNav() {
             rather than offering something to read. */}
         <a
           href="#contact"
-          className="relative hidden rounded-full bg-foreground px-5 py-3 text-xs font-black tracking-wide text-background shadow-[0_0_28px_-6px_hsl(var(--primary))] transition-transform hover:scale-[1.03] sm:block"
+          className="relative hidden whitespace-nowrap rounded-full bg-foreground px-4 py-3 text-xs font-black tracking-wide text-background shadow-[0_0_28px_-6px_hsl(var(--primary))] transition-transform hover:scale-[1.03] sm:inline-flex sm:items-center"
         >
           <span
             aria-hidden
@@ -111,14 +111,14 @@ export function SiteNav() {
           onClick={() => setOpen((v) => !v)}
           aria-label={open ? 'Close menu' : 'Open menu'}
           aria-expanded={open}
-          className="grid h-9 w-9 place-items-center rounded-full border border-border/70 text-muted-foreground md:hidden"
+          className="grid h-9 w-9 place-items-center rounded-full border border-border/70 text-muted-foreground lg:hidden"
         >
           {open ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
         </button>
       </nav>
 
       {open && (
-        <div className="mx-auto mt-2 w-full max-w-5xl rounded-3xl border border-border/60 bg-background/95 p-2 backdrop-blur-2xl md:hidden">
+        <div className="mx-auto mt-2 w-full max-w-5xl rounded-3xl border border-border/60 bg-background/95 p-2 backdrop-blur-2xl lg:hidden">
           <ul className="grid gap-1">
             {[...LINKS, { href: '#contact', label: 'Contact' }].map((l) => (
               <li key={l.href}>

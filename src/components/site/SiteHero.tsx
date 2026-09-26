@@ -68,15 +68,13 @@ export function SiteHero({
 
         <div className="grid items-center gap-8 pt-10 lg:grid-cols-[1.05fr_1fr] lg:gap-6">
           <div className="min-w-0">
-            <h1 className="text-[2.6rem] font-black uppercase leading-[0.92] tracking-tight text-foreground sm:text-6xl">
-              {name.split(' ').slice(0, 2).join(' ')}
-              <br />
-              {name.split(' ').slice(2).join(' ')}
+            <h1 className="t-display balance font-black uppercase tracking-tight text-foreground">
+              {name}
             </h1>
 
             {/* The one oversized word the screen hangs on. It is the
                 claim the rest of the page then has to back up. */}
-            <p className="accent-line font-serif -ml-1 mt-2 text-6xl italic leading-[0.95] sm:text-8xl">
+            <p className="accent-line t-word font-serif -ml-1 mt-2 italic">
               Production.
             </p>
 
@@ -115,10 +113,10 @@ export function SiteHero({
 
           {/* the figure, and the tabs that caption it */}
           <div className="relative min-w-0">
-            <p className="absolute left-0 top-0 font-mono text-[10px] uppercase tracking-[0.22em] text-muted-foreground">
+            <p className="mb-2 font-mono text-[10px] uppercase tracking-[0.22em] text-muted-foreground">
               Fig. {tab.n}
             </p>
-            <div className="relative mx-auto aspect-square w-full max-w-[420px]">
+            <div className="relative mx-auto aspect-square w-full max-w-[clamp(240px,34vw,560px)]">
               <span
                 aria-hidden
                 className="absolute inset-[6%] rounded-full border border-border/40"
@@ -132,7 +130,7 @@ export function SiteHero({
                   key={t.id}
                   onClick={() => setActive(i)}
                   aria-pressed={i === active}
-                  className={`-mt-px border-t pt-3 font-mono text-[10px] uppercase tracking-[0.18em] transition-colors ${
+                  className={`tap -mt-px border-t pr-1 font-mono text-[10px] uppercase tracking-[0.18em] transition-colors ${
                     i === active
                       ? 'border-primary text-foreground'
                       : 'border-transparent text-muted-foreground hover:text-foreground'
@@ -151,9 +149,9 @@ export function SiteHero({
           </div>
         </div>
 
-        <p className="mt-12 font-mono text-[10px] uppercase tracking-[0.22em] text-muted-foreground">
+        <p className="mt-10 font-mono text-[10px] uppercase tracking-[0.22em] text-muted-foreground">
           Or{' '}
-          <Link href="/" className="text-primary underline underline-offset-4">
+          <Link href="/" className="tap text-primary underline underline-offset-4">
             explore it as a game
           </Link>
         </p>

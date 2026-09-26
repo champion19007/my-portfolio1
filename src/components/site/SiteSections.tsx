@@ -60,7 +60,7 @@ export function SiteWork({ projects }: { projects: PortfolioData['projects'] }) 
                   href={p.repoUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 text-xs font-black text-primary hover:underline"
+                  className="tap inline-flex items-center gap-2 text-xs font-black text-primary hover:underline"
                 >
                   <Github className="h-3.5 w-3.5" />
                   Source

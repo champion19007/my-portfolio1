@@ -38,18 +38,18 @@ export function Block({
         )}
       >
         <header className="mx-auto mb-12 max-w-3xl text-center md:mb-16">
-          <h2 className="text-4xl font-black tracking-tight text-foreground md:text-6xl">
+          <h2 className="t-h2 balance font-black tracking-tight text-foreground">
             {title}
           </h2>
           {accent && (
-            <p className="accent-line font-serif mt-3 text-3xl italic md:text-5xl">
+            <p className="accent-line t-accent balance font-serif mt-3 italic">
               {accent}
             </p>
           )}
           {lead && (
             <RevealText
               text={lead}
-              className="mx-auto mt-7 max-w-2xl text-base leading-relaxed text-foreground md:text-lg"
+              className="t-lead balance mx-auto mt-7 max-w-2xl leading-relaxed text-foreground"
             />
           )}
         </header>
