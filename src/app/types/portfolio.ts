@@ -41,6 +41,7 @@ export interface PortfolioData {
     location: string;
     github: string;
     linkedin: string;
+    cal: string;
     resume: string;
   };
   about: {

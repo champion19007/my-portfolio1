@@ -708,6 +708,7 @@ body{
 .crow-ico.mail{ color:#d93025; }
 .crow-ico.gh  { color:#17181d; }
 .crow-ico.li  { color:#0a66c2; }
+.crow-ico.cal { color:#1a7f5a; }
 .crow-txt{ font-size:11px; color:var(--ink-d); line-height:1.9; }
 .crow-txt b{ display:block; font-size:9px; color:var(--ink-l); margin-bottom:4px; }
 
