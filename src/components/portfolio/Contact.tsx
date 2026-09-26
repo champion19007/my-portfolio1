@@ -1,7 +1,7 @@
 "use client";
 
 import { SectionHeading } from './SectionHeading';
-import { Mail, MapPin, Phone, Github, Linkedin, FileText, ExternalLink } from 'lucide-react';
+import { Mail, MapPin, Phone, Github, Linkedin, FileText, ExternalLink, CalendarClock } from 'lucide-react';
 
 interface ContactProps {
   contact: {
@@ -10,6 +10,7 @@ interface ContactProps {
     location: string;
     github: string;
     linkedin: string;
+    cal: string;
     resume: string;
   };
 }
@@ -59,6 +60,16 @@ export function Contact({ contact }: ContactProps) {
                   <div>
                     <p className="text-[10px] font-black text-primary uppercase tracking-widest mb-1">Phone</p>
                     <p className="text-xs md:text-sm font-bold">{contact.phone}</p>
+                  </div>
+                </a>
+
+                <a href={contact.cal} target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 md:gap-6 group p-4 md:p-6 rounded-2xl md:rounded-3xl bg-secondary/50 border border-transparent hover:border-primary/20 transition-all">
+                  <div className="p-3 md:p-4 rounded-xl md:rounded-2xl bg-primary text-primary-foreground shadow-lg shadow-primary/20 group-hover:scale-110 transition-transform">
+                    <CalendarClock className="h-5 w-5 md:h-6 md:w-6" />
+                  </div>
+                  <div>
+                    <p className="text-[10px] font-black text-primary uppercase tracking-widest mb-1">Book a call</p>
+                    <p className="text-xs md:text-sm font-bold flex items-center gap-2">Pick a time <ExternalLink className="h-3 w-3" /></p>
                   </div>
                 </a>
 

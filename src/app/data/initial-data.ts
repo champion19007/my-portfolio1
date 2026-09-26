@@ -13,6 +13,7 @@ export const INITIAL_DATA: PortfolioData = {
     location: "Mumbai",
     github: "https://github.com/champion19007",
     linkedin: "https://linkedin.com/in/saiyashwantreddy",
+    cal: "https://cal.com/sai-yashwant-reddy-panthy-m6bfa9",
     resume: "https://docs.google.com/document/d/1xV0Od6ttBZYJI9imnWTNa3P2EBx2PDOq/edit?usp=drive_link&ouid=104186115979117347302&rtpof=true&sd=true"
   },
   about: {
