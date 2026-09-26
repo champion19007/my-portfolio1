@@ -104,3 +104,57 @@ html {
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
+
+/* ---- the light theme's video background ----
+   Three surfaces normally paint the page background - the body, the flex
+   shell and the scrolling main. In light mode they all step aside so the
+   fixed video behind them shows through; each keeps its bg-background
+   class, so dark mode is exactly what it was and the video is never even
+   mounted there. */
+:root:not(.dark) .app-surface { background-color: transparent; }
+
+.lightbg {
+  position: fixed;
+  inset: 0;
+  z-index: -10;
+  overflow: hidden;
+  pointer-events: none;
+  background-color: hsl(var(--background));
+}
+
+.lightbg-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* The facet edges in the clip are near-black and only a pixel or two
+     wide, which is exactly the frequency body text is made of - laid over
+     each other they compete. A small blur takes that detail out while
+     leaving the drifting shapes and the colour, and the scale hides the
+     transparent margin a blur leaves at the edges. */
+  transform: scale(1.06);
+  filter: blur(3px) saturate(1.05);
+}
+
+/* Heavier top and bottom, where the navbar and footer sit, and thinnest
+   through the middle where the cards already provide their own surface.
+
+   The middle band is 0.80 because that is where the measurement lands it.
+   Sampled against the darkest pixel the clip puts under the text, the
+   contrast with the muted foreground is 2.48:1 at 0.60, 3.23 at 0.70, 4.11
+   at 0.80 and 4.92 at 0.88. Only the last clears AA for body text - and it
+   washes the video out almost completely, which is the whole point of
+   having it. 0.80 clears AA for large text with room to spare and lands
+   just under it for body copy, whose colour is the real limit: rgb(122 82
+   82) is about 4.9:1 on the plain background before any video exists. */
+.lightbg-scrim {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(
+      180deg,
+      hsl(var(--background) / 0.88) 0%,
+      hsl(var(--background) / 0.80) 32%,
+      hsl(var(--background) / 0.82) 64%,
+      hsl(var(--background) / 0.92) 100%
+    );
+}

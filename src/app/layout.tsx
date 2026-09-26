@@ -5,6 +5,7 @@ import { AppSidebar } from '@/components/portfolio/AppSidebar';
 import { FirebaseClientProvider } from '@/firebase/client-provider';
 import { Toaster } from '@/components/ui/toaster';
 import { Poppins } from 'next/font/google';
+import { LightVideoBackground } from '@/components/portfolio/LightVideoBackground';
 
 const poppins = Poppins({
   subsets: ['latin'],
@@ -54,12 +55,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`dark ${poppins.variable}`}>
-      <body className="font-body antialiased selection:bg-primary/20 bg-background text-foreground">
+      <body className="font-body antialiased selection:bg-primary/20 app-surface bg-background text-foreground">
+        <LightVideoBackground />
         <FirebaseClientProvider>
           <SidebarProvider>
-            <div className="flex h-screen w-full overflow-hidden bg-background">
+            <div className="flex h-screen w-full overflow-hidden app-surface bg-background">
               <AppSidebar />
-              <main className="flex-1 overflow-y-auto relative no-scrollbar bg-background">
+              <main className="flex-1 overflow-y-auto relative no-scrollbar app-surface bg-background">
                 <div className="min-h-full">
                   {children}
                 </div>
