@@ -3,6 +3,7 @@ import './globals.css';
 import { FirebaseClientProvider } from '@/firebase/client-provider';
 import { Toaster } from '@/components/ui/toaster';
 import { Poppins, Instrument_Serif, JetBrains_Mono } from 'next/font/google';
+import { Analytics } from '@vercel/analytics/next';
 import { SceneBackground } from '@/components/site/SceneBackground';
 
 const poppins = Poppins({
@@ -85,6 +86,7 @@ export default function RootLayout({
           </main>
         </FirebaseClientProvider>
         <Toaster />
+        <Analytics />
       </body>
     </html>
   );
