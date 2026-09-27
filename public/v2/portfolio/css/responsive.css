@@ -1,0 +1,168 @@
+/* ============================================================
+   responsive.css — loaded last, overrides only.
+
+   The generated stylesheets are left untouched on purpose. If the
+   generator is run again it will overwrite portfolio.css, dark-theme.css
+   and light-theme.css, and anything fixed inside them would be lost with
+   them. Everything here is an override, in one file, so a regenerate
+   costs nothing.
+
+   What it fixes, all of it measured rather than guessed:
+
+     - portfolio.css ships with no media queries at all, and light-theme
+       has five where dark-theme has twenty-four. The light side is
+       therefore the one that breaks first.
+     - Below 768px the CSS hides .aicm-nav-links and shows
+       .mobile-header-bar, but never hides .aicm-header - so its logo
+       stayed on screen and the page showed SYRP twice, one above the
+       other.
+     - .utility-left-col is `flex: 1 1 58%`. A flex item is min-width:auto
+       by default, so it refuses to shrink below its content and came out
+       376px wide in a 320px viewport - 28px of sideways scroll on the
+       whole page.
+     - The headings are fixed sizes: the hero was 32px at 320px wide and
+       still 32px at 1229px.
+   ============================================================ */
+
+/* ---- 1. one header at a time --------------------------------
+   The mobile bar is already switched on at this width; this is the
+   matching half that was missing. */
+@media (max-width: 768px) {
+  .aicm-header {
+    display: none !important;
+  }
+}
+
+/* Above it, the reverse: the mobile bar must not linger. */
+@media (min-width: 769px) {
+  .mobile-header-bar {
+    display: none !important;
+  }
+}
+
+/* ---- 2. let flex items shrink -------------------------------
+   min-width:auto is why a 58% basis became 376px in a 320px window.
+   Nothing here changes the layout above the point where it fits. */
+.utility-row,
+.utility-left-col,
+.utility-right-col,
+.utility-card,
+.footer-mid-row,
+.footer-links-group {
+  min-width: 0;
+}
+
+.utility-card,
+.utility-left-col,
+.utility-right-col {
+  max-width: 100%;
+}
+
+@media (max-width: 860px) {
+  .utility-row {
+    flex-direction: column;
+  }
+  .utility-left-col,
+  .utility-right-col {
+    flex: 1 1 auto;
+    width: 100%;
+  }
+}
+
+/* ---- 3. fluid headings --------------------------------------
+   One clamp each rather than a fixed size, so there is no width where
+   the type is suddenly wrong. The floors are what fits 320px; the
+   ceilings are what the desktop design already used. */
+.hero-title {
+  font-size: clamp(1.9rem, 5.6vw, 4rem);
+  line-height: 1.06;
+}
+
+.section-title,
+.what-is-title,
+.utility-title,
+.quarter-title,
+.audits-title {
+  font-size: clamp(1.5rem, 3.8vw, 2.75rem);
+  line-height: 1.12;
+}
+
+.hero-subtitle,
+.hero-desc,
+.section-desc {
+  font-size: clamp(0.95rem, 1.4vw, 1.125rem);
+  line-height: 1.6;
+}
+
+/* Long words in a narrow column break rather than push the page wide. */
+.hero-title,
+.section-title,
+.project-name,
+.utility-card-title {
+  overflow-wrap: break-word;
+}
+
+/* ---- 4. something a finger can hit --------------------------
+   A touch target wants about 44px. The labels stay the size they are;
+   it is the hit area that grows, via padding rather than font-size. */
+@media (pointer: coarse) {
+  .aicm-nav-links a,
+  .mobile-nav-links a,
+  .nav-item,
+  .menu ul li a,
+  .foot-menu a,
+  .social-link,
+  .mobile-toggle-btn,
+  .theme-toggle-btn,
+  .floating-theme-toggle {
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+  }
+}
+
+/* ---- 5. media that never exceeds its box --------------------
+   The hero and card videos are 1200-1920px wide sources sitting in
+   boxes far smaller than that on a phone. */
+img,
+video,
+svg,
+canvas {
+  max-width: 100%;
+}
+
+video {
+  height: auto;
+}
+
+/* ---- 6. the contact pill ------------------------------------
+   It holds a 33-character email address on one unbroken line. At 320px
+   it measured 360px wide, so the address ran off the edge - and because
+   the page is clipped rather than scrollable, there was no way to reach
+   the rest of it. It wraps now, and the address is allowed to break. */
+.contract-copy-pill {
+  max-width: 100%;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.contract-hash {
+  min-width: 0;
+  overflow-wrap: anywhere;
+  font-size: clamp(0.68rem, 2.6vw, 0.85rem);
+}
+
+.copy-tooltip {
+  max-width: 100%;
+}
+
+/* ---- 7. the page itself never scrolls sideways --------------
+   The two real causes are fixed above. This is the backstop for
+   anything inside the generated CSS that starts overflowing later:
+   clip, not hidden, so it cannot turn an ancestor into a scroll
+   container and break `position: sticky` inside it. */
+html,
+body {
+  overflow-x: clip;
+  max-width: 100%;
+}

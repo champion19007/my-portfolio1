@@ -1,0 +1,1228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Sai Yashwant Reddy Panthy — AI &amp; Machine Learning Engineer | Portfolio</title>
+  <meta name="description" content="Portfolio of Sai Yashwant Reddy Panthy — AI & Machine Learning Engineer specializing in Deep Learning, MLOps, Computer Vision, and Generative AI. Published IEEE Researcher.">
+  
+  <!-- Favicons -->
+  <link rel="icon" type="image/png" href="portfolio/images/favicon-96x96.png" sizes="96x96">
+  <link rel="icon" type="image/svg+xml" href="portfolio/images/favicon.svg">
+  <link rel="shortcut icon" href="favicon.ico">
+  
+  <!-- Web Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,100..900;1,100..900&family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+
+  <!-- Unified Portfolio Styles -->
+  <link href="portfolio/css/portfolio.css" rel="stylesheet">
+  <link href="portfolio/css/dark-theme.css" rel="stylesheet">
+  <link href="portfolio/css/light-theme.css" rel="stylesheet">
+
+  <!-- Overrides, loaded last. See the file header for what and why. -->
+  <link href="portfolio/css/responsive.css" rel="stylesheet">
+
+  <!-- Early Theme Setter Script to Avoid FOUC -->
+  <script>
+    (function() {
+      const params = new URLSearchParams(window.location.search);
+      const saved = params.get('theme') || localStorage.getItem('portfolio_theme') || 'dark';
+      document.documentElement.setAttribute('data-theme', saved);
+      if (saved === 'light') {
+        document.documentElement.classList.add('theme-light');
+        document.documentElement.style.backgroundColor = '#ffffff';
+      } else {
+        document.documentElement.classList.add('theme-dark');
+        document.documentElement.style.backgroundColor = '#000A18';
+      }
+    })();
+  </script>
+</head>
+<body class="theme-dark">
+
+  <!-- Top Scroll Progress Bar (Active in Light Theme) -->
+  <div id="scrollProgress" style="position: fixed; top: 0px; left: 0px; width: 0%; height: 4px; background: linear-gradient(140deg, #6c1eb2, #d14fa0); z-index: 999999; transition: width 0.15s ease-out;"></div>
+
+  <!-- Global High-Contrast Floating Theme Toggle Button -->
+  <button id="floatingThemeToggle" class="portfolio-theme-toggle-floating" onclick="togglePortfolioTheme()" title="Switch Theme" aria-label="Toggle Theme">
+    <span class="theme-icon-dark" style="display:inline-flex; align-items:center; gap:8px;">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#d97706" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="4"></circle>
+        <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path>
+      </svg>
+      <span>Light Mode</span>
+    </span>
+    <span class="theme-icon-light" style="display:inline-flex; align-items:center; gap:8px;">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#c084fc" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
+      </svg>
+      <span>Dark Mode</span>
+    </span>
+  </button>
+
+  <!-- ====================================================================
+       THEME 1: DARK MODE VIEWPORT (AUTHENTIC AI AGENT FACTORY CYBERPUNK)
+       ==================================================================== -->
+  <div id="portfolio-dark" class="portfolio-theme-view">
+<div class="mainwrap">
+    <header class="header">
+      <div class="logo">
+        <a href="#home" style="text-decoration: none; display: flex; align-items: center; gap: 8px;">
+          <span style="font-size: 26px; font-weight: 900; color: #fff; letter-spacing: -0.5px; font-family: var(--font-title, sans-serif);">SY<span style="color: #ff148d;">RP.</span></span>
+        </a>
+      </div>
+      <div class="btn btn-primary toggle-menu">
+        <span></span><span></span>
+      </div>
+      <nav class="menu">
+        <ul>
+          <li><a class="link active" href="#home"><span class="js_hover">Home</span></a></li>
+          <li><a class="link" href="#about"><span class="js_hover">About</span></a></li>
+          <li><a class="link" href="#skills"><span class="js_hover">Expertise</span></a></li>
+          <li><a class="link" href="#projects"><span class="js_hover">Projects</span></a></li>
+          <li><a class="link" href="#services"><span class="js_hover">Offerings</span></a></li>
+          <li><a class="link" href="#journey"><span class="js_hover">Journey</span></a></li>
+          <li><a class="link" href="#Contact"><span class="js_hover">Contact</span></a></li>
+        </ul>
+        <ul style="display: flex; align-items: center; gap: 10px;">
+          <li>
+            <button id="headerThemeToggle" class="portfolio-header-toggle-btn" onclick="togglePortfolioTheme()" title="Switch to Light Mode (AICM)" aria-label="Switch to Light Mode">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#d97706" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="4"></circle>
+                <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path>
+              </svg>
+              <span>Light Mode</span>
+            </button>
+          </li>
+          <li>
+            <a class="btn btn-primary" href="https://docs.google.com/document/d/1xV0Od6ttBZYJI9imnWTNa3P2EBx2PDOq/edit?usp=drive_link&ouid=104186115979117347302&rtpof=true&sd=true" target="_blank" rel="noopener noreferrer"><span>Resume</span></a>
+          </li>
+          <li><a class="btn" href="mailto:saiyashwantreddypanthy@gmail.com" style="cursor: pointer; color: #ffffff !important; border: 1.5px solid rgba(255,255,255,0.3) !important; background: rgba(255,255,255,0.08) !important; padding: 7px 18px !important; border-radius: 999px !important; font-weight: 700 !important; text-decoration: none !important; display: inline-flex; align-items: center; transition: all 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.18)'; this.style.borderColor='#ff148d';" onmouseout="this.style.background='rgba(255,255,255,0.08)'; this.style.borderColor='rgba(255,255,255,0.3)';">Hire Me</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <div class="content">
+      <div class="home">
+        
+        <!-- Hero Section -->
+        <div class="section hero js_detect-scroll" id="home">
+          <div class="bg-video">
+            <video src="portfolio/videos/hero.mp4" poster="portfolio/videos/hero_poster.jpg" autoplay loop muted playsinline></video>
+          </div>
+          <div class="text">
+            <div style="display: inline-flex; align-items: center; gap: 8px; padding: 6px 16px; border-radius: 30px; background: rgba(255, 20, 141, 0.12); border: 1px solid rgba(255, 20, 141, 0.35); color: #ff148d; font-size: 11.5px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 20px;">
+              <span style="display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: #ff148d; box-shadow: 0 0 10px #ff148d;"></span>
+              Available for AI &amp; ML Opportunities
+            </div>
+            <h1 class="title">Sai Yashwant Reddy Panthy</h1>
+            <div style="font-size: 1.15em; font-weight: 600; color: #ff148d; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.5px;">
+              AI &amp; Machine Learning Engineer
+            </div>
+            <div style="color: #bbb; line-height: 1.6; max-width: 520px;">
+              Experienced in Data Science, Computer Vision, and Generative AI. Delivering research-driven and analytical solutions for complex deep learning challenges.
+            </div>
+            <ul class="links">
+              <li>
+                <a class="btn btn-primary" href="#projects"><span>View My Work</span></a>
+              </li>
+              <li>
+                <a class="btn btn-outline" href="https://docs.google.com/document/d/1xV0Od6ttBZYJI9imnWTNa3P2EBx2PDOq/edit?usp=drive_link&ouid=104186115979117347302&rtpof=true&sd=true" target="_blank" rel="noopener noreferrer" style="cursor: pointer; padding: 0 26px; color: #ffffff !important; border: 1.5px solid rgba(255,255,255,0.4) !important; background: rgba(255,255,255,0.1) !important; display: inline-flex; align-items: center; justify-content: center; border-radius: 999px; height: 50px; font-weight: 700; text-decoration: none; transition: all 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.2)'; this.style.borderColor='#fff';" onmouseout="this.style.background='rgba(255,255,255,0.1)'; this.style.borderColor='rgba(255,255,255,0.4)';">Resume &rarr;</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- About / Mission Statement Section -->
+        <div class="section decentr js_detect-scroll" id="about">
+          <div class="bg-light"></div>
+          <div class="wrap">
+            <div class="text js_detect-scroll">
+              <div style="color: #ff148d; font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 8px;">Explore • About Me</div>
+              <h2 class="title">Engineering Production-Grade Intelligent Systems</h2>
+              <div class="descr">
+                I am an AI and Machine Learning Engineer with a strong foundation in building and evaluating deep learning models. I specialize in designing automated data pipelines and delivering research-backed solutions in both academic and industry settings. My expertise spans Computer Vision, NLP (LLMs, RAG), and High-Performance AI systems.
+              </div>
+            </div>
+            <ul class="list js_detect-scroll">
+              <li>
+                <div class="bg"></div>
+                <div class="card-inner">
+                  <div class="card-tag">Education</div>
+                  <div class="card-main">B.Tech CSE (AI &amp; ML)</div>
+                  <div class="card-detail">Manipal University Jaipur</div>
+                  <div class="card-sub">Expected Dec 2025</div>
+                </div>
+              </li>
+
+              <li class="card-interactive" onclick="window.open('https://ieeexplore.ieee.org/abstract/document/11280596', '_blank')" title="Click to view IEEE Xplore publication">
+                <div class="bg"></div>
+                <div class="card-inner">
+                  <div class="card-header-row">
+                    <span class="card-tag">Research Publication</span>
+                    <span class="card-pill">IEEE Xplore &nearr;</span>
+                  </div>
+                  <div class="card-main card-main-paper">Hybrid Minimax–MCTS Engine with RLHF</div>
+                  <div class="card-detail">ACROSET 2025 &bull; 10M+ positions</div>
+                  <div class="card-link">
+                    <span>View on IEEE Xplore &rarr;</span>
+                  </div>
+                </div>
+              </li>
+
+              <li>
+                <div class="bg"></div>
+                <div class="card-inner">
+                  <div class="card-tag">Honors &amp; Awards</div>
+                  <div class="card-main">1st Place Winner</div>
+                  <div class="card-detail">Codestellation CodeWar 4.0</div>
+                  <div class="card-sub">eYRC Finalist</div>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Technical Expertise Bento Section -->
+        <div class="section economy" id="skills">
+          <span id="expertise" style="position: absolute; top: -100px; left: 0;"></span>
+          <div class="js_detect-scroll" style="text-align: center; margin-bottom: 24px;">
+            <div style="color: #ff148d; font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 8px;">Explore • Technical Expertise</div>
+            <h2 class="title top-title">Comprehensive AI &amp; MLOps Toolkit</h2>
+            <p style="color: #888; font-size: 14px; max-width: 600px; margin: 0 auto;">A complete toolkit focused on Artificial Intelligence, Deep Learning architectures, automated data pipelines, and scalable cloud deployment.</p>
+          </div>
+          <ul class="list">
+            
+            <li class="el el-digital js_detect-scroll">
+              <div class="inner">
+                <div class="bg">
+                  <div></div>
+                </div>
+                <h3 class="title">AI / LLM &amp; GenAI</h3>
+                <div class="descr">
+                  <strong>Frameworks &amp; Next-Gen:</strong> LangChain, Hugging Face, PyTorch, TensorFlow, scikit-learn, RAG Pipelines, Vector DBs (Pinecone, Chroma), Prompt Engineering, and Agentic AI.
+                </div>
+              </div>
+            </li>
+
+            <li class="el el-agents js_detect-scroll">
+              <div class="inner">
+                <div class="bg">
+                  <video src="portfolio/videos/Illustration_1_anubis.mp4" poster="portfolio/videos/illus1_poster.jpg" autoplay loop muted playsinline></video>
+                </div>
+                <h3 class="title">Computer Vision &amp; Robotics</h3>
+                <div class="descr">
+                  <strong>Vision Specialization:</strong> Real-time YOLO detection, OpenCV, ROS2 integration, PLC systems, Docker-based robotics deployments, and multi-camera stream processing.
+                </div>
+              </div>
+            </li>
+
+            <li class="el el-infrastructure js_detect-scroll">
+              <div class="inner">
+                <div class="bg">
+                  <div class="bg-light"></div>
+                </div>
+                <h3 class="title">MLOps &amp; Cloud Infra</h3>
+                <div class="descr">
+                  <strong>Production Deployment:</strong> Docker, AWS (CodePipeline, CloudFormation), MLflow, Weights &amp; Biases, Terraform, CI/CD automated retraining, and RESTful APIs.
+                </div>
+              </div>
+            </li>
+
+            <li class="el el-streams js_detect-scroll">
+              <div class="inner">
+                <div class="bg">
+                  <div class="media">
+                    <video src="portfolio/videos/Coin.mp4" poster="portfolio/videos/coin_poster.jpg" autoplay loop muted playsinline></video>
+                  </div>
+                </div>
+                <h3 class="title">Languages, Data &amp; Analytics</h3>
+                <div class="descr">
+                  <strong>Core Tools:</strong> Python, SQL, Bash, JavaScript, Pandas, NumPy, Tableau, Streamlit, Gradio, Excel, BiLSTM/GRU time-series forecasting, and Risk Modeling.
+                </div>
+              </div>
+            </li>
+
+          </ul>
+        </div>
+
+        <!-- Featured Engineering Projects Section (All 7 Projects) -->
+        <div class="section built js_detect-scroll" id="projects">
+          <div class="bg-light"></div>
+          <div class="wrap">
+            <div class="text js_detect-scroll">
+              <div style="color: #ff148d; font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 8px;">Explore • Engineering Portfolio</div>
+              <h2 class="title">Engineering Portfolio Projects</h2>
+              <div style="color: #bbb; line-height: 1.6;">
+                Research-driven projects across Generative AI, MLOps automation, Computer Vision, and Reinforcement Learning.
+              </div>
+            </div>
+            <ul class="list js_detect-scroll">
+              <li>
+                <div style="font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: #ff148d; font-weight: 800; margin-bottom: 6px;">LangGraph · Ollama · MCP · Agentic AI</div>
+                <div style="font-weight: 800; font-size: 16px;">
+                  Local Software Factory
+                </div>
+                <div style="font-size: 13px; font-weight: normal; color: #aaa; margin-top: 6px; line-height: 1.4;">
+                  Fully local autonomous coding assistant for CPU laptops: Laya router + LangGraph agent workflow + Qwen 3 8B with sandboxed Model Context Protocol (MCP) execution.
+                </div>
+                <div style="margin-top: 10px;"><a href="https://github.com/champion19007/local-software-factory" target="_blank" rel="noopener noreferrer" style="color: #ff148d; font-size: 12px; font-weight: 700; text-decoration: none;">View Repository &rarr;</a></div>
+              </li>
+              <li>
+                <div style="font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: #ff148d; font-weight: 800; margin-bottom: 6px;">IEEE ACROSET'25 · RLHF · PyTorch · C++</div>
+                <div style="font-weight: 800; font-size: 16px;">
+                  Hybrid Minimax–MCTS Chess Engine
+                </div>
+                <div style="font-size: 13px; font-weight: normal; color: #aaa; margin-top: 6px; line-height: 1.4;">
+                  Published IEEE research project combining Minimax search with Monte Carlo Tree Search (MCTS) and RLHF policy/value neural networks trained over 10M positions.
+                </div>
+                <div style="margin-top: 10px; display: flex; gap: 12px; align-items: center;">
+                  <a href="https://github.com/champion19007/RL-Chess-Engine-Minimax-MCTS" target="_blank" rel="noopener noreferrer" style="color: #ff148d; font-size: 12px; font-weight: 700; text-decoration: none;">View Repository &rarr;</a>
+                  <a href="https://ieeexplore.ieee.org/abstract/document/11280596" target="_blank" rel="noopener noreferrer" style="color: #60a5fa; font-size: 12px; font-weight: 700; text-decoration: none;">IEEE Paper ↗</a>
+                </div>
+              </li>
+              <li>
+                <div style="font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: #ff148d; font-weight: 800; margin-bottom: 6px;">Next.js · LangChain · Pinecone · Stripe</div>
+                <div style="font-weight: 800; font-size: 16px;">
+                  PDF AI SaaS — Multi-Doc Chat
+                </div>
+                <div style="font-size: 13px; font-weight: normal; color: #aaa; margin-top: 6px; line-height: 1.4;">
+                  Production full-stack GenAI SaaS platform enabling conversational Q&amp;A over complex PDF documents using LangChain RAG, OpenAI embeddings, and vector search.
+                </div>
+                <div style="margin-top: 10px;"><a href="https://github.com/champion19007/pdf-ai-saas" target="_blank" rel="noopener noreferrer" style="color: #ff148d; font-size: 12px; font-weight: 700; text-decoration: none;">View Repository &rarr;</a></div>
+              </li>
+              <li>
+                <div style="font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: #ff148d; font-weight: 800; margin-bottom: 6px;">Go · Autonomous Agents · Self-Healing</div>
+                <div style="font-weight: 800; font-size: 16px;">
+                  agentd — Self-Healing Web Monitor
+                </div>
+                <div style="font-size: 13px; font-weight: normal; color: #aaa; margin-top: 6px; line-height: 1.4;">
+                  Autonomous Go-based self-hosted runner for scheduled web monitors that detects schema drift and structural breakages, synthesizing and verifying automated code repairs.
+                </div>
+                <div style="margin-top: 10px;"><a href="https://github.com/champion19007/agentd" target="_blank" rel="noopener noreferrer" style="color: #ff148d; font-size: 12px; font-weight: 700; text-decoration: none;">View Repository &rarr;</a></div>
+              </li>
+              <li>
+                <div style="font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: #ff148d; font-weight: 800; margin-bottom: 6px;">TensorFlow · CNN-BiLSTM-GRU · Streamlit</div>
+                <div style="font-weight: 800; font-size: 16px;">
+                  Advanced Stock Forecaster
+                </div>
+                <div style="font-size: 13px; font-weight: normal; color: #aaa; margin-top: 6px; line-height: 1.4;">
+                  Deep learning quantitative market forecaster combining 1D CNN feature extractors with bidirectional LSTM and GRU recurrent layers, with interactive Streamlit analytics.
+                </div>
+                <div style="margin-top: 10px;"><a href="https://github.com/champion19007/Advanced-Stock-Forecaster-CNN-BiLSTM-GRU-" target="_blank" rel="noopener noreferrer" style="color: #ff148d; font-size: 12px; font-weight: 700; text-decoration: none;">View Repository &rarr;</a></div>
+              </li>
+              <li>
+                <div style="font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: #ff148d; font-weight: 800; margin-bottom: 6px;">MLOps · Docker · CI/CD · Terraform</div>
+                <div style="font-weight: 800; font-size: 16px;">
+                  MLOps-Forge
+                </div>
+                <div style="font-size: 13px; font-weight: normal; color: #aaa; margin-top: 6px; line-height: 1.4;">
+                  Modular end-to-end MLOps platform featuring automated containerized training, model registry versioning, automated testing CI/CD pipelines, and cloud deployment.
+                </div>
+                <div style="margin-top: 10px;"><a href="https://github.com/champion19007/MLOps-Forge" target="_blank" rel="noopener noreferrer" style="color: #ff148d; font-size: 12px; font-weight: 700; text-decoration: none;">View Repository &rarr;</a></div>
+              </li>
+              <li>
+                <div style="font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: #ff148d; font-weight: 800; margin-bottom: 6px;">YOLO · OpenCV · PyTorch · Vision</div>
+                <div style="font-weight: 800; font-size: 16px;">
+                  Real-Time Animal Detection
+                </div>
+                <div style="font-size: 13px; font-weight: normal; color: #aaa; margin-top: 6px; line-height: 1.4;">
+                  Computer vision system for real-time safety monitoring using YOLO object detection and OpenCV video streaming for automated edge wildlife surveillance.
+                </div>
+                <div style="margin-top: 10px;"><a href="https://github.com/champion19007/Real-Time-Animal-Detection-Using-CCTV-Camera-OpenVision" target="_blank" rel="noopener noreferrer" style="color: #ff148d; font-size: 12px; font-weight: 700; text-decoration: none;">View Repository &rarr;</a></div>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Professional Offerings Section (/services) -->
+        <div class="section offerings-section-dark js_detect-scroll" id="services">
+          <div class="offerings-container-inner">
+            <div style="text-align: center; margin-bottom: 45px;" class="js_detect-scroll">
+              <div style="color: #ff148d; font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 8px;">Explore • Professional Offerings</div>
+              <h2 class="title" style="font-size: 34px; margin-bottom: 12px; color: #fff;">How I Help Teams Leverage AI</h2>
+              <div style="color: #94a3b8; max-width: 650px; margin: 0 auto; line-height: 1.6; font-size: 14.5px;">
+                Specialized engineering services for production deep learning, RAG systems, and cloud infrastructure.
+              </div>
+            </div>
+
+            <div class="offerings-grid-dark js_detect-scroll">
+              <!-- Offering Card 1 -->
+              <div class="offering-card-dark">
+                <div>
+                  <div class="offering-card-top">
+                    <div class="offering-icon-wrap">
+                      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ff148d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a8 8 0 0 0-8 8c0 3.3 2 6.1 4.9 7.3L9 22l3-1.5L15 22l.1-4.7A8 8 0 0 0 12 2z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                    </div>
+                    <div class="offering-card-title">GenAI &amp; RAG Development</div>
+                  </div>
+                  <div class="offering-card-desc">
+                    Advanced Retrieval-Augmented Generation systems and AI agents that chat with private enterprise documents and data.
+                  </div>
+                  <ul class="offering-features-list">
+                    <li>Custom LLM fine-tuning &amp; prompt engineering</li>
+                    <li>Vector database integration (Pinecone, Chroma)</li>
+                    <li>Automated document processing pipelines</li>
+                  </ul>
+                </div>
+                <div>
+                  <a href="mailto:saiyashwantreddypanthy@gmail.com?subject=Inquiry:%20GenAI%20%26%20RAG%20Development" class="btn-inquire-service">Inquire Service &rarr;</a>
+                </div>
+              </div>
+
+              <!-- Offering Card 2 -->
+              <div class="offering-card-dark">
+                <div>
+                  <div class="offering-card-top">
+                    <div class="offering-icon-wrap">
+                      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ff148d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect><rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect><line x1="6" y1="6" x2="6.01" y2="6"></line><line x1="6" y1="18" x2="6.01" y2="18"></line></svg>
+                    </div>
+                    <div class="offering-card-title">MLOps &amp; CI/CD Automation</div>
+                  </div>
+                  <div class="offering-card-desc">
+                    Architecting production-ready cloud infrastructure to train, deploy, and monitor ML models at scale.
+                  </div>
+                  <ul class="offering-features-list">
+                    <li>AWS and Docker-based deployment architectures</li>
+                    <li>Automated retraining and testing pipelines</li>
+                    <li>Model drift detection &amp; continuous monitoring</li>
+                  </ul>
+                </div>
+                <div>
+                  <a href="mailto:saiyashwantreddypanthy@gmail.com?subject=Inquiry:%20MLOps%20%26%20CI/CD%20Automation" class="btn-inquire-service">Inquire Service &rarr;</a>
+                </div>
+              </div>
+
+              <!-- Offering Card 3 -->
+              <div class="offering-card-dark">
+                <div>
+                  <div class="offering-card-top">
+                    <div class="offering-icon-wrap">
+                      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ff148d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+                    </div>
+                    <div class="offering-card-title">Computer Vision Solutions</div>
+                  </div>
+                  <div class="offering-card-desc">
+                    Developing real-time object detection, segmentation, and tracking systems for security, industry, and robotics.
+                  </div>
+                  <ul class="offering-features-list">
+                    <li>YOLO-based high-speed real-time detection</li>
+                    <li>Embedded system optimization (ROS2)</li>
+                    <li>Data augmentation and synthetic preprocessing</li>
+                  </ul>
+                </div>
+                <div>
+                  <a href="mailto:saiyashwantreddypanthy@gmail.com?subject=Inquiry:%20Computer%20Vision%20Solutions" class="btn-inquire-service">Inquire Service &rarr;</a>
+                </div>
+              </div>
+
+              <!-- Offering Card 4 -->
+              <div class="offering-card-dark">
+                <div>
+                  <div class="offering-card-top">
+                    <div class="offering-icon-wrap">
+                      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ff148d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"></path><path d="m19 9-5 5-4-4-3 3"></path></svg>
+                    </div>
+                    <div class="offering-card-title">Data Analytics &amp; Forecasting</div>
+                  </div>
+                  <div class="offering-card-desc">
+                    Transforming raw business data into actionable forecasts using deep learning time-series models and Tableau.
+                  </div>
+                  <ul class="offering-features-list">
+                    <li>BiLSTM/GRU time-series forecasting models</li>
+                    <li>Interactive business intelligence dashboards</li>
+                    <li>Exploratory Data Analysis (EDA) for risk profiling</li>
+                  </ul>
+                </div>
+                <div>
+                  <a href="mailto:saiyashwantreddypanthy@gmail.com?subject=Inquiry:%20Data%20Analytics%20%26%20Forecasting" class="btn-inquire-service">Inquire Service &rarr;</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Professional Journey Section with Swiper Carousel -->
+        <div class="section why" id="journey">
+          <div class="bg-video">
+            <video src="portfolio/videos/Illustration_3_anubis.mp4" poster="portfolio/videos/illus3_poster.jpg" autoplay loop muted playsinline></video>
+          </div>
+          <div class="text js_detect-scroll">
+            <h2 class="title">Professional Journey</h2>
+            <div class="swiper">
+              <ol class="swiper-wrapper">
+                <li class="swiper-slide">
+                  <div class="inner">
+                    <div class="bg"></div>
+                    <div>
+                      <strong style="color: #ff148d; font-size: 1.1em;">TATA GROUP</strong><br>
+                      <span style="font-size: 0.9em; opacity: 0.8;">Gen AI Data Analyst Intern &bull; Jan 2026 - Jul 2026</span><br>
+                      <p style="margin-top: 8px; font-size: 0.9em; line-height: 1.5; color: #ccc;">
+                        Exploratory data analysis using GenAI tools, predictive customer delinquency risk modeling, and ethical agentic AI collection workflows.
+                      </p>
+                    </div>
+                  </div>
+                </li>
+                <li class="swiper-slide">
+                  <div class="inner">
+                    <div class="bg"></div>
+                    <div>
+                      <strong style="color: #ff148d; font-size: 1.1em;">JPMORGAN CHASE &amp; CO.</strong><br>
+                      <span style="font-size: 0.9em; opacity: 0.8;">Quantitative Researcher Intern &bull; Feb 2026 - Apr 2026</span><br>
+                      <p style="margin-top: 8px; font-size: 0.9em; line-height: 1.5; color: #ccc;">
+                        Quantitative risk estimation, book-of-loans probability of default estimation, and dynamic programming for FICO score categorization.
+                      </p>
+                    </div>
+                  </div>
+                </li>
+                <li class="swiper-slide">
+                  <div class="inner">
+                    <div class="bg"></div>
+                    <div>
+                      <strong style="color: #ff148d; font-size: 1.1em;">BOSTON CONSULTING GROUP</strong><br>
+                      <span style="font-size: 0.9em; opacity: 0.8;">Data Science Intern &bull; Nov 2025 - Jan 2026</span><br>
+                      <p style="margin-top: 8px; font-size: 0.9em; line-height: 1.5; color: #ccc;">
+                        Customer churn analysis and optimization using Python and Random Forest, achieving 50% recall and presenting strategic insights.
+                      </p>
+                    </div>
+                  </div>
+                </li>
+                <li class="swiper-slide">
+                  <div class="inner">
+                    <div class="bg"></div>
+                    <div>
+                      <strong style="color: #ff148d; font-size: 1.1em;">DELOITTE &amp; MAIN FLOW</strong><br>
+                      <span style="font-size: 0.9em; opacity: 0.8;">Analytics &amp; Software Intern &bull; 2024 - 2025</span><br>
+                      <p style="margin-top: 8px; font-size: 0.9em; line-height: 1.5; color: #ccc;">
+                        Built business investigation dashboards in Tableau and automated ROS2/YOLO computer vision robotics integration via Docker.
+                      </p>
+                    </div>
+                  </div>
+                </li>
+              </ol>
+            </div>
+          </div>
+        </div>
+
+        <!-- Direct Connection / Contact Section (/contact) -->
+        <div class="section contact-section-dark js_detect-scroll" id="Contact">
+          <div class="contact-container-inner-dark">
+            <div style="text-align: center; margin-bottom: 45px;" class="js_detect-scroll">
+              <div style="color: #ff148d; font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 8px;">Explore • Direct Connection</div>
+              <h2 class="title" style="font-size: 34px; margin-bottom: 12px; color: #fff;">Let's Build Together</h2>
+              <div style="color: #94a3b8; max-width: 650px; margin: 0 auto; line-height: 1.6; font-size: 14.5px;">
+                Open for research collaborations, engineering roles, and deep learning contracts. Whether it's Computer Vision, NLP, or MLOps infrastructure, I'm always eager to discuss innovative projects.
+              </div>
+            </div>
+
+            <div class="contact-cards-grid-dark js_detect-scroll">
+              <!-- Email Card -->
+              <a href="mailto:saiyashwantreddypanthy@gmail.com" class="contact-card-item-dark">
+                <div class="contact-card-box-dark">
+                  <div class="contact-card-icon-wrap-dark">
+                    <div class="contact-icon-circle-dark">
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"></rect><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path></svg>
+                    </div>
+                    <span class="contact-card-tag-dark">Direct</span>
+                  </div>
+                  <div>
+                    <div style="color: #94a3b8; font-size: 11px; font-weight: 700; text-transform: uppercase; margin-bottom: 4px; letter-spacing: 0.5px;">Email</div>
+                    <div class="contact-card-val-dark" title="saiyashwantreddypanthy@gmail.com">saiyashwantreddypanthy@gmail.com</div>
+                  </div>
+                </div>
+              </a>
+
+              <!-- Location Card -->
+              <div class="contact-card-item-dark">
+                <div class="contact-card-box-dark">
+                  <div class="contact-card-icon-wrap-dark">
+                    <div class="contact-icon-circle-dark">
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                    </div>
+                    <span class="contact-card-tag-dark">Base</span>
+                  </div>
+                  <div>
+                    <div style="color: #94a3b8; font-size: 11px; font-weight: 700; text-transform: uppercase; margin-bottom: 4px; letter-spacing: 0.5px;">Location</div>
+                    <div class="contact-card-val-dark">Mumbai, India</div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Schedule Meeting Card -->
+              <a href="https://cal.com/sai-yashwant-reddy-panthy-m6bfa9" target="_blank" rel="noopener noreferrer" class="contact-card-item-dark">
+                <div class="contact-card-box-dark">
+                  <div class="contact-card-icon-wrap-dark">
+                    <div class="contact-icon-circle-dark">
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"></rect><line x1="16" x2="16" y1="2" y2="6"></line><line x1="8" x2="8" y1="2" y2="6"></line><line x1="3" x2="21" y1="10" y2="10"></line></svg>
+                    </div>
+                    <span class="contact-card-tag-dark">Schedule</span>
+                  </div>
+                  <div>
+                    <div style="color: #94a3b8; font-size: 11px; font-weight: 700; text-transform: uppercase; margin-bottom: 4px; letter-spacing: 0.5px;">1:1 Discussion</div>
+                    <div class="contact-card-val-dark">Book a Meeting &rarr;</div>
+                  </div>
+                </div>
+              </a>
+
+              <!-- Full CV Card -->
+              <a href="https://docs.google.com/document/d/1xV0Od6ttBZYJI9imnWTNa3P2EBx2PDOq/edit?usp=drive_link&ouid=104186115979117347302&rtpof=true&sd=true" target="_blank" rel="noopener noreferrer" class="contact-card-item-dark">
+                <div class="contact-card-box-dark contact-card-gradient-dark">
+                  <div class="contact-card-icon-wrap-dark">
+                    <div class="contact-icon-circle-dark contact-icon-circle-pink">
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><line x1="10" y1="9" x2="8" y2="9"></line></svg>
+                    </div>
+                    <span class="contact-card-tag-dark contact-tag-pink">CV</span>
+                  </div>
+                  <div>
+                    <div style="color: rgba(255,255,255,0.85); font-size: 11px; font-weight: 700; text-transform: uppercase; margin-bottom: 4px; letter-spacing: 0.5px;">Resume</div>
+                    <div class="contact-card-val-dark" style="color: #fff;">View Full CV &rarr;</div>
+                  </div>
+                </div>
+              </a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Comprehensive Dark Footer -->
+    <footer class="footer">
+      <div class="footer-inner-wrap">
+        <div class="logo">
+          <a href="#home" style="text-decoration: none;">
+            <span style="font-size: 26px; font-weight: 900; color: #fff; letter-spacing: -0.5px;">SY<span style="color: #ff148d;">RP.</span></span>
+          </a>
+        </div>
+        <nav class="foot-menu">
+          <ul>
+            <li><a href="#home"><span class="js_hover">Home</span></a></li>
+            <li><a href="#about"><span class="js_hover">About</span></a></li>
+            <li><a href="#expertise"><span class="js_hover">Expertise</span></a></li>
+            <li><a href="#projects"><span class="js_hover">Projects</span></a></li>
+            <li><a href="#services"><span class="js_hover">Offerings</span></a></li>
+            <li><a href="#Contact"><span class="js_hover">Contact</span></a></li>
+            <li><a href="https://docs.google.com/document/d/1xV0Od6ttBZYJI9imnWTNa3P2EBx2PDOq/edit?usp=drive_link&ouid=104186115979117347302&rtpof=true&sd=true" target="_blank" rel="noopener noreferrer"><span class="js_hover">Resume</span></a></li>
+          </ul>
+        </nav>
+        <ul class="foot-contact">
+          <li><a href="https://github.com/champion19007" target="_blank" rel="noopener noreferrer" title="GitHub"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:#aaa;"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"></path><path d="M9 18c-4.51 2-5-2-7-2"></path></svg></a></li>
+          <li><a href="https://linkedin.com/in/saiyashwantreddy" target="_blank" rel="noopener noreferrer" title="LinkedIn"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:#aaa;"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect width="4" height="12" x="2" y="9"></rect><circle cx="4" cy="4" r="2"></circle></svg></a></li>
+        </ul>
+        <div class="foot-text">
+          <ul style="display: flex; gap: 20px; flex-wrap: wrap;">
+            <li><span style="color: #888;">Email: <a href="mailto:saiyashwantreddypanthy@gmail.com" style="color: #aaa; text-decoration: none;">saiyashwantreddypanthy@gmail.com</a></span></li>
+            <li><span style="color: #888;">Schedule: <a href="https://cal.com/sai-yashwant-reddy-panthy-m6bfa9" target="_blank" rel="noopener noreferrer" style="color: #ff148d; text-decoration: none; font-weight: 700;">Book a Meeting &rarr;</a></span></li>
+            <li><span style="color: #888;">Location: <span style="color: #aaa;">Mumbai, India</span></span></li>
+          </ul>
+          <div style="margin-top: 10px;">
+            &copy; 2026 Sai Yashwant Reddy Panthy. All rights reserved.
+          </div>
+        </div>
+      </div>
+    </footer>
+  </div>
+  </div>
+
+  <!-- ====================================================================
+       THEME 2: LIGHT MODE VIEWPORT (AUTHENTIC AICM CLEAN EXECUTIVE)
+       ==================================================================== -->
+  <div id="portfolio-light" class="portfolio-theme-view">
+<div id="root">
+    <div class="css-xmmhxk">
+      
+      <!-- HERO SECTION WITH VIDEO BACKGROUND -->
+      <div class="MuiBox-root css-1xj5oyz hero-video-wrap">
+        <video loop playsinline autoplay muted poster="portfolio/videos/Headervideo.f31b35a8331a4491b12b_poster.jpg" class="hero-bg-video">
+          <source src="portfolio/videos/Headervideo.f31b35a8331a4491b12b.mp4" type="video/mp4">
+        </video>
+
+        <!-- TOP NAVIGATION BAR -->
+        <div class="MuiContainer-root MuiContainer-maxWidthLg css-1fnwo22 aicm-header">
+          <a class="aicm-logo-link" href="#" style="text-decoration: none; display: flex; align-items: center; gap: 8px;">
+            <span style="font-weight: 900; font-size: 26px; letter-spacing: -1px; background: linear-gradient(135deg, #6c1eb2, #d14fa0); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">SYRP.</span>
+            <span style="font-size: 10px; font-weight: 700; color: #6c1eb2; background: rgba(108,30,178,0.08); padding: 3px 8px; border-radius: 12px; border: 1px solid rgba(108,30,178,0.2);">AI / ML</span>
+          </a>
+          
+          <div class="aicm-nav-links">
+            <a class="nav-item" href="#About">About</a>
+            <a class="nav-item" href="#Skills">Skills</a>
+            <a class="nav-item" href="#Services">Offerings</a>
+            <a class="nav-item" href="#Projects">Projects</a>
+            <a class="nav-item" href="#Roadmap">Timeline</a>
+            <a class="nav-item" href="#Contact">Contact</a>
+            <a class="nav-item btn-visit-store" href="https://docs.google.com/document/d/1xV0Od6ttBZYJI9imnWTNa3P2EBx2PDOq/edit?usp=drive_link&ouid=104186115979117347302&rtpof=true&sd=true" target="_blank" rel="noopener noreferrer">Resume</a>
+            <!-- Highly Visible Header Theme Toggle Button -->
+            <button id="headerThemeToggle" class="portfolio-header-toggle-btn" onclick="togglePortfolioTheme()" title="Switch to Dark Mode" aria-label="Switch to Dark Mode">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#c084fc" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path></svg>
+              <span>Dark Mode</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Mobile Header Bar -->
+        <div class="css-1rons8t mobile-header-bar">
+          <a href="#" class="css-1fnpp2n" style="text-decoration: none;">
+            <span style="font-weight: 900; font-size: 22px; letter-spacing: -1px; background: linear-gradient(135deg, #6c1eb2, #d14fa0); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">SYRP.</span>
+          </a>
+          <button id="mobileMenuToggle" class="css-v9o5d5 mobile-toggle-btn" aria-label="Toggle Navigation">
+            <i class="fa fa-bars" style="font-size: 20px; color: #6c1eb2;"></i>
+          </button>
+        </div>
+
+        <!-- HERO CONTENT (No Inquire pill at start) -->
+        <div class="MuiContainer-root MuiContainer-maxWidthLg css-1qsxih2 hero-content-container">
+          <div class="MuiGrid-root MuiGrid-container MuiGrid-grid-xs-12 MuiGrid-grid-md-6 css-cypavi">
+            <div class="MuiGrid-root MuiGrid-item css-zmsjan">
+              <div style="display:inline-flex; align-items:center; gap:8px; padding:6px 14px; border-radius:999px; background:rgba(108,30,178,0.08); border:1px solid rgba(108,30,178,0.25); color:#6c1eb2; font-size:11px; font-weight:800; text-transform:uppercase; letter-spacing:1px; margin-bottom:16px;">
+                <span style="width:7px; height:7px; border-radius:50%; background:#10b981; box-shadow:0 0 8px #10b981;"></span>
+                Available for AI & ML Opportunities
+              </div>
+              <h1 class="hero-title" style="letter-spacing: -1px; font-weight: 800; line-height: 1.15;">
+                Engineering<br>
+                Production-Grade AI<br>
+                &amp; Intelligent Systems
+              </h1>
+              <p class="hero-subtitle" style="font-size: 17px; line-height: 1.6; color: #4b5563; max-width: 540px;">
+                Hi, I'm <strong>Sai Yashwant Reddy Panthy</strong> — AI &amp; Machine Learning Engineer experienced in Data Science, Computer Vision, and Generative AI. Delivering research-driven solutions for complex deep learning challenges.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="MuiBox-root css-12hqrir"></div>
+      </div>
+
+      <!-- CATEGORIES SECTION (4 VIDEO CARDS) -->
+      <div class="MuiBox-root css-585mx2 categories-section">
+        <div class="MuiContainer-root MuiContainer-maxWidthLg css-1qsxih2">
+          
+          <div class="section-heading-wrap" id="Services">
+            <h2 class="section-title">Professional Offerings</h2>
+            <p class="section-subtitle">
+              How I help businesses and teams leverage cutting-edge AI, machine learning, and automated MLOps infrastructure.
+            </p>
+          </div>
+
+          <div class="MuiGrid-root MuiGrid-container css-1cn3yto category-cards-grid">
+            
+            <!-- Offering 1: GenAI & RAG -->
+            <div class="category-card-col">
+              <div class="category-card-wrap">
+                <div class="category-video-box">
+                  <video autoplay loop muted playsinline poster="portfolio/videos/cardvideo3.49ae60448d7c0aec2779_poster.jpg" class="category-video">
+                    <source src="portfolio/videos/cardvideo3.49ae60448d7c0aec2779.mp4" type="video/mp4">
+                  </video>
+                </div>
+                <div class="category-card-info">
+                  <h3 class="category-card-title" style="font-size: 17px; font-weight: 800;">GenAI &amp; RAG Systems</h3>
+                  <p style="font-size: 12px; color: #6b7280; line-height: 1.4; margin: 4px 0 10px 0;">LLM fine-tuning, LangChain, Pinecone vector stores, and automated document chat pipelines.</p>
+                  <a href="mailto:saiyashwantreddypanthy@gmail.com?subject=Inquiry:%20GenAI%20%26%20RAG%20Systems" class="btn-explore-link">
+                    <button class="btn-explore" type="button">Inquire Service</button>
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <!-- Offering 2: MLOps Automation -->
+            <div class="category-card-col">
+              <div class="category-card-wrap">
+                <div class="category-video-box">
+                  <video autoplay loop muted playsinline poster="portfolio/videos/cardvideo2.9be2d42e7cd327fd10a8_poster.jpg" class="category-video">
+                    <source src="portfolio/videos/cardvideo2.9be2d42e7cd327fd10a8.mp4" type="video/mp4">
+                  </video>
+                </div>
+                <div class="category-card-info">
+                  <h3 class="category-card-title" style="font-size: 17px; font-weight: 800;">MLOps &amp; CI/CD</h3>
+                  <p style="font-size: 12px; color: #6b7280; line-height: 1.4; margin: 4px 0 10px 0;">Scalable AWS &amp; Docker infrastructure, automated model retraining, and continuous monitoring.</p>
+                  <a href="mailto:saiyashwantreddypanthy@gmail.com?subject=Inquiry:%20MLOps%20%26%20CI%2FCD%20Automation" class="btn-explore-link">
+                    <button class="btn-explore" type="button">Inquire Service</button>
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <!-- Offering 3: Computer Vision & Robotics -->
+            <div class="category-card-col">
+              <div class="category-card-wrap">
+                <div class="category-video-box">
+                  <video autoplay loop muted playsinline poster="portfolio/videos/cardvideo1.b78645fda63acc4bf351_poster.jpg" class="category-video">
+                    <source src="portfolio/videos/cardvideo1.b78645fda63acc4bf351.mp4" type="video/mp4">
+                  </video>
+                </div>
+                <div class="category-card-info">
+                  <h3 class="category-card-title" style="font-size: 17px; font-weight: 800;">Vision &amp; Robotics</h3>
+                  <p style="font-size: 12px; color: #6b7280; line-height: 1.4; margin: 4px 0 10px 0;">Real-time YOLO object detection, ROS2 robotics integration, and high-throughput video processing.</p>
+                  <a href="mailto:saiyashwantreddypanthy@gmail.com?subject=Inquiry:%20Computer%20Vision%20Solutions" class="btn-explore-link">
+                    <button class="btn-explore" type="button">Inquire Service</button>
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <!-- Offering 4: Data Analytics & Forecasting -->
+            <div class="category-card-col">
+              <div class="category-card-wrap">
+                <div class="category-video-box">
+                  <video autoplay loop muted playsinline poster="portfolio/videos/cardvideo2.9be2d42e7cd327fd10a8_poster.jpg" class="category-video">
+                    <source src="portfolio/videos/cardvideo2.9be2d42e7cd327fd10a8.mp4" type="video/mp4">
+                  </video>
+                </div>
+                <div class="category-card-info">
+                  <h3 class="category-card-title" style="font-size: 17px; font-weight: 800;">Data Analytics &amp; Forecasting</h3>
+                  <p style="font-size: 12px; color: #6b7280; line-height: 1.4; margin: 4px 0 10px 0;">Transforming raw data into predictive insights using BiLSTM/GRU time-series models and Tableau dashboards.</p>
+                  <a href="mailto:saiyashwantreddypanthy@gmail.com?subject=Inquiry:%20Data%20Analytics%20%26%20Forecasting" class="btn-explore-link">
+                    <button class="btn-explore" type="button">Inquire Service</button>
+                  </a>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- LISTED PROJECTS CAROUSEL SECTION -->
+      <div class="MuiBox-root css-1uilqyf listed-projects-section">
+        <div class="section-heading-wrap" id="Projects">
+          <h2 class="section-title">Featured Engineering Projects</h2>
+          <p class="section-subtitle">Research-driven implementations in GenAI, Computer Vision, and Cloud Infrastructure.</p>
+        </div>
+
+        <div class="projects-slider-wrapper">
+          <div class="projects-slider-track" id="projectsSliderTrack">
+            
+            <!-- Project 1: Local Software Factory -->
+            <div class="project-slide-item">
+              <a href="https://github.com/champion19007/local-software-factory" target="_blank" rel="noopener noreferrer" style="text-decoration: none; color: inherit;">
+                <div class="project-card-content">
+                  <div class="amazon-logo-box" style="display:flex; align-items:center; justify-content:center; background: rgba(108,30,178,0.06); border-radius: 12px; width: 48px; height: 48px;">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#6c1eb2" stroke-width="2"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+                  </div>
+                  <p class="project-tag">LangGraph • Ollama • MCP</p>
+                  <p class="project-name">Local Software Factory</p>
+                  <p class="project-card-desc" style="font-size: 13px; color: #64748b; line-height: 1.45; margin-top: 8px;">Fully local AI coding assistant for CPU laptops using LangGraph workflows &amp; sandboxed MCP execution.</p>
+                  <div style="margin-top: auto; padding-top: 12px; font-size: 12.5px; font-weight: 700; color: #6c1eb2; display: flex; align-items: center; gap: 4px;">View Repository &rarr;</div>
+                </div>
+              </a>
+            </div>
+
+            <!-- Project 2: Chess Engine RLHF (IEEE Publication) -->
+            <div class="project-slide-item">
+              <a href="https://github.com/champion19007/RL-Chess-Engine-Minimax-MCTS" target="_blank" rel="noopener noreferrer" style="text-decoration: none; color: inherit;">
+                <div class="project-card-content">
+                  <div class="amazon-logo-box" style="display:flex; align-items:center; justify-content:center; background: rgba(108,30,178,0.06); border-radius: 12px; width: 48px; height: 48px;">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#6c1eb2" stroke-width="2"><circle cx="12" cy="8" r="7"></circle><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline></svg>
+                  </div>
+                  <p class="project-tag">IEEE ACROSET'25 • RLHF • MCTS</p>
+                  <p class="project-name">Hybrid Chess Engine</p>
+                  <p class="project-card-desc" style="font-size: 13px; color: #64748b; line-height: 1.45; margin-top: 8px;">Published IEEE research engine fusing Minimax and MCTS with RLHF neural networks over 10M positions.</p>
+                  <div style="margin-top: auto; padding-top: 12px; font-size: 12.5px; font-weight: 700; color: #6c1eb2; display: flex; align-items: center; gap: 4px;">View Repository &rarr;</div>
+                </div>
+              </a>
+            </div>
+
+            <!-- Project 3: PDF AI SaaS -->
+            <div class="project-slide-item">
+              <a href="https://github.com/champion19007/pdf-ai-saas" target="_blank" rel="noopener noreferrer" style="text-decoration: none; color: inherit;">
+                <div class="project-card-content">
+                  <div class="amazon-logo-box" style="display:flex; align-items:center; justify-content:center; background: rgba(108,30,178,0.06); border-radius: 12px; width: 48px; height: 48px;">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#6c1eb2" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
+                  </div>
+                  <p class="project-tag">Next.js • LangChain • Pinecone</p>
+                  <p class="project-name">PDF AI SaaS Chatbot</p>
+                  <p class="project-card-desc" style="font-size: 13px; color: #64748b; line-height: 1.45; margin-top: 8px;">Production full-stack GenAI SaaS enabling conversational Q&amp;A over PDF documents with vector search.</p>
+                  <div style="margin-top: auto; padding-top: 12px; font-size: 12.5px; font-weight: 700; color: #6c1eb2; display: flex; align-items: center; gap: 4px;">View Repository &rarr;</div>
+                </div>
+              </a>
+            </div>
+
+            <!-- Project 4: agentd (Self-Healing Web Monitor) -->
+            <div class="project-slide-item">
+              <a href="https://github.com/champion19007/agentd" target="_blank" rel="noopener noreferrer" style="text-decoration: none; color: inherit;">
+                <div class="project-card-content">
+                  <div class="amazon-logo-box" style="display:flex; align-items:center; justify-content:center; background: rgba(108,30,178,0.06); border-radius: 12px; width: 48px; height: 48px;">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#6c1eb2" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                  </div>
+                  <p class="project-tag">Go • Autonomous Agents • Drift</p>
+                  <p class="project-name">agentd — Web Monitor</p>
+                  <p class="project-card-desc" style="font-size: 13px; color: #64748b; line-height: 1.45; margin-top: 8px;">Self-hosted Go runner detecting web schema drift and autonomously synthesizing verified repairs.</p>
+                  <div style="margin-top: auto; padding-top: 12px; font-size: 12.5px; font-weight: 700; color: #6c1eb2; display: flex; align-items: center; gap: 4px;">View Repository &rarr;</div>
+                </div>
+              </a>
+            </div>
+
+            <!-- Project 5: Advanced Stock Forecaster -->
+            <div class="project-slide-item">
+              <a href="https://github.com/champion19007/Advanced-Stock-Forecaster-CNN-BiLSTM-GRU-" target="_blank" rel="noopener noreferrer" style="text-decoration: none; color: inherit;">
+                <div class="project-card-content">
+                  <div class="amazon-logo-box" style="display:flex; align-items:center; justify-content:center; background: rgba(108,30,178,0.06); border-radius: 12px; width: 48px; height: 48px;">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#6c1eb2" stroke-width="2"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline></svg>
+                  </div>
+                  <p class="project-tag">TensorFlow • BiLSTM • GRU</p>
+                  <p class="project-name">Stock Forecaster</p>
+                  <p class="project-card-desc" style="font-size: 13px; color: #64748b; line-height: 1.45; margin-top: 8px;">Deep learning time-series market forecaster uniting CNN feature extractors with BiLSTM and GRU.</p>
+                  <div style="margin-top: auto; padding-top: 12px; font-size: 12.5px; font-weight: 700; color: #6c1eb2; display: flex; align-items: center; gap: 4px;">View Repository &rarr;</div>
+                </div>
+              </a>
+            </div>
+
+            <!-- Project 6: MLOps-Forge -->
+            <div class="project-slide-item">
+              <a href="https://github.com/champion19007/MLOps-Forge" target="_blank" rel="noopener noreferrer" style="text-decoration: none; color: inherit;">
+                <div class="project-card-content">
+                  <div class="amazon-logo-box" style="display:flex; align-items:center; justify-content:center; background: rgba(108,30,178,0.06); border-radius: 12px; width: 48px; height: 48px;">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#6c1eb2" stroke-width="2"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+                  </div>
+                  <p class="project-tag">MLOps • Docker • CI/CD</p>
+                  <p class="project-name">MLOps-Forge</p>
+                  <p class="project-card-desc" style="font-size: 13px; color: #64748b; line-height: 1.45; margin-top: 8px;">Automated cloud MLOps platform with model registry, CI/CD pipeline tests, and containerization.</p>
+                  <div style="margin-top: auto; padding-top: 12px; font-size: 12.5px; font-weight: 700; color: #6c1eb2; display: flex; align-items: center; gap: 4px;">View Repository &rarr;</div>
+                </div>
+              </a>
+            </div>
+
+            <!-- Project 7: Real-Time Animal Detection -->
+            <div class="project-slide-item">
+              <a href="https://github.com/champion19007/Real-Time-Animal-Detection-Using-CCTV-Camera-OpenVision" target="_blank" rel="noopener noreferrer" style="text-decoration: none; color: inherit;">
+                <div class="project-card-content">
+                  <div class="amazon-logo-box" style="display:flex; align-items:center; justify-content:center; background: rgba(108,30,178,0.06); border-radius: 12px; width: 48px; height: 48px;">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#6c1eb2" stroke-width="2"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg>
+                  </div>
+                  <p class="project-tag">YOLO • OpenCV • Vision</p>
+                  <p class="project-name">CCTV Animal Detection</p>
+                  <p class="project-card-desc" style="font-size: 13px; color: #64748b; line-height: 1.45; margin-top: 8px;">Real-time computer vision system using YOLO and OpenCV for automated wildlife and livestock monitoring.</p>
+                  <div style="margin-top: auto; padding-top: 12px; font-size: 12.5px; font-weight: 700; color: #6c1eb2; display: flex; align-items: center; gap: 4px;">View Repository &rarr;</div>
+                </div>
+              </a>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="slider-controls-wrap">
+          <button class="slider-nav-btn" id="sliderPrevBtn" aria-label="Previous Project">&larr;</button>
+          <button class="slider-nav-btn" id="sliderNextBtn" aria-label="Next Project">&rarr;</button>
+        </div>
+      </div>
+
+      <!-- ABOUT ME SECTION -->
+      <div class="MuiBox-root css-z1slpt what-is-section" id="About">
+        <div class="MuiContainer-root MuiContainer-maxWidthLg css-1qsxih2">
+          <div class="what-is-content-wrap">
+            
+            <div class="what-is-pill-tag">
+              <span class="pill-dot"></span>
+              <span>About Sai Yashwant Reddy Panthy</span>
+            </div>
+
+            <h2 class="what-is-title">Architecting Production-Ready AI &amp; MLOps Solutions</h2>
+            
+            <p class="what-is-desc" style="max-width: 720px; margin: 0 auto 28px auto; line-height: 1.7; font-size: 16px;">
+              I am an AI and Machine Learning Engineer specializing in designing automated deep learning pipelines, high-throughput computer vision systems, and Generative AI applications. Currently completing B.Tech in CSE (AI&amp;ML) at Manipal University Jaipur with published research in IEEE Xplore. Proven experience across Tata Group, JPMorgan Chase &amp; Co., BCG, Deloitte, and Main Flow Services.
+            </p>
+
+            <a href="https://docs.google.com/document/d/1xV0Od6ttBZYJI9imnWTNa3P2EBx2PDOq/edit?usp=drive_link&ouid=104186115979117347302&rtpof=true&sd=true" target="_blank" rel="noopener noreferrer" class="btn-whitepaper-link">
+              <button class="btn-whitepaper" type="button">Download Full CV (Google Docs) &rarr;</button>
+            </a>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- AUDITS / ACADEMIC HONORS SECTION (INTERACTIVE RESEARCH PAPER) -->
+      <div class="MuiBox-root css-gfb4i2 audits-section" id="Research">
+        <div class="MuiContainer-root MuiContainer-maxWidthLg css-1qsxih2">
+          <div class="audits-card" style="cursor: pointer;" onclick="window.open('https://ieeexplore.ieee.org/abstract/document/11280596', '_blank')" title="Click to open IEEE Paper">
+            
+            <div class="audits-text-col">
+              <div style="display:inline-flex; align-items:center; gap:8px; font-size:12px; font-weight:800; text-transform:uppercase; color:#6c1eb2; margin-bottom:10px; letter-spacing:0.5px;">
+                <span>Published Research</span> &bull; <span>ACROSET 2025</span>
+              </div>
+              <h2 class="audits-title" style="margin-bottom: 12px;">IEEE Publication &amp; Honors</h2>
+              <p class="audits-desc" style="margin-bottom: 20px; font-size: 15.5px; line-height: 1.65;">
+                Authored <a href="https://ieeexplore.ieee.org/abstract/document/11280596" target="_blank" rel="noopener noreferrer" style="color: #6c1eb2; text-decoration: underline; font-weight: 700;" onclick="event.stopPropagation();">"A Hybrid Minimax–MCTS Chess Engine Enhanced by RLHF Using Stockfish and AlphaZero"</a> published in <strong>IEEE Xplore (ACROSET 2025)</strong> with 10M self-play games. <strong>1st Place Winner</strong> at Codestellation CodeWar 4.0 Hackathon, and Finalist in eYRC International Robotics Competition.
+              </p>
+              <a href="https://ieeexplore.ieee.org/abstract/document/11280596" target="_blank" rel="noopener noreferrer" class="btn-read-ieee-paper" onclick="event.stopPropagation();">
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+                <span>View Paper on IEEE Xplore ↗</span>
+              </a>
+            </div>
+
+            <div class="audits-badges-col" style="display: flex; gap: 16px; align-items: center; flex-wrap: wrap;">
+              <a href="https://ieeexplore.ieee.org/abstract/document/11280596" target="_blank" rel="noopener noreferrer" style="text-decoration: none;" onclick="event.stopPropagation();">
+                <div style="background: rgba(108,30,178,0.08); padding: 14px 22px; border-radius: 16px; border: 1.5px solid rgba(108,30,178,0.25); text-align: center; transition: all 0.2s;" onmouseover="this.style.transform='translateY(-2px)'; this.style.borderColor='#6c1eb2';" onmouseout="this.style.transform='translateY(0)'; this.style.borderColor='rgba(108,30,178,0.25)';">
+                  <div style="font-size: 18px; font-weight: 900; color: #6c1eb2;">IEEE Xplore</div>
+                  <div style="font-size: 11px; font-weight: 700; color: #10b981; margin-top: 2px;">Peer-Reviewed Paper ↗</div>
+                </div>
+              </a>
+              <div style="background: rgba(108,30,178,0.08); padding: 14px 22px; border-radius: 16px; border: 1.5px solid rgba(108,30,178,0.25); text-align: center;">
+                <div style="font-size: 18px; font-weight: 900; color: #6c1eb2;">1st Place</div>
+                <div style="font-size: 11px; font-weight: 700; color: #f59e0b; margin-top: 2px;">CodeWar 4.0 Hackathon</div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- HOW UTILITY WORKS / EXTENDED SKILLS MATRIX SECTION -->
+      <div class="MuiBox-root css-mtaf27 token-utility-section" id="Skills">
+        <div class="MuiContainer-root MuiContainer-maxWidthLg css-1qsxih2">
+          
+          <div class="section-heading-wrap">
+            <h2 class="section-title">Technical Expertise &amp; Stack</h2>
+            <p class="section-subtitle">
+              Comprehensive toolchain across Machine Learning engineering, Agentic GenAI, and MLOps automation.
+            </p>
+          </div>
+
+          <div class="utility-content-row">
+            
+            <!-- Left Utility Cards Column -->
+            <div class="utility-left-col">
+              
+              <!-- Card 1: Core Languages & Web -->
+              <div class="utility-card">
+                <h3 class="utility-card-title">Core Languages &amp; Web</h3>
+                <p class="utility-card-desc">
+                  <strong>Python</strong> (advanced proficiency), <strong>SQL</strong> (PostgreSQL, MySQL), <strong>Bash scripting</strong>, JavaScript, Next.js, HTML5 &amp; CSS3.
+                </p>
+              </div>
+
+              <!-- Card 2: AI / LLM Frameworks -->
+              <div class="utility-card">
+                <h3 class="utility-card-title">AI &amp; Deep Learning Frameworks</h3>
+                <p class="utility-card-desc">
+                  <strong>PyTorch</strong>, <strong>TensorFlow</strong>, <strong>LangChain</strong>, Hugging Face Transformers, scikit-learn, OpenCV.
+                </p>
+              </div>
+
+              <!-- Card 3: Generative AI & Agentic Concepts -->
+              <div class="utility-card">
+                <h3 class="utility-card-title">Generative AI &amp; Agentic AI</h3>
+                <p class="utility-card-desc">
+                  OpenAI models, <strong>RAG pipelines</strong>, <strong>Pinecone vector DB</strong>, text/image embeddings, prompt engineering, agentic planner &amp; memory concepts.
+                </p>
+              </div>
+
+              <!-- Card 4: MLOps, DevOps & Cloud -->
+              <div class="utility-card">
+                <h3 class="utility-card-title">MLOps, DevOps &amp; Cloud</h3>
+                <p class="utility-card-desc">
+                  <strong>Docker</strong>, <strong>Git &amp; GitHub</strong>, Linux, MLflow, Weights &amp; Biases, CI/CD pipelines, AWS (CodePipeline, CodeDeploy, CloudFormation).
+                </p>
+              </div>
+
+              <!-- Card 5: Data Tools & Analytics -->
+              <div class="utility-card">
+                <h3 class="utility-card-title">Data Tools &amp; Visualization</h3>
+                <p class="utility-card-desc">
+                  Pandas, NumPy, Streamlit, Gradio, Tableau dashboards, Advanced Excel.
+                </p>
+              </div>
+
+              <!-- Contract Address / Email Copy Pill -->
+              <div class="contract-copy-pill" id="copyContractBtn" style="cursor: pointer;" title="Click to copy email">
+                <span class="contract-label">Contact:</span>
+                <span class="contract-hash">saiyashwantreddypanthy@gmail.com</span>
+                <span class="contract-copy-icon">
+                  <img src="portfolio/images/copy.svg" alt="copy icon" draggable="false">
+                </span>
+                <div class="copy-tooltip" id="copyTooltip">Copied to Clipboard!</div>
+              </div>
+
+            </div>
+
+            <!-- Right 3D Coin Image Column -->
+            <div class="utility-right-col">
+              <img src="portfolio/videos/aicmcoin.3a52cc64868773ed5972.png" alt="AICM Coin" class="coin-3d-img" draggable="false">
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- ROADMAP / CAREER MILESTONES SECTION (STRUCTURED & CHRONOLOGICAL) -->
+      <div class="MuiBox-root css-jlyswq roadmap-section">
+        <div class="section-heading-wrap text-center" id="Roadmap">
+          <h2 class="section-title">Career Milestones &amp; Journey</h2>
+          <p class="section-subtitle">
+            Chronological roadmap of enterprise internships, published research, and academic milestones.
+          </p>
+        </div>
+
+        <!-- Roadmap Category Tabs -->
+        <div class="roadmap-tabs-container">
+          <button class="roadmap-tab-btn active" data-tab="All">All Journey</button>
+          <button class="roadmap-tab-btn" data-tab="Industry">Industry Internships</button>
+          <button class="roadmap-tab-btn" data-tab="Research">Research &amp; Papers</button>
+          <button class="roadmap-tab-btn" data-tab="Education">Education &amp; Honors</button>
+        </div>
+
+        <!-- Dynamic Chronological Roadmap Grid -->
+        <div class="roadmap-content-wrapper">
+          <div id="roadmapTimelineContainer" class="roadmap-timeline-grid">
+            <!-- Injected dynamically via app.js -->
+          </div>
+        </div>
+      </div>
+
+      <!-- DIRECT CONNECTION / CONTACT SECTION -->
+      <div class="contact-section-wrap" id="Contact">
+        <div class="contact-container-inner">
+          
+          <div class="section-heading-wrap text-center" style="margin-bottom: 40px;">
+            <div style="display:inline-flex; align-items:center; gap:8px; padding:6px 14px; border-radius:999px; background:rgba(108,30,178,0.08); border:1px solid rgba(108,30,178,0.25); color:#6c1eb2; font-size:11px; font-weight:800; text-transform:uppercase; letter-spacing:1px; margin-bottom:12px;">
+              Direct Connection
+            </div>
+            <h2 class="section-title">Let's Build Together</h2>
+            <p class="section-subtitle" style="max-width: 650px; margin: 0 auto; color: #64748b;">
+              Open for research collaborations, engineering roles, and deep learning contracts. Whether it's Computer Vision, NLP, or MLOps infrastructure, I'm always eager to discuss innovative projects.
+            </p>
+          </div>
+
+          <div class="contact-cards-grid">
+            <!-- Email Card -->
+            <a href="mailto:saiyashwantreddypanthy@gmail.com" class="contact-card-item">
+              <div class="contact-card-box">
+                <div class="contact-card-icon-wrap">
+                  <div class="contact-icon-circle">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect width="20" height="16" x="2" y="4" rx="2"></rect><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path></svg>
+                  </div>
+                  <span class="contact-card-tag">Email</span>
+                </div>
+                <div class="contact-card-main-val">saiyashwantreddypanthy@gmail.com</div>
+              </div>
+            </a>
+
+            <!-- Location Card -->
+            <div class="contact-card-item">
+              <div class="contact-card-box">
+                <div class="contact-card-icon-wrap">
+                  <div class="contact-icon-circle">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                  </div>
+                  <span class="contact-card-tag">Location</span>
+                </div>
+                <div class="contact-card-main-val">Mumbai, India</div>
+              </div>
+            </div>
+
+            <!-- Schedule Meeting Card -->
+            <a href="https://cal.com/sai-yashwant-reddy-panthy-m6bfa9" target="_blank" rel="noopener noreferrer" class="contact-card-item">
+              <div class="contact-card-box">
+                <div class="contact-card-icon-wrap">
+                  <div class="contact-icon-circle">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"></rect><line x1="16" x2="16" y1="2" y2="6"></line><line x1="8" x2="8" y1="2" y2="6"></line><line x1="3" x2="21" y1="10" y2="10"></line></svg>
+                  </div>
+                  <span class="contact-card-tag">Schedule</span>
+                </div>
+                <div class="contact-card-main-val">Book a Meeting &rarr;</div>
+              </div>
+            </a>
+
+            <!-- Full CV Card -->
+            <a href="https://docs.google.com/document/d/1xV0Od6ttBZYJI9imnWTNa3P2EBx2PDOq/edit?usp=drive_link&ouid=104186115979117347302&rtpof=true&sd=true" target="_blank" rel="noopener noreferrer" class="contact-card-item">
+              <div class="contact-card-box contact-card-gradient">
+                <div class="contact-card-icon-wrap">
+                  <div class="contact-icon-circle contact-icon-circle-white">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
+                  </div>
+                  <span class="contact-card-tag contact-tag-white">Full CV</span>
+                </div>
+                <div class="contact-card-main-val contact-val-white">View Resume (Docs) &rarr;</div>
+              </div>
+            </a>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- COMPREHENSIVE FOOTER -->
+      <footer class="aicm-footer">
+        <div class="footer-container-inner">
+          
+          <!-- Top Row: Logo and Email Pill -->
+          <div class="footer-top-row">
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <span style="font-weight: 900; font-size: 26px; letter-spacing: -1px; background: linear-gradient(135deg, #6c1eb2, #d14fa0); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">SYRP.</span>
+              <span style="font-size: 11px; font-weight: 700; color: #6c1eb2; background: rgba(108,30,178,0.08); padding: 3px 8px; border-radius: 12px;">Sai Yashwant Reddy Panthy</span>
+            </div>
+            
+            <div class="footer-contract-pill" id="footerContractPill" title="Click to copy email">
+              <span class="footer-contract-text">saiyashwantreddypanthy@gmail.com</span>
+              <button class="footer-copy-btn" id="footerCopyBtn" title="Copy Email">
+                <img src="portfolio/images/copy.svg" alt="copy icon" draggable="false">
+              </button>
+            </div>
+          </div>
+
+          <!-- Middle Row: Description and Links -->
+          <div class="footer-mid-row">
+            <div class="footer-desc-col">
+              <p class="footer-description">
+                AI and Machine Learning Engineer specializing in deep learning architectures, automated computer vision pipelines, and Generative AI solutions. Delivering research-backed software from Mumbai, India.
+              </p>
+            </div>
+
+            <div class="footer-links-group">
+              <div class="footer-col">
+                <p class="footer-col-header">Navigation</p>
+                <a href="#About" class="footer-link">About Me</a>
+                <a href="#Services" class="footer-link">Offerings</a>
+                <a href="#Projects" class="footer-link">Projects</a>
+                <a href="#Roadmap" class="footer-link">Career Timeline</a>
+              <div class="footer-col">
+                <p class="footer-col-header">Profiles</p>
+                <a href="https://github.com/champion19007" target="_blank" rel="noopener noreferrer" class="footer-link">GitHub</a>
+                <a href="https://linkedin.com/in/saiyashwantreddy" target="_blank" rel="noopener noreferrer" class="footer-link">LinkedIn</a>
+                <a href="https://docs.google.com/document/d/1xV0Od6ttBZYJI9imnWTNa3P2EBx2PDOq/edit?usp=drive_link&ouid=104186115979117347302&rtpof=true&sd=true" target="_blank" rel="noopener noreferrer" class="footer-link">Resume (Google Docs)</a>
+              </div>
+
+              <div class="footer-col">
+                <p class="footer-col-header">Contact</p>
+                <a href="mailto:saiyashwantreddypanthy@gmail.com" class="footer-link">saiyashwantreddypanthy@gmail.com</a>
+                <a href="https://cal.com/sai-yashwant-reddy-panthy-m6bfa9" target="_blank" rel="noopener noreferrer" class="footer-link" style="color: #6c1eb2; font-weight: 700;">Book a Meeting &rarr;</a>
+                <span class="footer-link" style="color: #6b7280;">Mumbai, India</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Bottom Row: Socials, Legal, Copyright -->
+          <div class="footer-bottom-row">
+            <div class="footer-socials" style="display: flex; gap: 12px;">
+              <a href="https://github.com/champion19007" target="_blank" rel="noopener noreferrer" class="social-icon-btn" title="GitHub" style="display:flex; align-items:center; justify-content:center; width:40px; height:40px; border-radius:50%; background:rgba(108,30,178,0.08); text-decoration:none; color:#6c1eb2;">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"></path><path d="M9 18c-4.51 2-5-2-7-2"></path></svg>
+              </a>
+              <a href="https://linkedin.com/in/saiyashwantreddy" target="_blank" rel="noopener noreferrer" class="social-icon-btn" title="LinkedIn" style="display:flex; align-items:center; justify-content:center; width:40px; height:40px; border-radius:50%; background:rgba(108,30,178,0.08); text-decoration:none; color:#6c1eb2;">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect width="4" height="12" x="2" y="9"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+              </a>
+            </div>
+
+            <div class="footer-legal">
+              <span style="color:#6b7280; font-size:13px;">B.Tech CSE (AI&amp;ML) • Manipal University Jaipur</span>
+            </div>
+
+            <div class="footer-copyright">
+              <p style="margin:0;">Copyright © 2026 Sai Yashwant Reddy Panthy. All rights reserved.</p>
+            </div>
+          </div>
+
+        </div>
+      </footer>
+
+    </div>
+  </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="portfolio/js/jquery-3.7.1.min.js"></script>
+  <script src="portfolio/js/swiper-bundle.min.js"></script>
+  <script src="portfolio/js/portfolio.js"></script>
+
+</body>
+</html>

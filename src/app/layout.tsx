@@ -1,16 +1,35 @@
 import type { Metadata, Viewport } from 'next';
 import './globals.css';
-import { SidebarProvider } from '@/components/ui/sidebar';
-import { AppSidebar } from '@/components/portfolio/AppSidebar';
 import { FirebaseClientProvider } from '@/firebase/client-provider';
 import { Toaster } from '@/components/ui/toaster';
-import { Poppins } from 'next/font/google';
+import { Poppins, Instrument_Serif, JetBrains_Mono } from 'next/font/google';
 import { Analytics } from '@vercel/analytics/next';
+import { SceneBackground } from '@/components/site/SceneBackground';
 
 const poppins = Poppins({
   subsets: ['latin'],
   weight: ['300', '400', '500', '600', '700', '800', '900'],
   variable: '--font-poppins',
+  display: 'swap',
+});
+
+/* One weight, italic only - it is used for exactly one thing: the accent
+   line under each section heading. */
+/* The micro-labels - FIG. 01, the tab names, the corner notes - are set
+   in mono, which is what gives the two technical references their
+   instrument-panel feel. */
+const mono = JetBrains_Mono({
+  subsets: ['latin'],
+  weight: ['400', '500'],
+  variable: '--font-mono',
+  display: 'swap',
+});
+
+const serif = Instrument_Serif({
+  subsets: ['latin'],
+  weight: ['400'],
+  style: ['italic'],
+  variable: '--font-serif',
   display: 'swap',
 });
 
@@ -54,19 +73,17 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`dark ${poppins.variable}`}>
-      <body className="font-body antialiased selection:bg-primary/20 bg-background text-foreground">
+    <html lang="en" className={`${poppins.variable} ${serif.variable} ${mono.variable}`}>
+      <body className="font-body antialiased selection:bg-primary/20 app-surface bg-background text-foreground">
+        <SceneBackground />
         <FirebaseClientProvider>
-          <SidebarProvider>
-            <div className="flex h-screen w-full overflow-hidden bg-background">
-              <AppSidebar />
-              <main className="flex-1 overflow-y-auto relative no-scrollbar bg-background">
-                <div className="min-h-full">
-                  {children}
-                </div>
-              </main>
-            </div>
-          </SidebarProvider>
+          {/* The sidebar is gone with the six routes it navigated. `main`
+              stays the scroll container rather than letting the body
+              scroll, because the nav and the word-by-word reveal both
+              listen to it for scroll position. */}
+          <main className="relative h-screen overflow-y-auto no-scrollbar app-surface bg-background">
+            {children}
+          </main>
         </FirebaseClientProvider>
         <Toaster />
         <Analytics />

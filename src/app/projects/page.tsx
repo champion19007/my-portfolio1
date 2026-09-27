@@ -1,22 +1,8 @@
-import { INITIAL_DATA } from '../data/initial-data';
-import { Projects } from '@/components/portfolio/Projects';
-import { Navbar } from '@/components/portfolio/Navbar';
-import { Metadata } from 'next';
+import { redirect } from 'next/navigation';
 
-export const metadata: Metadata = {
-  title: 'Portfolio Projects',
-  description: 'Explore engineering projects in MLOps, Computer Vision, and Reinforcement Learning by Sai Yashwant Reddy Panthy.',
-};
-
-export default function ProjectsPage() {
-  const { projects } = INITIAL_DATA;
-
-  return (
-    <div className="flex flex-col min-h-full">
-      <Navbar />
-      <div className="p-6 md:p-12">
-        <Projects projects={projects} />
-      </div>
-    </div>
-  );
+/* This used to be its own route in a sidebar layout. The written portfolio
+   is one scrolling page now, so the URL survives as an anchor rather than
+   becoming a 404 for anyone holding an old link. */
+export default function Page() {
+  redirect('/site#work');
 }
