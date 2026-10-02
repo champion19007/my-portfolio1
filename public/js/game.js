@@ -263,11 +263,29 @@ const WALK_N = WALK_LAST + 1;            // how many stages the counter knows ab
  * 3. Assets
  * ------------------------------------------------------------------ */
 
+/* The portraits carry no version in the page the way the stylesheet and
+   the script do, so they carry one here. Bumped when the art itself
+   changes, or a returning visitor keeps the copy their browser already
+   has. */
+const ART_V = 'v=64';
+
 const SOURCES = {
   hero:    'assets/sprites/hero.png',
   'npc-b': 'assets/sprites/npc-b.png',
 };
 for (const s of STAGES) SOURCES['stage_' + s.slug] = 'assets/stages/' + s.src;
+
+/* The portraits used to be fetched at the moment somebody spoke, which is
+   the worst time to ask for them: the box opens, the text is there, and
+   the face arrives a beat later and shoves the text sideways as the layout
+   makes room for it. On a slow connection that reads as the dialogue
+   lagging. They are twenty-four files of about four kilobytes, so there is
+   nothing to be gained by waiting - they load with everything else, and by
+   the time anyone can walk up to an NPC the portrait is already in the
+   browser's cache under exactly the URL showFace will ask for. */
+for (const st of STAGES)
+  for (const n of (st.npcs || []))
+    if (n.face) SOURCES['face_' + n.face] = 'assets/faces/' + n.face + '.png?' + ART_V;
 
 const IMG = {};
 
@@ -326,9 +344,21 @@ async function loadAssets(onProgress) {
    picture simply flashes. So a phone gets a smaller budget, which is also
    less work to produce. capPx guards a 4K window; no source here is wider
    than 1880. bytes is what we will hold in decoded frames per stage. */
-const GIF = () => onTouch()
-  ? { frames: 10, cache: 2, capPx:  900, bytes: 12e6 }
-  : { frames: 14, cache: 3, capPx: 1600, bytes: 34e6 };
+/* Every frame of every stage is decoded before the game starts and none of
+   it is ever thrown away, so this is the whole cost of the animation for
+   the session rather than a per-stage allowance.
+
+   Resolution is the variable, not the frame count. A stage that is missing
+   frames stutters, and a stutter is visible to everyone; a stage decoded a
+   little under the screen's resolution is softer, and on art that is
+   already being scaled up to fill a window, that is the cheaper thing to
+   give away. The budget below is what iOS will hold without starting to
+   drop backing stores - which does not raise an error, the picture simply
+   flashes - and the desktop figure is set well under what a laptop will
+   notice. */
+const STAGE_BUDGET = () => onTouch()
+  ? { bytes:  70e6, minW: 384,    maxW:  900 }
+  : { bytes: 150e6, minW: VIEW_W, maxW: 1200 };
 
 const gifCache = new Map();
 const decoding = new Set();
@@ -410,60 +440,77 @@ async function handRolledFrames(buf) {
   };
 }
 
-async function decodeStage(st) {
+/* How wide to decode each stage.
+
+   Every stage is drawn across the same window, so equal sharpness means
+   equal source width - but the stages are not equally expensive. croft is
+   forty frames of 1880x950 and would eat the entire budget on its own at
+   full size, while market is five frames and costs almost nothing. So one
+   scale is applied to every stage's native size and solved against the
+   budget, with a floor so that nothing is decoded below the design width
+   (there is no sense holding fewer source pixels than the game draws with)
+   and a ceiling past which no window would show the difference.
+
+   Solved by bisection rather than algebraically because the floor and the
+   ceiling are clamps - the total is piecewise in s and has no clean
+   inverse, and sixty halvings of a bounded range is instant. */
+function planStageSizes(measures) {
+  const lim = STAGE_BUDGET();
+  const sizeAt = (s, m) => {
+    const w = Math.min(m.w, Math.max(lim.minW, Math.min(lim.maxW, Math.round(m.w * s))));
+    return { w, h: Math.max(1, Math.round(m.h * w / m.w)) };
+  };
+  const totalAt = s => measures.reduce((sum, m) => {
+    const d = sizeAt(s, m);
+    return sum + d.w * d.h * 4 * m.count;
+  }, 0);
+
+  let lo = 0.01, hi = 2;
+  for (let i = 0; i < 60; i++) {
+    const mid = (lo + hi) / 2;
+    if (totalAt(mid) > lim.bytes) hi = mid; else lo = mid;
+  }
+  return measures.map(m => Object.assign({}, m, sizeAt(lo, m)));
+}
+
+/* Read a stage's dimensions and frame count without decoding any pixels.
+   The sizes cannot be chosen until every stage has been measured - one
+   stage's share depends on what all the others need - so this is a
+   separate, cheap pass over the same bytes. */
+function measureStage(buf) {
+  const { width, height, count } = gifCount(buf);
+  return { w: width, h: height, count };
+}
+
+/* Decode one stage at an explicit size, keeping every frame it has.
+
+   `onFrame` is called per frame so the loading bar can move against real
+   work: nine files is a misleading unit when one of them is forty frames
+   and another is five. */
+async function decodeStage(st, fw, fh, onFrame) {
   if (!isAnimated(st) || gifCache.has(st.slug) || decoding.has(st.slug)) return;
   decoding.add(st.slug);
   try {
-    const buf = await (await fetch('assets/stages/' + st.src)).arrayBuffer();
+    const buf = STAGE_BYTES.get(st.slug) || await (await fetch('assets/stages/' + st.src)).arrayBuffer();
     const src = typeof ImageDecoder !== 'undefined'
       ? await webCodecsFrames(buf)
       : await handRolledFrames(buf);
-    const nw = src.w, nh = src.h, count = src.count;
-    const lim = GIF();
-
-    /* Decode at the size the screen will actually show, not at the design
-       size. Holding frames at 512 wide and then drawing them across 1280
-       real pixels is exactly the blur we are trying to remove. Never
-       larger than the source though - upscaling into the cache would cost
-       memory and add nothing.
-
-       How wide this art is actually drawn matters too: a contained stage is
-       letterboxed down to a fraction of the frame, so decoding it at full
-       window width would hold pixels nobody ever sees. */
-    const shownW = st.fit === 'contain'
-      ? nw * Math.min(VIEW_W / nw, VIEW_H / nh)
-      : VIEW_W;
-    let wantW = Math.min(nw, lim.capPx, Math.max(VIEW_W, Math.ceil(shownW * view.k)));
-    let fw = Math.round(wantW), fh = Math.round(nh * (wantW / nw));
-
-    /* Resolution and smoothness both come out of the same budget, and a
-       long animation held at full width would be cut to four or five
-       frames - a slideshow. So if that is where we are heading, trade a
-       little sharpness back for frames until about WANT_FRAMES fit. */
-    const WANT_FRAMES = 10;
-    const maxPx = lim.bytes / Math.min(count, WANT_FRAMES) / 4;
-    if (fw * fh > maxPx) {
-      const k = Math.sqrt(maxPx / (fw * fh));
-      fw = Math.round(fw * k); fh = Math.round(fh * k);
-    }
-
-    // Bigger frames mean fewer of them; the loop still reads the whole
-    // animation, just at a coarser stride.
-    const budgetFrames = Math.max(4, Math.floor(lim.bytes / (fw * fh * 4)));
-    const cap  = Math.min(lim.frames, budgetFrames);
-    const step = Math.max(1, Math.ceil(count / cap));
 
     const frames = [], durs = [];
-    for (let i = 0; i < count; i += step) {
+    for (let i = 0; i < src.count; i++) {
       const f = await src.frame(i, fw, fh);
       frames.push(f.image);
-      durs.push(f.dur * step);
+      durs.push(f.dur);
+      if (onFrame) onFrame();
     }
     src.close();
 
     if (frames.length) {
-      gifCache.set(st.slug, { frames, durs, total: durs.reduce((a, b) => a + b, 0), used: performance.now() });
-      trimGifCache();
+      gifCache.set(st.slug, {
+        frames, durs,
+        total: durs.reduce((a, b) => a + b, 0),
+        used: performance.now(),
+      });
     }
   } catch (err) {
     // Any failure just means this stage stays a still image.
@@ -472,20 +519,116 @@ async function decodeStage(st) {
   }
 }
 
-function trimGifCache() {
-  while (gifCache.size > GIF().cache) {
-    let oldest = null;
-    for (const [k, v] of gifCache) if (!oldest || v.used < gifCache.get(oldest).used) oldest = k;
-    gifCache.get(oldest).frames.forEach(b => b.close && b.close());
-    gifCache.delete(oldest);
+/* The raw GIF bytes, held between the measuring pass and the decoding pass
+   so each file is fetched once. Dropped as soon as the stage is decoded -
+   they are a few hundred KB each and the decoded frames are what matter. */
+const STAGE_BYTES = new Map();
+
+/* How many frames there are in total, for the loading bar. Filled in by
+   the measuring pass. */
+let TOTAL_FRAMES = 0;
+
+/* Whether this browser can decode a GIF off the main thread.
+
+   It is the difference between two and a half seconds for all nine stages
+   and ten, measured on the same machine - and ten here means twenty to
+   thirty on a phone, because the fallback decoder is hand-written
+   JavaScript doing LZW a pixel at a time. Safari has no ImageDecoder at
+   all, so every iPhone takes the slow road. */
+const FAST_DECODE = typeof ImageDecoder !== 'undefined';
+
+/* How many stages the loading screen waits for.
+
+   Everything is decoded up front either way - the point of the loading
+   screen is that nothing is left to be fetched or decoded once you are
+   walking. What changes is how much of it happens before the menu
+   appears. Where decoding is fast it is all of it, which is the cleanest
+   thing: the game starts fully built. Where it is slow, holding a phone
+   on a loading bar for half a minute is not a loading screen, it is a
+   hang - so it waits for the stages you meet first and the rest land
+   behind you. The decoder yields between frames and runs several stages
+   ahead of walking pace, so it is never caught up with. */
+const BLOCK_AHEAD = FAST_DECODE ? Infinity : 2;
+
+/* Decode every stage, before the game is playable.
+
+   This is why there is a loading screen. The alternative - decoding a
+   stage as the player walks up to it - put a second of main-thread work in
+   the middle of the game, which is felt as everything stuttering at once:
+   the walk, the dialogue box opening, the portrait appearing. Doing it
+   here means the cost is paid where it is understood to be paid, and
+   nothing is decoded, evicted or re-decoded for the rest of the session. */
+async function loadStages(onProgress) {
+  const animated = STAGES.filter(isAnimated);
+
+  const measures = [];
+  for (const st of animated) {
+    try {
+      const buf = await (await fetch('assets/stages/' + st.src)).arrayBuffer();
+      STAGE_BYTES.set(st.slug, buf);
+      measures.push(Object.assign({ st }, measureStage(buf)));
+    } catch (err) {
+      // Unreadable stage: it stays a still image, and the rest carry on.
+    }
   }
+
+  /* In walk order, so that whatever the loading screen does not wait for
+     is also what the player reaches last. */
+  const plan = planStageSizes(measures);
+  TOTAL_FRAMES = plan.reduce((n, m) => n + m.count, 0) || 1;
+
+  const run = async m => {
+    await decodeStage(m.st, m.w, m.h, m.onFrame);
+    STAGE_BYTES.delete(m.st.slug);
+  };
+
+  const blocking = plan.slice(0, BLOCK_AHEAD);
+  const rest     = plan.slice(blocking.length);
+
+  // The bar measures the wait it is actually covering, not the whole job.
+  const barFrames = blocking.reduce((n, m) => n + m.count, 0) || 1;
+  let done = 0;
+  for (const m of blocking) await run(Object.assign({}, m, { onFrame: () => onProgress(++done / barFrames) }));
+  onProgress(1);
+
+  /* Deliberately not awaited: the menu comes up now and these finish
+     underneath it. Kept as a promise so the retry pass can tell the
+     difference between a stage that failed and one that simply has not
+     had its turn yet - without it, warmStages sees eight empty slots the
+     moment the menu appears and decodes them all over again at the
+     fallback size, racing the real pass and usually winning. */
+  stagesPending = rest.length
+    ? (async () => { for (const m of rest) await run(m); })()
+    : null;
 }
 
-function warmStages() {
-  for (const i of [stageIndex, stageIndex + 1, stageIndex - 1]) {
-    if (i >= 0 && i < STAGES.length) decodeStage(STAGES[i]);
+/* Resolves when the background half of loadStages has finished, or is
+   null when there is nothing outstanding. */
+let stagesPending = null;
+
+/* Everything is resident from the loading screen on, so this only has
+   anything to do if a stage failed to decode - a truncated file, a browser
+   that ran out of memory part way. It retries that one quietly rather than
+   leaving it a still image for the session. */
+async function warmStages() {
+  if (stagesPending) { await stagesPending; stagesPending = null; }
+  const lim = STAGE_BUDGET();
+  for (const st of STAGES) {
+    if (!isAnimated(st) || gifCache.has(st.slug) || decoding.has(st.slug)) continue;
+    try {
+      const buf = await (await fetch('assets/stages/' + st.src)).arrayBuffer();
+      const m = measureStage(buf);
+      // Something already failed on this one, so retry at the floor width:
+      // the cheapest decode that is still worth having.
+      const w = Math.min(m.w, lim.minW);
+      STAGE_BYTES.set(st.slug, buf);
+      await decodeStage(st, w, Math.max(1, Math.round(m.h * w / m.w)));
+    } catch (err) {
+      // Still no: it stays a still image.
+    } finally {
+      STAGE_BYTES.delete(st.slug);
+    }
   }
-  if (stage().portal) decodeStage(STAGES[SECRET]); // the gate leads here
 }
 
 function gifFrame(slug) {
@@ -1440,12 +1583,6 @@ let speaking  = null;
 /* Who is talking. Each NPC names a bust in assets/faces; the ones with
    no bust yet - the men who are not in full armour - simply show none,
    and the box closes up around the text. */
-/* The portraits are fetched by name at the moment somebody speaks, so
-   unlike the stylesheet and the script they carry no version in the page.
-   Bumped when the art itself changes, or a returning visitor keeps the
-   copy their browser already has. */
-const ART_V = 'v=64';
-
 const sayFace = document.getElementById('sayFace');
 
 function showFace(n) {
@@ -1621,7 +1758,13 @@ async function boot() {
     requestAnimationFrame(tick);
   })(performance.now());
 
-  await loadAssets(p => { target = p; });
+  /* Two phases on one bar. The sprites and portraits are a few hundred
+     kilobytes and arrive almost at once; the stage frames are the real
+     work and the bar should be mostly theirs, or it would sit at 90% for
+     the entire wait. The split is by felt duration, not by byte count. */
+  const IMG_SHARE = 0.2;
+  await loadAssets(p => { target = p * IMG_SHARE; });
+  await loadStages(p => { target = IMG_SHARE + p * (1 - IMG_SHARE); });
   warmStages();
   resetPlayer();
   bindInput(canvasEl);
@@ -1636,6 +1779,12 @@ async function boot() {
   if (pctEl) pctEl.textContent = '100%';
   await new Promise(r => setTimeout(r, 180));
   loader.hidden = true;
+
+  /* The game's own assets are all in and the network is now idle, which
+     is the moment prefetch-site.js has been waiting for. Announced as an
+     event rather than called directly so the game carries no knowledge of
+     the written site, and boots exactly the same with that file absent. */
+  dispatchEvent(new Event('tco-ready'));
 
   /* ---- menus ---- */
   const menu  = document.getElementById('menu');
@@ -1735,6 +1884,18 @@ async function boot() {
 
   const menuBtn = document.getElementById('menuBtn');
   if (menuBtn) menuBtn.addEventListener('click', () => setPause(true));
+
+  const plainBtn = document.getElementById('plainBtn');
+  if (plainBtn) {
+    plainBtn.addEventListener('click', () => {
+      if (loaderEl) {
+        loaderEl.hidden = false;
+        loaderEl.style.display = 'grid';
+        if (barFill) barFill.style.width = '100%';
+        if (pctEl) pctEl.textContent = '100%';
+      }
+    });
+  }
 
   /* iOS Safari has no Fullscreen API on the phone at all - only on iPad,
      and only for video otherwise - so the button was there and did nothing
