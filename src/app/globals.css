@@ -180,6 +180,22 @@ html {
 /* A finger needs about 44px to hit something reliably. These labels are
    10px mono and should stay that size - it is the hit area that has to
    grow, not the text. */
+/* The mono micro-labels are 10 and 11px, which is right on a desktop -
+   they are captions and figure numbers, deliberately quiet next to the
+   display type. On a phone held at arm's length they stop being quiet and
+   start being unreadable, and two of them ("explore it as a game", the
+   role under the name) are not captions at all but things people are
+   meant to read and tap.
+
+   So they get a floor rather than a rewrite: below 520px nothing drops
+   under 12px, and every size above that is left exactly as it was. The
+   selectors are the escaped Tailwind arbitrary values, which is ugly to
+   read but is the only thing that reaches utilities generated per-use. */
+@media (max-width: 520px) {
+  .text-\[10px\] { font-size: 12px; }
+  .text-\[11px\] { font-size: 12px; }
+}
+
 .tap {
   display: inline-flex;
   align-items: center;
