@@ -15,10 +15,19 @@
        to all of them.
 
    So the markup now carries `data-src` instead of `src` and no
-   `autoplay`, and this file puts them back when a video is both inside a
-   view that is actually displayed and near the viewport. Every one of
+   `autoplay`, and this file decides when to put them back. Every one of
    them already had a `poster`, so there is an image in place the whole
    time and nothing looks empty while it waits.
+
+   On a desktop it puts all of them back at once, in order, because the
+   reasoning above is about a phone's data plan and a phone's memory. On
+   a desktop the deferral is simply felt as lag: you scroll, and the
+   section you arrive at is still buffering. So that machine takes the
+   lot up front and scrolls through a page that is already there.
+
+   Everywhere else - a phone, a metered connection, anything reporting 2g
+   or saveData - a video is put back when it is both inside a view that is
+   actually displayed and near the viewport.
 
    Nothing here is undone if the generator is run again - it would
    overwrite index.html and hand the videos back their `src`, at which
@@ -95,6 +104,69 @@
     if (p && typeof p.catch === 'function') p.catch(function () {});
   }
 
+  /* Is this a machine that can simply have all of it?
+
+     The deferral below exists because the page is 22 MB of video and six
+     of the nine are below the fold. That reasoning holds on a phone, on a
+     metered connection, and nowhere else. On a desktop the deferral is
+     the thing you feel: each video starts downloading as it scrolls into
+     view, so scrolling is punctuated by sections that are still buffering
+     when you reach them.
+
+     A fine primary pointer plus a wide window is a mouse on a real
+     screen. saveData and effectiveType are Chromium-only and undefined
+     everywhere else, so they can only ever veto - absence is not
+     evidence of a fast connection, but presence of "2g" is evidence of a
+     slow one. */
+  function isDesktop() {
+    var c = navigator.connection || navigator.mozConnection || navigator.webkitConnection || {};
+    if (c.saveData === true) return false;
+    if (/^(slow-2g|2g|3g)$/.test(c.effectiveType || '')) return false;
+    if (!window.matchMedia) return false;
+    return matchMedia('(pointer: fine)').matches && innerWidth >= 1024;
+  }
+
+  /* Load everything, now, one at a time.
+
+     One at a time and not all nine at once: nine parallel downloads share
+     the same pipe, so the hero - the one thing somebody is actually
+     looking at - would finish last instead of first. Sequential means the
+     top of the page plays immediately and the rest fill in behind, which
+     is the whole point.
+
+     The queue advances on canplaythrough, the event that means "enough of
+     this is buffered to play it through", with a timeout in case a video
+     stalls or the browser never gets around to firing it. A stalled file
+     must not hold up the other eight. */
+  function eager(pending) {
+    var here = [], there = [];
+    for (var i = 0; i < pending.length; i++) {
+      (isDisplayed(pending[i]) ? here : there).push(pending[i]);
+    }
+    /* The displayed theme first, in document order. The other theme's
+       half of the page is real and one toggle away, so it is fetched too
+       - just last, behind everything anyone can currently see. */
+    var queue = here.concat(there);
+
+    var n = 0;
+    (function next() {
+      if (n >= queue.length) return;
+      var v = queue[n++];
+      var moved = false;
+      function go() {
+        if (moved) return;
+        moved = true;
+        v.removeEventListener('canplaythrough', go);
+        v.removeEventListener('error', go);
+        setTimeout(next, 0);
+      }
+      v.addEventListener('canplaythrough', go);
+      v.addEventListener('error', go);
+      setTimeout(go, 6000);
+      load(v);
+    })();
+  }
+
   function watch() {
     var all = document.querySelectorAll('video');
     var pending = [];
@@ -102,6 +174,10 @@
       if (sourceFor(all[i])) pending.push(all[i]);
     }
     if (!pending.length) return;
+
+    /* On a desktop there is nothing to defer: take the lot and skip the
+       scroll machinery entirely. */
+    if (isDesktop()) { eager(pending); return; }
 
     var queued = false;
 
