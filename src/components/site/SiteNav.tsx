@@ -45,7 +45,7 @@ export function SiteNav() {
     <header className="sticky top-0 z-50 px-3 pt-4 md:px-6 md:pt-6">
       <nav className="mx-auto flex w-full max-w-5xl items-center gap-3">
         {/* The wordmark sits outside the pill, as it does on the reference */}
-        <a href="#top" className="mr-auto flex items-center gap-2">
+        <a href="#top" className="mr-auto flex min-h-11 items-center gap-2">
           <span className="grid h-8 w-8 place-items-center rounded-lg bg-primary text-[11px] font-black text-primary-foreground">
             SY
           </span>
@@ -94,7 +94,7 @@ export function SiteNav() {
           href="/"
           aria-label="Play the portfolio as a game"
           title="Play it instead"
-          className="grid h-9 w-9 place-items-center rounded-full border border-primary/30 text-primary transition-colors hover:bg-primary/10"
+          className="grid h-11 w-11 shrink-0 place-items-center rounded-full border border-primary/30 text-primary transition-colors hover:bg-primary/10"
         >
           <Gamepad2 className="h-4 w-4" />
         </Link>
@@ -102,7 +102,7 @@ export function SiteNav() {
         <button
           onClick={toggle}
           aria-label={dark ? 'Switch to light mode' : 'Switch to dark mode'}
-          className="grid h-9 w-9 place-items-center rounded-full border border-border/70 text-muted-foreground transition-colors hover:text-foreground"
+          className="grid h-11 w-11 shrink-0 place-items-center rounded-full border border-border/70 text-muted-foreground transition-colors hover:text-foreground"
         >
           {dark ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
         </button>
@@ -111,7 +111,7 @@ export function SiteNav() {
           onClick={() => setOpen((v) => !v)}
           aria-label={open ? 'Close menu' : 'Open menu'}
           aria-expanded={open}
-          className="grid h-9 w-9 place-items-center rounded-full border border-border/70 text-muted-foreground lg:hidden"
+          className="grid h-11 w-11 shrink-0 place-items-center rounded-full border border-border/70 text-muted-foreground lg:hidden"
         >
           {open ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
         </button>
