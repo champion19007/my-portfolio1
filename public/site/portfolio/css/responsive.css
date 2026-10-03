@@ -166,3 +166,25 @@ body {
   overflow-x: clip;
   max-width: 100%;
 }
+
+/* ------------------------------------------------------------------
+   The floating link to the game.
+
+   It inherits the old floating theme toggle's pill, which was built at
+   40px tall - fine for a mouse, under the ~44px a finger reliably hits.
+   It is also the one control on this page pinned over the content, so
+   on a short screen it is the thing most likely to sit on top of
+   something being read; the gap below it is widened a little there.
+   ------------------------------------------------------------------ */
+#floatingGameLink {
+  min-height: 44px !important;
+  box-sizing: border-box !important;
+}
+
+@media (max-width: 480px) {
+  #floatingGameLink {
+    bottom: 16px !important;
+    right: 16px !important;
+    padding: 10px 18px !important;
+  }
+}
