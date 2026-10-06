@@ -241,6 +241,33 @@
        worth reading the source of.</p>
 
     <div class="proj">
+      <div class="proj-art lsf">▣</div>
+      <h2>Local Software Factory</h2>
+      <p class="role">An agentic coding assistant that never leaves the laptop — Python</p>
+      <p>LlamaIndex for retrieval, Qwen 3 8B through Ollama for generation, LangGraph holding the
+         loop together, and no cloud model API anywhere in it. A change is retrieved, generated,
+         validated, retried and only then offered for approval — AST parsing, Ruff and pytest all
+         run before anything is written to disk. The constraint that shaped it was the machine:
+         CPU only, 16 GB, which is what a laptop has rather than what a model wants.</p>
+      <ul class="tags"><li>LangGraph</li><li>LlamaIndex</li><li>Ollama</li><li>MCP</li></ul>
+      <a class="btn-doc" href="https://github.com/champion19007/local-software-factory" target="_blank" rel="noopener">Source</a>
+    </div>
+
+    <div class="proj">
+      <div class="proj-art fg">∆</div>
+      <h2>FinGuard</h2>
+      <p class="role">A quantitative execution platform in three languages — C++20, Go, Python</p>
+      <p>C++20 runs execution, Go handles ingestion and persistence, Python does the ML — each
+         where it earns its place. Deterministic event replay, order-book simulation,
+         execution-cost analysis and statistical risk monitoring, with walk-forward pipelines for
+         market impact, fill probability, latency forecasting and anomaly detection. SQLite,
+         Parquet and DuckDB underneath. Live trading is disabled and every number so far is on
+         synthetic data, which is the honest state of it.</p>
+      <ul class="tags"><li>C++20</li><li>Go</li><li>LightGBM</li><li>DuckDB</li></ul>
+      <a class="btn-doc" href="https://github.com/champion19007/finguard" target="_blank" rel="noopener">Source</a>
+    </div>
+
+    <div class="proj">
       <div class="proj-art agt">⟳</div>
       <h2>agentd</h2>
       <p class="role">A scheduled runner that repairs its own extractions — Go</p>

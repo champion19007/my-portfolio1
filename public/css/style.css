@@ -667,6 +667,8 @@ body{
 .proj-art.care { background:linear-gradient(135deg,#0e7490,#22d3ee); }
 .proj-art.qw   { background:linear-gradient(135deg,#581c87,#c026d3); font-size:20px; }
 .proj-art.fox  { background:linear-gradient(135deg,#9a3412,#f59e0b); }
+.proj-art.lsf  { background:linear-gradient(135deg,#1e3a8a,#38bdf8); }
+.proj-art.fg   { background:linear-gradient(135deg,#134e4a,#2dd4bf); }
 
 /* ---------------------------------- Technologies: full-bleed cards */
 .tech{
