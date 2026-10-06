@@ -43,3 +43,16 @@ next-env.d.ts
 # firebase
 firebase-debug.log
 firestore-debug.log
+
+# Two things from the game's source folder that must never reach this repo.
+# They are already ignored over there, but that .gitignore does not govern
+# this one - and the game is kept in sync by copying its folder into
+# public/, which is exactly the operation that would bring them along.
+#
+#   assets/raw/  the GandalfHardcore sprite packs. Only ever used to build
+#                the sheets in assets/sprites; nothing loads them at
+#                runtime and they are not ours to redistribute.
+#   assets/doc/  the CV as a PDF, which carries a phone number. The CV
+#                panel already holds the whole thing as text.
+public/assets/raw/
+public/assets/doc/

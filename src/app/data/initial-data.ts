@@ -4,7 +4,7 @@ export const INITIAL_DATA: PortfolioData = {
   hero: {
     name: "Sai Yashwant Reddy Panthy",
     title: "AI & Machine Learning Engineer",
-    description: "Specializing in RAG applications, ML pipelines, and Agentic AI systems. Published IEEE researcher and hackathon winner focused on building production-grade AI-powered analytics solutions.",
+    description: "Building agentic AI systems, local LLM applications and production ML pipelines — in Python, C++20 and Go. Published IEEE researcher and first-place hackathon winner.",
     profileImage: "profile-pic"
   },
   contact: {
@@ -14,14 +14,14 @@ export const INITIAL_DATA: PortfolioData = {
     github: "https://github.com/champion19007",
     linkedin: "https://linkedin.com/in/saiyashwantreddy",
     cal: "https://cal.com/sai-yashwant-reddy-panthy-m6bfa9",
-    resume: "https://docs.google.com/document/d/1xV0Od6ttBZYJI9imnWTNa3P2EBx2PDOq/edit?usp=drive_link&ouid=104186115979117347302&rtpof=true&sd=true"
+    resume: "https://drive.google.com/file/d/11h3z4AJnfe2-7jfLcOkOPodNtSz6VbVw/view?usp=sharing"
   },
   about: {
     content: "I am an AI and Machine Learning Engineer with a strong foundation in building and evaluating deep learning models. I specialize in designing automated data pipelines and delivering research-backed solutions in both academic and industry settings. My expertise spans Computer Vision, NLP (LLMs, RAG), and High-Performance AI systems.",
     education: {
       degree: "B. Tech in Computer Science Engineering (AI&ML)",
       institution: "Manipal University Jaipur | Rajasthan, India",
-      period: "Expected Dec 2025",
+      period: "Sep 2021 – Dec 2025",
       highlights: [
         "Paper published at ACROSET 2025, IEEE Xplore",
         "Presented talks at IEEE and American Control Conference (ACC'24)",
@@ -96,6 +96,27 @@ export const INITIAL_DATA: PortfolioData = {
   },
   projects: [
     {
+      id: "local-software-factory",
+      title: "Local Software Factory — Local Agentic AI Coding Assistant",
+      description: "A coding assistant that runs entirely on a CPU-only 16 GB laptop — LlamaIndex retrieval, Qwen 3 8B through Ollama, LangGraph orchestration. Every change goes through retrieval, generation, validation, retry and human approval, gated by AST, Ruff and pytest checks before it is applied. No cloud model APIs.",
+      tags: ["LangGraph", "LlamaIndex", "Ollama", "MCP"],
+      repoUrl: "https://github.com/champion19007/local-software-factory"
+    },
+    {
+      id: "agentd",
+      title: "Agentd — Web Monitoring and AI-Assisted Repair",
+      description: "A Go daemon running scheduled checks over external sources. When a source changes shape and extraction breaks, it proposes a repair and verifies it against structural checks, type compatibility and historical consistency — and never applies one without human approval. SQLite persistence, REST APIs, an embedded dashboard, and MCP/JSON-RPC inspection tools.",
+      tags: ["Go", "SQLite", "MCP", "JSON-RPC"],
+      repoUrl: "https://github.com/champion19007/agentd"
+    },
+    {
+      id: "finguard",
+      title: "FinGuard — Quantitative Execution and ML Platform",
+      description: "C++20 for execution, Go for ingestion and persistence, Python for the ML: deterministic event replay, order-book simulation, execution-cost analysis and statistical risk monitoring. Walk-forward pipelines cover market impact, fill probability, latency forecasting and anomaly detection with LightGBM and Isolation Forest. Live trading is disabled and the current results are on synthetic data.",
+      tags: ["C++20", "Go", "LightGBM", "DuckDB"],
+      repoUrl: "https://github.com/champion19007/finguard"
+    },
+    {
       id: "pdf-ai",
       title: "PDF AI SaaS — LLM Chat Application",
       description: "RAG-based chatbot enabling natural-language Q&A over PDF documents using LangChain, OpenAI embeddings, and Pinecone vector database.",
@@ -154,6 +175,8 @@ export const INITIAL_DATA: PortfolioData = {
   ],
   skills: [
     { name: "Python", category: "Programming" },
+    { name: "C++20", category: "Programming" },
+    { name: "Go", category: "Programming" },
     { name: "SQL", category: "Programming" },
     { name: "Bash", category: "Programming" },
     { name: "JavaScript", category: "Programming" },
@@ -166,6 +189,10 @@ export const INITIAL_DATA: PortfolioData = {
     { name: "RAG Pipelines", category: "Gen AI / Agentic" },
     { name: "Vector Databases (Pinecone)", category: "Gen AI / Agentic" },
     { name: "Prompt Engineering", category: "Gen AI / Agentic" },
+    { name: "LangGraph", category: "Gen AI / Agentic" },
+    { name: "LlamaIndex", category: "Gen AI / Agentic" },
+    { name: "MCP", category: "Gen AI / Agentic" },
+    { name: "Ollama / Qwen (local LLMs)", category: "Gen AI / Agentic" },
     { name: "Agentic AI Concepts", category: "Gen AI / Agentic" },
     { name: "Docker", category: "MLOps / Cloud" },
     { name: "AWS (CodePipeline, CloudFormation)", category: "MLOps / Cloud" },

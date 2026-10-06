@@ -188,3 +188,143 @@ body {
     padding: 10px 18px !important;
   }
 }
+
+/* ------------------------------------------------------------------
+   Phone ergonomics.
+
+   Measured at 375px: nineteen links and buttons came in under the ~44px
+   a finger reliably hits - the repository links at 74x38, the service
+   buttons at 176x35, the footer email at 216x15 - and twenty pieces of
+   text rendered under 12px, the smallest at 9.5px.
+
+   Both are fine on a desktop with a mouse and a close screen. Neither is
+   fine on a phone. The sizes above 520px are left exactly as they are:
+   this is a floor for small screens, not a redesign.
+
+   The links below are the standalone, button-like ones. Inline links
+   inside a sentence are deliberately not touched - giving those a 44px
+   box would blow the line height apart mid-paragraph.
+   ------------------------------------------------------------------ */
+@media (max-width: 520px) {
+  .btn-inquire-service,
+  .project-slide-item a,
+  a[href*="github.com/champion19007"],
+  a[href^="mailto:"],
+  a[href*="cal.com"],
+  a[href*="ieeexplore"],
+  a[href*="drive.google.com"] {
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+  }
+
+  /* The card metadata: dates, tags, pills and eyebrows. 9.5px is not a
+     size, it is a rumour. */
+  .card-sub,
+  .card-tag,
+  .card-pill,
+  [style*="font-size: 11px"],
+  [style*="font-size:11px"],
+  [style*="font-size: 11.5px"],
+  [style*="font-size:11.5px"],
+  [style*="font-size: 9.5px"],
+  [style*="font-size:9.5px"] {
+    font-size: 12px !important;
+  }
+}
+
+/* The generated themes set these sizes with long selectors AND !important,
+   e.g.
+
+     body.theme-dark .home .decentr .list li .card-pill { font-size: 9.5px !important }
+
+   Two !important declarations are settled by specificity, and six classes
+   beats one, so the block above lost silently. Repeating the class is the
+   least-bad way to outrank a generated rule without copying its whole
+   ancestor chain into this file - the chain is what would rot if the site
+   were regenerated, whereas the class name is the one part that will not.
+   The theme prefix is there so this cannot leak into the other view. */
+@media (max-width: 520px) {
+  body.theme-dark  .card-pill.card-pill.card-pill.card-pill.card-pill.card-pill.card-pill,
+  body.theme-light .card-pill.card-pill.card-pill.card-pill.card-pill.card-pill.card-pill,
+  body.theme-dark  .card-sub.card-sub.card-sub.card-sub.card-sub.card-sub.card-sub,
+  body.theme-light .card-sub.card-sub.card-sub.card-sub.card-sub.card-sub.card-sub,
+  body.theme-dark  .card-tag.card-tag.card-tag.card-tag.card-tag.card-tag.card-tag,
+  body.theme-light .card-tag.card-tag.card-tag.card-tag.card-tag.card-tag.card-tag {
+    font-size: 12px !important;
+  }
+
+  /* Icon-only and wordmark links: height was already fixed above, but a
+     22px-wide icon is still a 22px target. Width needs saying separately,
+     and justify-content keeps the glyph centred in the wider box. */
+  a[href="#home"],
+  a[href*="linkedin.com"],
+  a[href*="github.com"],
+  a[href*="ieeexplore"] {
+    min-width: 44px;
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+/* The last one: a bare <span> inside .card-link, sized by the theme at
+   11.5px. It has no class of its own, so it is reached through the parent. */
+@media (max-width: 520px) {
+  body.theme-dark  .card-link.card-link.card-link.card-link.card-link.card-link.card-link span,
+  body.theme-light .card-link.card-link.card-link.card-link.card-link.card-link.card-link span {
+    font-size: 12px !important;
+  }
+}
+
+/* The header theme toggle. It is 128x32 and only shows up below 360px,
+   where the header reflows and it stops sharing a row with the nav. */
+@media (max-width: 520px) {
+  .portfolio-header-toggle-btn {
+    min-height: 44px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+}
+
+/* ------------------------------------------------------------------
+   The light view is a separate DOM with its own class names, so none of
+   the rules above reached it. Measured at 320/375/430: fourteen targets
+   under 44px and twenty-five pieces of text under 12px.
+
+   The footer links were the worst of it at 16px tall - four links
+   stacked in a column, each a third of the height a thumb needs.
+   ------------------------------------------------------------------ */
+@media (max-width: 520px) {
+  .mobile-toggle-btn,
+  .footer-copy-btn {
+    min-width: 44px !important;
+    min-height: 44px !important;
+  }
+
+  .btn-explore,
+  .roadmap-tab-btn,
+  .footer-link {
+    min-height: 44px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+  }
+
+  /* A footer link is the full column width, so centring its label would
+     strand the text in the middle of the row. */
+  .footer-link { justify-content: flex-start !important; }
+
+  .milestone-tag,
+  .copy-tooltip {
+    font-size: 12px !important;
+  }
+}
+
+/* Last one in the light view: the section eyebrow, a bare span inside
+   .what-is-pill-tag. */
+@media (max-width: 520px) {
+  .what-is-pill-tag,
+  .what-is-pill-tag span { font-size: 12px !important; }
+}
