@@ -171,14 +171,14 @@ const STAGES = [
   { slug:'market',  src:'market.gif',  title:'The Market',      feetY:250, scale:1.10,
     x0: 20, x1:492, sayTop: true,   // the stalls run along the foot of the frame
     npcs: [
-      { x: 70, face:"elf", name:"The Herbalist", role:"CareNest — healthcare booking for India",
-        text:"Clinic visits, video consults, lab tests, surgery and vet care in one place. Next.js 16 over Postgres across three schemas. The clever part is a <b>map-free area search</b> — a pre-computed proximity graph with hand-authored adjacency instead of geocoding calls." },
+      { x: 70, face:"elf", name:"The Herbalist", role:"Local Software Factory — it never leaves the laptop",
+        text:"LlamaIndex retrieval, Qwen 3 8B through Ollama, LangGraph holding the loop — and no cloud model API anywhere in it. A change is generated, validated and only then offered for approval: AST, Ruff and pytest all run before a line is written. CPU only, 16 GB. <a href='https://github.com/champion19007/local-software-factory' target='_blank' rel='noopener'>Source</a>." },
       { x:150, face:"frost", name:"The Fruit Seller", role:"QWERTY Studio — anti-detect browser",
         text:"A self-hosted alternative to GoLogin and Multilogin. Most fingerprint tools randomise each value on its own, which is exactly what gets them caught — this one draws every value from a single realistic device archetype so they stay <b>coherent</b>. Python, Playwright, React." },
       { x:245, face:"wizard-blue", name:"The Blue Wizard", role:"agentd — a runner that repairs itself",
         text:"Scheduled checks over external sources. When a source changes shape and the extraction breaks, it detects the failure and proposes a verified repair for a human to approve. Go, SQLite, MCP plugins, hexagonal architecture with the boundaries enforced by import-graph tests." },
-      { x:345, face:"knight-cross", name:"The Knight", role:"PDF AI SaaS — ask your own documents",
-        text:"A RAG application over uploaded PDFs: ingestion, chunking, embedding generation, semantic retrieval and context-aware answers, behind REST endpoints. LangChain, the OpenAI API and Pinecone." },
+      { x:345, face:"knight-cross", name:"The Knight", role:"FinGuard — a guard on the execution path",
+        text:"C++20 runs execution, Go the ingestion, Python the ML — each where it earns its place. Deterministic replay, order-book simulation, execution-cost analysis, and walk-forward models for market impact and fill probability. Live trading is off; the numbers are synthetic. <a href='https://github.com/champion19007/finguard' target='_blank' rel='noopener'>Source</a>." },
       { x:450, face:"sunny", name:"The Armourer", role:"MLOps, end to end",
         text:"Six repositories of it — MLOps-Forge, an end-to-end data pipeline, a bank-churn pipeline, a CV MLOps project, and CI/CD on AWS with CodePipeline, CodeDeploy and CloudFormation." },
     ] },
